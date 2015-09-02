@@ -28,7 +28,7 @@
 	"requests": [
 		{
 			"id": "297647c2-ecc4-67f5-ea69-8bb7531f57c2",
-			"headers": "Authorization: Basic Og==\n",
+			"headers": "Authorization: Basic Og==\nExampleHeader: TestValue\n",
 			"url": "http://localhost:4002/projects",
 			"preRequestScript": "",
 			"pathVariables": {},
@@ -52,11 +52,10 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1440990826310,
+			"time": 1441220245362,
 			"name": "Get All Projects",
 			"description": "",
-			"collectionId": "d83add10-985c-dc59-2e28-01cf6da53b65",
-			"folder": "8c5dd7f3-6307-b26b-0738-9b2610500d0f"
+			"collectionId": "d83add10-985c-dc59-2e28-01cf6da53b65"
 		},
 		{
 			"id": "c4da530c-2d50-6f39-6cf5-eddf4dcb30ab",
