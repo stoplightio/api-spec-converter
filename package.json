@@ -1,0 +1,19 @@
+{
+  "name": "postman-importer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoplightio/postman-importer.git"
+  },
+  "author": "Rana <rana@stoplight.io> (http://stoplight.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stoplightio/postman-importer/issues"
+  },
+  "homepage": "https://github.com/stoplightio/postman-importer#readme"
+}
