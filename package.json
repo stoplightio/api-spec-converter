@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/stoplightio/postman-importer/issues"
   },
-  "homepage": "https://github.com/stoplightio/postman-importer#readme"
+  "homepage": "https://github.com/stoplightio/postman-importer#readme",
+  "dependencies": {
+    "raml-parser": "^0.8.11"
+  }
 }
