@@ -7,5 +7,15 @@ ramlConverter.load('./example.raml', function(){
   //console.log(ramlConverter.getSLEndpointGroups())
 
   console.log('Endpoints:')
-  console.log(ramlConverter.getSLEndpoints())
+  try {
+    var endpoints = ramlConverter.getSLEndpoints()
+    for (var index in endpoints) {
+      if (endpoints[index].request.bodies) {
+        console.log(endpoints[index].request.bodies[0])
+      }
+    }
+  }
+  catch(err) {
+    console.log(err)
+  }
 })
