@@ -23,12 +23,12 @@ documentation:
   - title: Home
     content: | #This is a prototype product API.
   - title: Getting Started
-    content: TODO   
-                                  
+    content: TODO
+
 #===============================================================
 # API resource definitions
-#===============================================================                        
-          
+#===============================================================
+
 /products:
   uriParameters:
   displayName: Products
@@ -38,6 +38,12 @@ documentation:
     #Post body media type support
     #text/xml: !!null  # media type text, xml support
     #application/json: !!null  #media type json support
+    headers:
+      X-Tracking-Example:
+        description: You can specify request headers like this
+        enum: [ accounting, payroll, finance ]
+        required: false # require it by changing this to true
+        example: accounting
     body:
       application/json:
         schema: |
@@ -51,59 +57,59 @@ documentation:
                 "description": {
                     "required": true,
                     "type": "string"
-                },                
+                },
                 "url": {
                     "required": true,
                     "type": "string"
-                },                
+                },
                 "image": {
                     "required": true,
                     "type": "string"
-                },                
+                },
                 "thumbnailUrl": {
                     "required": true,
                     "type": "string"
-                },                
+                },
                 "keywords": {
                     "required": true,
                     "type": "string"
-                },                
+                },
                 "brand": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "color": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "itemCondition": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "manufacturer": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "model": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "sku": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "weight": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "width": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "height": {
                     "required": false,
                     "type": "string"
-                },                
+                },
                 "depth": {
                     "required": false,
                     "type": "string"
@@ -111,7 +117,7 @@ documentation:
             },
             "required": true,
             "type": "object"
-          }        
+          }
         example: |
           {
             "product": {
@@ -144,18 +150,18 @@ documentation:
     responses:
       200:
         body:
-          application/json: 
+          application/json:
             #example: !include schema/product-list.json
-                          
+
   #---------------------------------------------------------------
   # Nested resource representing a  single product - name parameter as part of the path.
   #---------------------------------------------------------------
-  /{productId}: 
+  /{productId}:
     description: | # Retrieve a specific product using its ID.
     uriParameters:
      productId:
        displayName: Product ID
-       type: integer    
+       type: integer
     get:
       description: Get a single product
       queryParameters:
@@ -166,7 +172,7 @@ documentation:
       responses:
         200:
           body:
-            application/json: 
+            application/json:
               #example: !include schema/product-list.json
     put:
       description: Updates a single product
@@ -188,59 +194,59 @@ documentation:
                   "description": {
                       "required": true,
                       "type": "string"
-                  },                
+                  },
                   "url": {
                       "required": true,
                       "type": "string"
-                  },                
+                  },
                   "image": {
                       "required": true,
                       "type": "string"
-                  },                
+                  },
                   "thumbnailUrl": {
                       "required": true,
                       "type": "string"
-                  },                
+                  },
                   "keywords": {
                       "required": true,
                       "type": "string"
-                  },                
+                  },
                   "brand": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "color": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "itemCondition": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "manufacturer": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "model": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "sku": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "weight": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "width": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "height": {
                       "required": false,
                       "type": "string"
-                  },                
+                  },
                   "depth": {
                       "required": false,
                       "type": "string"
@@ -248,7 +254,7 @@ documentation:
               },
               "required": true,
               "type": "object"
-            }        
+            }
           example: |
             {
               "product": {
@@ -270,12 +276,12 @@ documentation:
                 "height": "12 inches",
                 "depth": "12 inches"
               }
-            }          
+            }
       responses:
         200:
           body:
-            application/json: 
-              #example: !include schema/product-list.json  
+            application/json:
+              #example: !include schema/product-list.json
     delete:
       description: Delete a single product
       queryParameters:
@@ -286,5 +292,5 @@ documentation:
       responses:
         200:
           body:
-            application/json: 
-              #example: !include schema/product-list.json                          
+            application/json:
+              #example: !include schema/product-list.json
