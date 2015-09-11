@@ -98,7 +98,7 @@ paths:
         - name: age
           in: query
           description: Filters pets by age
-          required: false
+          required: true
           type: integer
         - name: dob
           in: query
