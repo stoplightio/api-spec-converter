@@ -3,13 +3,12 @@ var fs = require('fs')
 var ramlConverter = new slConverter.Converter('raml')
 
 try {
-  var data = fs.readFileSync('./example.raml', 'utf8')
-  ramlConverter.load(data)(function(){
+  ramlConverter.loadFile('./example.raml')(function(){
     console.log('Endpoints:')
     var endpoints = ramlConverter.getSLEndpoints()
     for (var index in endpoints) {
-      if (endpoints[index].request.headers) {
-        console.log(endpoints[index].request.headers)
+      if (endpoints[index].responses) {
+        console.log(endpoints[index].responses)
       }
     }
   })
