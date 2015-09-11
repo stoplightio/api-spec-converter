@@ -281,6 +281,78 @@ documentation:
         200:
           body:
             application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "product": {
+                      "name": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "description": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "url": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "image": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "thumbnailUrl": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "keywords": {
+                          "required": true,
+                          "type": "string"
+                      },
+                      "brand": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "color": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "itemCondition": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "manufacturer": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "model": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "sku": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "weight": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "width": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "height": {
+                          "required": false,
+                          "type": "string"
+                      },
+                      "depth": {
+                          "required": false,
+                          "type": "string"
+                      }
+                  },
+                  "required": true,
+                  "type": "object"
+                }
               example: |
                 {
                   "songId": "550e8400-e29b-41d4-a716-446655440000",
