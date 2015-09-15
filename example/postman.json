@@ -67,7 +67,7 @@
 			"data": [
 				{
 					"key": "name",
-					"value": "test name",
+					"value": "test {{name}}",
 					"type": "text",
 					"enabled": true
 				},
@@ -83,7 +83,7 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1442287222961,
+			"time": 1442293048283,
 			"name": "Create Newl Project",
 			"description": "Test description",
 			"collectionId": "d83add10-985c-dc59-2e28-01cf6da53b65",
