@@ -141,6 +141,10 @@ paths:
           description: Filters pets by veterinarian zip code
           required: false
           type: integer
+        - name: token
+          in: header
+          required: true
+          type: string
       responses:
         default:
           description: Returns the matching pets
