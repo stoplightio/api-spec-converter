@@ -60,31 +60,31 @@
 		{
 			"id": "c4da530c-2d50-6f39-6cf5-eddf4dcb30ab",
 			"headers": "Authorization: Basic Og==\n",
-			"url": "http://{{host}}:4002/projects",
+			"url": "http://{{host}}:4002/projects?testQSKey={{testQSValue}}",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
 			"data": [
 				{
 					"key": "name",
-					"value": "",
+					"value": "test name",
 					"type": "text",
 					"enabled": true
 				},
 				{
-					"key": "organization",
-					"value": "",
+					"key": "description",
+					"value": "test description",
 					"type": "text",
 					"enabled": true
 				}
 			],
-			"dataMode": "params",
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1441043523287,
-			"name": "Create New Project",
+			"time": 1442287222961,
+			"name": "Create Newl Project",
 			"description": "Test description",
 			"collectionId": "d83add10-985c-dc59-2e28-01cf6da53b65",
 			"responses": []
