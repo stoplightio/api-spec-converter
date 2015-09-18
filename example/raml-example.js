@@ -1,6 +1,6 @@
 var slConverter = require('../index')
 var fs = require('fs')
-var ramlConverter = new slConverter.Converter('raml')
+var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.STOPLIGHT)
 
 try {
   ramlConverter.loadFile('./example.raml')(function(){

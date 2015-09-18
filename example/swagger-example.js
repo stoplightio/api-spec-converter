@@ -1,12 +1,11 @@
 var slConverter = require('../index')
 var fs = require('fs')
-var ramlConverter = new slConverter.Converter('swagger')
+
+var ramlConverter = new slConverter.Converter(slConverter.Formats.SWAGGER, slConverter.Formats.STOPLIGHT)
 
 try {
   ramlConverter.loadFile('./swagger.yaml')(function(){
-    console.log('Endpoints:')
-    var endpoints = ramlConverter.getSLEndpoints()
-    console.log(endpoints)
+    console.log(ramlConverter.getConvertedData())
   })
 }
 catch(err) {

@@ -1,6 +1,6 @@
 var slConverter = require('../index')
 
-var pmConverter = new slConverter.Converter('postman')
+var pmConverter = new slConverter.Converter(slConverter.Formats.POSTMAN, slConverter.Formats.STOPLIGHT)
 
 pmConverter.loadFile('./postman.json')
 
