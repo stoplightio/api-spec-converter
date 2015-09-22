@@ -18,6 +18,6 @@
   "homepage": "https://github.com/stoplightio/postman-importer#readme",
   "dependencies": {
     "raml-parser": "^0.8.11",
-    "swagger-parser": "^2.5.0"
+    "swagger-parser": "^3.0.0-alpha.5"
   }
 }
