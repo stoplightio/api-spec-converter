@@ -5,7 +5,8 @@ var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConver
 try {
   ramlConverter.loadFile('./example.raml')(function(){
     console.log('Endpoints:')
-    var endpoints = ramlConverter.getSLEndpoints()
+    var project = ramlConverter.getImportedProject()
+    var endpoints = project.Endpoints
     for (var index in endpoints) {
       if (endpoints[index].responses) {
         console.log(endpoints[index].responses)

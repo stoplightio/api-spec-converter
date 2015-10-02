@@ -5,7 +5,7 @@ var pmConverter = new slConverter.Converter(slConverter.Formats.POSTMAN, slConve
 pmConverter.loadFile('./postman.json')
 
 console.log('Groups:')
-console.log(pmConverter.getSLEndpointGroups())
+console.log(pmConverter.getImportedProject().Groups)
 
 console.log('Endpoints:')
-console.log(pmConverter.getSLEndpoints())
+console.log(pmConverter.getImportedProject().Endpoints)
