@@ -1,16 +1,15 @@
 var slConverter = require('../index')
 var fs = require('fs')
-var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.STOPLIGHT)
+var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.RAML)
 
 try {
-  ramlConverter.loadFile('./example.raml')(function(){
-    console.log('Endpoints:')
-    var project = ramlConverter.getImportedProject()
-    var endpoints = project.Endpoints
-    for (var index in endpoints) {
-      if (endpoints[index].responses) {
-        console.log(endpoints[index].responses)
-      }
+  ramlConverter.loadFile('./source/example.raml', function(){
+    try{
+      //console.log(ramlConverter.getSLSchemas())
+      fs.writeFileSync(__dirname + '/exported-raml.yaml', ramlConverter.getConvertedData('yaml'), 'utf8')
+    }
+    catch(err) {
+      console.log(err.stack)
     }
   })
 }
