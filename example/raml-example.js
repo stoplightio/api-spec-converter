@@ -4,10 +4,10 @@ var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConver
 
 try {
   //./source/raml.yaml
-  ramlConverter.loadFile('./source/raml.yaml', function(){
+  ramlConverter.loadFile(__dirname + '/source/raml.yaml', function(){
     try{
       //console.log(ramlConverter.getSLSchemas())
-      fs.writeFileSync(__dirname + '/exported-raml.json', JSON.stringify(ramlConverter.getConvertedData('json'), null, 2), 'utf8')
+      fs.writeFileSync(__dirname + '/exported-raml.yaml', ramlConverter.getConvertedData('yaml'), 'utf8')
     }
     catch(err) {
       console.log(err.stack)
