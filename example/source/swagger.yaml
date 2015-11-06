@@ -9,6 +9,11 @@ consumes:
 produces:
   - application/json
 
+schemes:
+  - http
+  - https
+  - ws
+
 definitions:
   pet:
     required:
