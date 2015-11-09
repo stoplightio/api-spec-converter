@@ -1,4 +1,7 @@
 var converter = require('./lib/converter')
+var Importer = require('./lib/importers/index')
+var Exporter = require('./lib/exporters/index')
+
 
 var supportedFormats = {
   'POSTMAN': {
@@ -22,4 +25,6 @@ var supportedFormats = {
 module.exports = {
   Converter: converter.Converter,
   Formats: supportedFormats,
+  Importer: Importer,
+  Exporter: Exporter
 }

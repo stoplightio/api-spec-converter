@@ -6,7 +6,7 @@ var ramlConverter = new slConverter.Converter(slConverter.Formats.SWAGGER, slCon
 ramlConverter.loadFile(__dirname + '/source/swagger.yaml', function(){
   try{
     //console.log(ramlConverter.getSLSchemas())
-    fs.writeFileSync(__dirname + '/exported-swagger.yaml', ramlConverter.getConvertedData('yaml'), 'utf8')
+    fs.writeFileSync(__dirname + '/exported-swagger.yaml', ramlConverter.convert('yaml'), 'utf8')
   }
   catch(err) {
     console.log(err.stack)

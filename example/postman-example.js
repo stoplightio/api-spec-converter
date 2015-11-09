@@ -1,11 +1,12 @@
 var slConverter = require('../index')
 
-var pmConverter = new slConverter.Converter(slConverter.Formats.POSTMAN, slConverter.Formats.STOPLIGHT)
+var pmImporter = new slConverter.Importer.factory(slConverter.Formats.POSTMAN)
 
-pmConverter.loadFile('./source/postman.json', function(){
+pmImporter.loadFile('./source/postman.json', function(){
+  var importedProject = pmImporter.import()
   console.log('Groups:')
-  console.log(pmConverter.getImportedProject().Groups)
+  console.log(importedProject.Groups)
 
   console.log('Endpoints:')
-  console.log(pmConverter.getImportedProject().Endpoints)
+  console.log(importedProject.Endpoints)
 })
