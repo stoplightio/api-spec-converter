@@ -1,6 +1,6 @@
 {
-  "name": "spec-importer",
-  "version": "1.0.0",
+  "name": "api-spec-converter",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
