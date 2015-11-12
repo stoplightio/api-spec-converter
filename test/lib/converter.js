@@ -1,10 +1,21 @@
 var expect   = require('chai').expect,
-    converter = require('../lib/converter');
+    specConverter = require('../../index');
 
 describe('Converter', function() {
     describe('constructor', function(){
-      it('should successfully create new converter instance');
-      it('should validate from/to format, throw error otherwise');
+      it('should successfully create new converter instance', function(){
+        var converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
+        expect(converterInstance).to.be.an.instanceof(specConverter.Converter);
+      });
+      it('should validate from/to format, throw error otherwise', function(done){
+        try{
+          //doesn't support export/convert to postman format
+          var converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.POSTMAN);
+          expect(converterInstance).to.be.an.instanceof(specConverter.Converter);
+        } catch(e) {
+          done();
+        }
+      });
     });
     describe('loadFile', function(){
       it('should successfully load comaptible file');
