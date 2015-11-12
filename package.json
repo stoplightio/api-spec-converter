@@ -20,5 +20,9 @@
     "json2yaml": "^1.0.3",
     "raml-parser": "^0.8.12",
     "swagger-parser": "^3.0.0-alpha.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.0"
   }
 }

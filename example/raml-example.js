@@ -1,21 +1,21 @@
-var slConverter = require('../index')
-var fs = require('fs')
-var ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.RAML)
+var slConverter = require('../index'),
+    fs = require('fs'),
+    ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.RAML);
 
 try {
   //./source/raml.yaml
   ramlConverter.loadFile(__dirname + '/source/raml.yaml', function(){
     try{
       //console.log(ramlConverter.getSLSchemas())
-      fs.writeFileSync(__dirname + '/exported-raml.yaml', ramlConverter.convert('yaml'), 'utf8')
+      fs.writeFileSync(__dirname + '/exported-raml.yaml', ramlConverter.convert('yaml'), 'utf8');
     }
     catch(err) {
-      console.log(err.stack)
+      console.log(err.stack);
     }
-  })
+  });
 }
 catch(err) {
-  console.log("Error", err)
+  console.log("Error", err);
 }
 
 /*var raml = require('raml-parser');

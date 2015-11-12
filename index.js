@@ -1,7 +1,6 @@
-var converter = require('./lib/converter')
-var Importer = require('./lib/importers/index')
-var Exporter = require('./lib/exporters/index')
-
+var converter = require('./lib/converter'),
+    Importer = require('./lib/importers/index'),
+    Exporter = require('./lib/exporters/index');
 
 var supportedFormats = {
   'POSTMAN': {
@@ -20,11 +19,11 @@ var supportedFormats = {
     name: 'StopLight',
     className: 'StopLight'
   }
-}
+};
 
 module.exports = {
   Converter: converter.Converter,
   Formats: supportedFormats,
   Importer: Importer,
   Exporter: Exporter
-}
+};

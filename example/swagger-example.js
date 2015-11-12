@@ -1,14 +1,14 @@
-var slConverter = require('../index')
-var fs = require('fs')
+var slConverter = require('../index'),
+    fs = require('fs');
 
-var ramlConverter = new slConverter.Converter(slConverter.Formats.SWAGGER, slConverter.Formats.SWAGGER)
+var ramlConverter = new slConverter.Converter(slConverter.Formats.SWAGGER, slConverter.Formats.SWAGGER);
 
 ramlConverter.loadFile(__dirname + '/source/swagger.yaml', function(){
   try{
     //console.log(ramlConverter.getSLSchemas())
-    fs.writeFileSync(__dirname + '/exported-swagger.yaml', ramlConverter.convert('yaml'), 'utf8')
+    fs.writeFileSync(__dirname + '/exported-swagger.json', ramlConverter.convert('json'), 'utf8');
   }
   catch(err) {
-    console.log(err.stack)
+    console.log(err.stack);
   }
-})
+});
