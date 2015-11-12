@@ -2,7 +2,7 @@
     "rules":{
         "camelcase": 1,
         "comma-dangle": 2,
-        "quotes": 0,
+        "quotes": [2, "single", "avoid-escape"],
         "semi": [2, "always"]
     }
 }

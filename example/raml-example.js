@@ -15,7 +15,7 @@ try {
   });
 }
 catch(err) {
-  console.log("Error", err);
+  console.log('Error', err);
 }
 
 /*var raml = require('raml-parser');
