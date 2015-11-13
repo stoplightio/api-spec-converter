@@ -7,7 +7,7 @@ try {
   ramlConverter.loadFile(__dirname + '/source/raml.yaml', function(){
     try{
       //console.log(ramlConverter.getSLSchemas())
-      fs.writeFileSync(__dirname + '/exported-raml.yaml', ramlConverter.convert('yaml'), 'utf8');
+      fs.writeFileSync(__dirname + '/target/raml.yaml', ramlConverter.convert('yaml'), 'utf8');
     }
     catch(err) {
       console.log(err.stack);

@@ -3,9 +3,9 @@ var slConverter = require('../index'),
     slConverter = new slConverter.Converter(slConverter.Formats.STOPLIGHT, slConverter.Formats.STOPLIGHT);
 
 try {
-  slConverter.loadFile(__dirname + '/exported-stoplight.json', function(){
+  slConverter.loadFile(__dirname + '/source/stoplight.json', function(){
     try{
-      fs.writeFileSync(__dirname + '/exported-stoplight2.json', JSON.stringify(slConverter.convert('json'), null, 2), 'utf8');
+      fs.writeFileSync(__dirname + '/target/stoplight.json', JSON.stringify(slConverter.convert('json'), null, 2), 'utf8');
     }
     catch(err) {
       console.log(err.stack);
