@@ -2,4 +2,19 @@
 
 This package helps to convert between different API specifications (Postman, Swagger, RAML, StopLight).
 
+###Converter Usage
+```
+var slConverter = require('api-spec-converter'), //Warning: not published to npm yet
+    fs = require('fs')
+ramlToSwaggerConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.SWAGGER)
+ramlToSwaggerConverter.loadFile('/source/raml.yaml', function(){
+  try{
+    fs.writeFileSync('/target/raml.yaml', ramlToSwaggerConverter.convert('yaml'), 'utf8');
+  }
+  catch(err) {
+    console.log(err.stack);
+  }
+});
+```
+
 
