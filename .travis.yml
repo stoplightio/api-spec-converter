@@ -8,4 +8,5 @@ node_js:
   - "iojs"
 before_script:
   - npm install -g gulp
+  - npm install -g istanbul
 script: npm test && gulp
