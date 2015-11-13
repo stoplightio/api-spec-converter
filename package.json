@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec",
+    "test": "istanbul cover _mocha -- -R spec"
   },
   "repository": {
     "type": "git",
