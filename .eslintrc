@@ -3,6 +3,7 @@
         "camelcase": 1,
         "comma-dangle": 2,
         "quotes": [2, "single", "avoid-escape"],
-        "semi": [2, "always"]
+        "semi": [2, "always"],
+        "block-spacing": [2, "always"]
     }
 }
