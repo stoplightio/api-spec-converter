@@ -1,5 +1,6 @@
 var expect   = require('chai').expect,
-    specConverter = require('../../index');
+    specConverter = require('../../index'),
+    fs = require('fs');
 
 describe('Converter', function() {
   var converterInstance;
@@ -30,13 +31,33 @@ describe('Converter', function() {
         done();
       });
     });
-    it('should throw error for format incompatible file');
+    it('should throw error for format incompatible file', function(done){
+      var fullPath = __dirname + '/../data/postman.json';
+      converterInstance.loadFile(fullPath, function(err){
+        expect(err).to.not.be.undefined;
+        done();
+      });
+    });
   });
   describe('loadData', function(){
-    it('should successfully load raw data');
+    it('should successfully load raw data', function(){
+      var fullPath = __dirname + '/../data/raml.yaml';
+      content = fs.readFileSync(fullPath, 'utf8');
+      var returnVal = converterInstance.loadData(content);
+      expect(returnVal).to.be.equal(true);
+    });
     it('should throw error for format incompatible data');
   });
   describe('convert', function(){
-    it('should successfully convert and return converted data');
+    it('should successfully convert and return converted data', function(done){
+      var fullPath = __dirname + '/../data/raml.yaml';
+      converterInstance.loadFile(fullPath, function(){
+        var returnedData = converterInstance.convert('json');
+        expect(returnedData).to.be.an('object');
+        expect(returnedData).to.include.keys('swagger');
+        expect(returnedData.swagger).to.be.equal('2.0');
+        done();
+      });
+    });
   });
 });
