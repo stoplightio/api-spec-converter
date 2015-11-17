@@ -146,6 +146,7 @@
     "schemas": [
       {
         "name": "testSchema",
+        "namespace": "test-schema",
         "definition": "\"{\\n  \\\"test\\\": {\\n    \\\"message\\\": \\\"Hello World\\\"\\n  },\\n  \\\"required\\\": true,\\n  \\\"type\\\": \\\"object\\\"\\n}\\n\"",
         "example": {}
       }
