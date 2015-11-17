@@ -1,140 +1,4 @@
 {
-  "endpoints": [
-    {
-      "name": "Products-post",
-      "description": "Create a product",
-      "summary": "",
-      "request": {
-        "bodies": [
-          {
-            "mimeType": "application/json",
-            "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
-            "example": "{\n  \"product\": {\n    \"id\": \"1\",\n    \"name\": \"Product One\",\n    \"description\": \"This is the full description of the product.\",\n    \"url\": \"http://example.com\",\n    \"image\": \"http://example.com/image.jpg\",\n    \"thumbnailUrl\": \"http://example.com/image-thumb.jpg\",\n    \"keywords\": \"western, cowboy\",\n    \"brand\": \"Brand Name\",\n    \"color\": \"Black\",\n    \"itemCondition\": \"New\",\n    \"manufacturer\": \"Manufacturer Name\",\n    \"model\": \"Black\",\n    \"sku\": \"SKU #\",\n    \"weight\": \"12 pounds\",\n    \"width\": \"12 inches\",\n    \"height\": \"12 inches\",\n    \"depth\": \"12 inches\"\n  }\n}\n"
-          }
-        ],
-        "headers": "{\"type\":\"object\",\"properties\":{\"X-Tracking-Example\":{\"description\":\"You can specify request headers like this\",\"enum\":[\"accounting\",\"payroll\",\"finance\"],\"required\":true,\"example\":\"accounting\",\"displayName\":\"X-Tracking-Example\",\"type\":\"string\"}},\"required\":[\"X-Tracking-Example\"]}",
-        "method": "post",
-        "path": "/products",
-        "pathParams": {}
-      },
-      "responses": []
-    },
-    {
-      "name": "Products-get",
-      "description": "Get a list of products",
-      "summary": "",
-      "request": {
-        "bodies": [],
-        "headers": "{}",
-        "method": "get",
-        "path": "/products",
-        "queryString": "{\"type\":\"object\",\"properties\":{\"q\":{\"description\":\"Search phrase to look for products\",\"type\":\"string\",\"required\":false,\"displayName\":\"q\"}},\"required\":[]}",
-        "pathParams": {}
-      },
-      "responses": [
-        {
-          "mimeType": "application/json",
-          "body": "{}",
-          "example": "",
-          "codes": [
-            "200"
-          ]
-        }
-      ]
-    },
-    {
-      "description": "Get a single product",
-      "summary": "",
-      "request": {
-        "bodies": [],
-        "headers": "{}",
-        "method": "get",
-        "path": "/products/{productId}",
-        "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
-        "pathParams": {
-          "productId": {
-            "description": "Product ID"
-          }
-        }
-      },
-      "responses": [
-        {
-          "mimeType": "application/json",
-          "body": "{}",
-          "example": "",
-          "codes": [
-            "200"
-          ]
-        }
-      ]
-    },
-    {
-      "description": "Updates a single product",
-      "summary": "",
-      "request": {
-        "bodies": [
-          {
-            "mimeType": "application/json",
-            "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
-            "example": "{\n  \"product\": {\n    \"id\": \"1\",\n    \"name\": \"Product One\",\n    \"description\": \"This is the full description of the product.\",\n    \"url\": \"http://example.com\",\n    \"image\": \"http://example.com/image.jpg\",\n    \"thumbnailUrl\": \"http://example.com/image-thumb.jpg\",\n    \"keywords\": \"western, cowboy\",\n    \"brand\": \"Brand Name\",\n    \"color\": \"Black\",\n    \"itemCondition\": \"New\",\n    \"manufacturer\": \"Manufacturer Name\",\n    \"model\": \"Black\",\n    \"sku\": \"SKU #\",\n    \"weight\": \"12 pounds\",\n    \"width\": \"12 inches\",\n    \"height\": \"12 inches\",\n    \"depth\": \"12 inches\"\n  }\n}\n"
-          }
-        ],
-        "headers": "{}",
-        "method": "put",
-        "path": "/products/{productId}",
-        "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
-        "pathParams": {
-          "productId": {
-            "description": "Product ID"
-          }
-        }
-      },
-      "responses": [
-        {
-          "mimeType": "application/json",
-          "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
-          "example": "{\n  \"songId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"songTitle\": \"Get Lucky\",\n  \"duration\": \"6:07\",\n  \"artist\": {\n    \"artistId\": \"110e8300-e32b-41d4-a716-664400445500\",\n    \"artistName\": \"Daft Punk\",\n    \"imageURL\": \"http://travelhymns.com/wp-content/uploads/2013/06/random-access-memories1.jpg\"\n  },\n  \"album\": {\n    \"albumId\": \"183100e3-0e2b-4404-a716-66104d440550\",\n    \"albumName\": \"Random Access Memories\",\n    \"imageURL\": \"http://upload.wikimedia.org/wikipedia/en/a/a7/Random_Access_Memories.jpg\"\n  }\n}\n",
-          "codes": [
-            "200"
-          ]
-        }
-      ]
-    },
-    {
-      "description": "Delete a single product",
-      "summary": "",
-      "request": {
-        "bodies": [],
-        "headers": "{}",
-        "method": "delete",
-        "path": "/products/{productId}",
-        "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
-        "pathParams": {
-          "productId": {
-            "description": "Product ID"
-          }
-        }
-      },
-      "responses": [
-        {
-          "mimeType": "application/json",
-          "body": "{}",
-          "example": "",
-          "codes": [
-            "200"
-          ]
-        }
-      ]
-    }
-  ],
-  "groups": [],
-  "schemas": [
-    {
-      "name": "testSchema",
-      "definition": "\"{\\n  \\\"test\\\": {\\n    \\\"message\\\": \\\"Hello World\\\"\\n  },\\n  \\\"required\\\": true,\\n  \\\"type\\\": \\\"object\\\"\\n}\\n\"",
-      "example": {}
-    }
-  ],
   "project": {
     "name": "Products API",
     "description": "",
@@ -149,6 +13,143 @@
         "HTTPS"
       ],
       "version": "v0.1"
-    }
+    },
+    "endpoints": [
+      {
+        "name": "Products-post",
+        "description": "Create a product",
+        "summary": "",
+        "request": {
+          "bodies": [
+            {
+              "mimeType": "application/json",
+              "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
+              "example": "{\n  \"product\": {\n    \"id\": \"1\",\n    \"name\": \"Product One\",\n    \"description\": \"This is the full description of the product.\",\n    \"url\": \"http://example.com\",\n    \"image\": \"http://example.com/image.jpg\",\n    \"thumbnailUrl\": \"http://example.com/image-thumb.jpg\",\n    \"keywords\": \"western, cowboy\",\n    \"brand\": \"Brand Name\",\n    \"color\": \"Black\",\n    \"itemCondition\": \"New\",\n    \"manufacturer\": \"Manufacturer Name\",\n    \"model\": \"Black\",\n    \"sku\": \"SKU #\",\n    \"weight\": \"12 pounds\",\n    \"width\": \"12 inches\",\n    \"height\": \"12 inches\",\n    \"depth\": \"12 inches\"\n  }\n}\n"
+            }
+          ],
+          "headers": "{\"type\":\"object\",\"properties\":{\"X-Tracking-Example\":{\"description\":\"You can specify request headers like this\",\"enum\":[\"accounting\",\"payroll\",\"finance\"],\"required\":true,\"example\":\"accounting\",\"displayName\":\"X-Tracking-Example\",\"type\":\"string\"}},\"required\":[\"X-Tracking-Example\"]}",
+          "method": "post",
+          "path": "/products",
+          "pathParams": {}
+        },
+        "responses": []
+      },
+      {
+        "name": "Products-get",
+        "description": "Get a list of products",
+        "summary": "",
+        "request": {
+          "bodies": [],
+          "headers": "{}",
+          "method": "get",
+          "path": "/products",
+          "queryString": "{\"type\":\"object\",\"properties\":{\"q\":{\"description\":\"Search phrase to look for products\",\"type\":\"string\",\"required\":false,\"displayName\":\"q\"}},\"required\":[]}",
+          "pathParams": {}
+        },
+        "responses": [
+          {
+            "mimeType": "application/json",
+            "body": "{}",
+            "example": "",
+            "codes": [
+              "200"
+            ]
+          }
+        ]
+      },
+      {
+        "description": "Get a single product",
+        "summary": "",
+        "request": {
+          "bodies": [],
+          "headers": "{}",
+          "method": "get",
+          "path": "/products/{productId}",
+          "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
+          "pathParams": {
+            "productId": {
+              "description": "Product ID"
+            }
+          }
+        },
+        "responses": [
+          {
+            "mimeType": "application/json",
+            "body": "{}",
+            "example": "",
+            "codes": [
+              "200"
+            ]
+          }
+        ]
+      },
+      {
+        "description": "Updates a single product",
+        "summary": "",
+        "request": {
+          "bodies": [
+            {
+              "mimeType": "application/json",
+              "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
+              "example": "{\n  \"product\": {\n    \"id\": \"1\",\n    \"name\": \"Product One\",\n    \"description\": \"This is the full description of the product.\",\n    \"url\": \"http://example.com\",\n    \"image\": \"http://example.com/image.jpg\",\n    \"thumbnailUrl\": \"http://example.com/image-thumb.jpg\",\n    \"keywords\": \"western, cowboy\",\n    \"brand\": \"Brand Name\",\n    \"color\": \"Black\",\n    \"itemCondition\": \"New\",\n    \"manufacturer\": \"Manufacturer Name\",\n    \"model\": \"Black\",\n    \"sku\": \"SKU #\",\n    \"weight\": \"12 pounds\",\n    \"width\": \"12 inches\",\n    \"height\": \"12 inches\",\n    \"depth\": \"12 inches\"\n  }\n}\n"
+            }
+          ],
+          "headers": "{}",
+          "method": "put",
+          "path": "/products/{productId}",
+          "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
+          "pathParams": {
+            "productId": {
+              "description": "Product ID"
+            }
+          }
+        },
+        "responses": [
+          {
+            "mimeType": "application/json",
+            "body": "{\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"},\"keywords\":{\"type\":\"string\"},\"brand\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"itemCondition\":{\"type\":\"string\"},\"manufacturer\":{\"type\":\"string\"},\"model\":{\"type\":\"string\"},\"sku\":{\"type\":\"string\"},\"weight\":{\"type\":\"string\"},\"width\":{\"type\":\"string\"},\"height\":{\"type\":\"string\"},\"depth\":{\"type\":\"string\"}},\"type\":\"object\",\"required\":[\"name\",\"description\",\"url\",\"image\",\"thumbnailUrl\",\"keywords\",\"required\"]}",
+            "example": "{\n  \"songId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"songTitle\": \"Get Lucky\",\n  \"duration\": \"6:07\",\n  \"artist\": {\n    \"artistId\": \"110e8300-e32b-41d4-a716-664400445500\",\n    \"artistName\": \"Daft Punk\",\n    \"imageURL\": \"http://travelhymns.com/wp-content/uploads/2013/06/random-access-memories1.jpg\"\n  },\n  \"album\": {\n    \"albumId\": \"183100e3-0e2b-4404-a716-66104d440550\",\n    \"albumName\": \"Random Access Memories\",\n    \"imageURL\": \"http://upload.wikimedia.org/wikipedia/en/a/a7/Random_Access_Memories.jpg\"\n  }\n}\n",
+            "codes": [
+              "200"
+            ]
+          }
+        ]
+      },
+      {
+        "description": "Delete a single product",
+        "summary": "",
+        "request": {
+          "bodies": [],
+          "headers": "{}",
+          "method": "delete",
+          "path": "/products/{productId}",
+          "queryString": "{\"type\":\"object\",\"properties\":{\"productId\":{\"description\":\"The ID of the product\",\"type\":\"integer\",\"required\":true,\"displayName\":\"productId\"}},\"required\":[\"productId\"]}",
+          "pathParams": {
+            "productId": {
+              "description": "Product ID"
+            }
+          }
+        },
+        "responses": [
+          {
+            "mimeType": "application/json",
+            "body": "{}",
+            "example": "{\"test\": \"Hello’s World\"}",
+            "codes": [
+              "200"
+            ]
+          }
+        ]
+      }
+    ],
+    "groups": [],
+    "schemas": [
+      {
+        "name": "testSchema",
+        "namespace": "test-schema",
+        "definition": "\"{\\n  \\\"test\\\": {\\n    \\\"message\\\": \\\"Hello World\\\"\\n  },\\n  \\\"required\\\": true,\\n  \\\"type\\\": \\\"object\\\"\\n}\\n\"",
+        "example": {}
+      }
+    ]
   }
 }
