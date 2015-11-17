@@ -3,6 +3,11 @@ var expect   = require('chai').expect,
     Project = require('../../../lib/entities/project');
 
 describe('Exporter', function(){
+  var exporter;
+  beforeEach(function(){
+    exporter = new Exporter();
+  });
+
   describe('constructor', function(){
     it('should create new exporter instance successfully');
   });
@@ -27,5 +32,11 @@ describe('Exporter', function(){
   describe('_getData', function(){
     it('should return data with given format');
     it('should return default as formatted data if format not given');
+  });
+  describe('Data getter', function(){
+    it('should escape apostrophe char', function(){
+      exporter.data = 'srtring with’ apostrophe';
+      expect(exporter.Data).to.equal('srtring with\' apostrophe');
+    });
   });
 });
