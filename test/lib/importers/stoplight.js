@@ -26,4 +26,7 @@ describe('Stoplight Importer', function(){
       expect(importer.project.Endpoints.length).to.gt(0);
     });
   });
+  describe('middleware', function(){
+    it('should support before/after middleware import');
+  });
 });

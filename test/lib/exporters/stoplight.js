@@ -27,4 +27,8 @@ describe('Stoplight Exporter', function(){
       expect(exporter.data).to.be.an('object');
     });
   });
+
+  describe('middleware', function(){
+    it('should support before/after middleware export');
+  });
 });
