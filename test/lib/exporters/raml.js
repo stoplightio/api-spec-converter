@@ -5,9 +5,10 @@ var expect   = require('chai').expect,
 
 describe('RAML Exporter', function(){
 
-  var ramlExporter;
+  var ramlExporter, slData;
   beforeEach(function(){
     ramlExporter = new RAML();
+    slData = require(__dirname+'/../../data/stoplight.json');
   });
 
   describe('constructor', function(){
@@ -25,7 +26,7 @@ describe('RAML Exporter', function(){
 
   describe('_export', function(){
     it('should perform export for loaded data', function(){
-      ramlExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'));
+      ramlExporter.loadSLData(slData);
       var ramlData = ramlExporter.export('yaml');
       expect(ramlData).to.not.be.empty;
       //verify its valid raml data
@@ -40,7 +41,7 @@ describe('RAML Exporter', function(){
 
   describe('_getData', function(){
     it('should contain custom implementation as doesn\'t support json export', function(){
-      ramlExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'));
+      ramlExporter.loadSLData(slData);
       try {
         var ramlData = ramlExporter.export('json');
         //force fail as not expected
@@ -51,6 +52,5 @@ describe('RAML Exporter', function(){
       }
     });
   });
-
   //TODO test internal methods individually
 });

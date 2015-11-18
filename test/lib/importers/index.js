@@ -1,13 +1,30 @@
 var expect   = require('chai').expect,
-    importerFactory = require('../../../lib/importers/index');
+    baseDir = __dirname + '/../../..',
+    importerDir = baseDir + '/lib/importers',
+    importerFactory = require(importerDir + '/index'),
+    formats = require(baseDir + '/index').Formats;
 
 describe('Importer Factory', function(){
   describe('hasSupport', function(){
-    it('should return true for supported format');
-    it('should return false for not supported format');
+    it('should return true for supported format', function(){
+      expect(importerFactory.hasSupport(formats.SWAGGER)).to.be.true;
+      expect(importerFactory.hasSupport(formats.RAML)).to.be.true;
+      expect(importerFactory.hasSupport(formats.STOPLIGHT)).to.be.true;
+      expect(importerFactory.hasSupport(formats.POSTMAN)).to.be.true;
+    });
+    it('should return false for not supported format', function(){
+      expect(importerFactory.hasSupport(formats.ABCD)).to.be.false;
+    });
   });
   describe('factory', function(){
-    it('should return valid exporter instance for supported format');
-    it('should return null for not supported format');
+    it('should return valid exporter instance for supported format', function(){
+      expect(importerFactory.factory(formats.SWAGGER)).to.be.instanceof(require(importerDir + '/swagger'));
+      expect(importerFactory.factory(formats.RAML)).to.be.instanceof(require(importerDir + '/raml'));
+      expect(importerFactory.factory(formats.STOPLIGHT)).to.be.instanceof(require(importerDir + '/stoplight'));
+      expect(importerFactory.factory(formats.POSTMAN)).to.be.instanceof(require(importerDir + '/postman'));
+    });
+    it('should return null for not supported format', function(){
+      expect(importerFactory.factory(formats.ABCD)).to.equal(null);
+    });
   });
 });

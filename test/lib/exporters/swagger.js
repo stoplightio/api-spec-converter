@@ -10,8 +10,16 @@ describe('Swagger Exporter', function(){
   });
 
   describe('constructor', function(){
-    it('should return valid Swagger instance');
-    it('should posess generic exporter prototype');
+    it('should return valid Swagger instance', function(){
+      expect(swaggerExporter).to.be.instanceof(Swagger);
+    });
+    it('should posess generic exporter prototype', function(){
+      expect(swaggerExporter).to.respondTo('loadSLData');
+      expect(swaggerExporter).to.respondTo('loadProject');
+      expect(swaggerExporter).to.respondTo('_export');
+      expect(swaggerExporter).to.respondTo('export');
+      expect(swaggerExporter).to.respondTo('_getData');
+    });
   });
 
   describe('_export', function(){
