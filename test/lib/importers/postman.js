@@ -41,5 +41,9 @@ describe('Postman Importer', function(){
     });
   });
 
+  describe('middleware', function(){
+    it('should support before/after middleware import');
+  });
+
   //TODO write test for internal functions
 });

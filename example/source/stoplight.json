@@ -12,7 +12,9 @@
         "HTTP",
         "HTTPS"
       ],
-      "version": "v0.1"
+      "version": "v0.1",
+      "middlewareBefore": "function(){}",
+      "middlewareAfter": "function(){}"
     },
     "endpoints": [
       {
