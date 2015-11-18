@@ -36,7 +36,7 @@ describe('Exporter', function(){
   describe('Data getter', function(){
     it('should escape apostrophe char', function(){
       exporter.data = 'srtring with’ apostrophe';
-      expect(exporter.Data).to.equal('srtring with\' apostrophe');
+      expect(exporter.Data).to.equal('srtring with’ apostrophe');
     });
   });
 });
