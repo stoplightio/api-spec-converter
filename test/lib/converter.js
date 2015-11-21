@@ -52,11 +52,16 @@ describe('Converter', function() {
     it('should successfully convert and return converted data', function(done){
       var fullPath = __dirname + '/../data/raml.yaml';
       converterInstance.loadFile(fullPath, function(){
-        var returnedData = converterInstance.convert('json');
-        expect(returnedData).to.be.an('object');
-        expect(returnedData).to.include.keys('swagger');
-        expect(returnedData.swagger).to.be.equal('2.0');
-        done();
+        try {
+          var returnedData = converterInstance.convert('json');
+          expect(returnedData).to.be.an('object');
+          expect(returnedData).to.include.keys('swagger');
+          expect(returnedData.swagger).to.be.equal('2.0');
+          done();
+        }
+        catch(err) {
+          done(err);
+        }
       });
     });
   });

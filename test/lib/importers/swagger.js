@@ -37,13 +37,42 @@ describe('Swagger Importer', function(){
     });
   });
   describe('import', function(){
-    it('should perform import operation on loaded data', function(){
+    it('should perform import operation on loaded data', function(done){
       swaggerImporter.loadFile(__dirname+'/../../data/swagger.json', function(){
-        var slProject = swaggerImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
+        try {
+          var slProject = swaggerImporter.import();
+          expect(slProject).to.be.instanceOf(Project);
+          done();
+        }
+        catch(err) {
+          done(err);
+        }
       });
     });
   });
 
   //TODO write test for internal functions
+  describe('_mapSchema', function(){
+    it('should map schema data successfully');
+  });
+
+  describe('_mapQueryString', function(){
+    it('should map query string data successfully');
+  });
+
+  describe('_mapURIParams', function(){
+    it('should map uri params data successfully');
+  });
+
+  describe('_mapRequestBody', function(){
+    it('should map request body data successfully');
+  });
+
+  describe('_mapResponseBody', function(){
+    it('should map response body data successfully');
+  });
+
+  describe('_mapRequestHeaders', function(){
+    it('should map request header data successfully');
+  });
 });

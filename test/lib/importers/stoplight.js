@@ -29,4 +29,17 @@ describe('Stoplight Importer', function(){
   describe('middleware', function(){
     it('should support before/after middleware import');
   });
+
+  describe('mapEndpoint', function(){
+    it('should map endpoints successfully');
+  });
+
+  describe('mapUtilityFunctions', function(){
+    it('should map utility functions successfully');
+  });
+
+  describe('mapSecuritySchemes', function(){
+    it('should map security schema successfully');
+  });
+
 });

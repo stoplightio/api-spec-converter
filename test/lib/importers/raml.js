@@ -27,4 +27,27 @@ describe('RAML Importer', function(){
   });
 
   //TODO write test for internal functions
+  describe('_mapSchema', function(){
+    it('should map schema data successfully');
+  });
+
+  describe('_mapQueryString', function(){
+    it('should map query string data successfully');
+  });
+
+  describe('_mapURIParams', function(){
+    it('should map uri params data successfully');
+  });
+
+  describe('_mapRequestBody', function(){
+    it('should map request body data successfully');
+  });
+
+  describe('_mapResponseBody', function(){
+    it('should map response body data successfully');
+  });
+
+  describe('_mapRequestHeaders', function(){
+    it('should map request header data successfully');
+  });
 });
