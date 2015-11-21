@@ -21,6 +21,7 @@ describe('Importer', function(){
       }
       catch(err) {
         expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('loadFIle method not implemented');
       }
     });
   });
@@ -38,6 +39,7 @@ describe('Importer', function(){
       }
       catch(err) {
         expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('_import method not implemented');
       }
     });
   });
@@ -56,11 +58,12 @@ describe('Importer', function(){
     });
     it('should return error if data not loaded', function(){
       try {
-        importer._import();
+        importer.import();
         expect(true).to.be.false;
       }
       catch(err) {
         expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('data not loaded for Object');
       }
     });
     it('should set mapped flag so that multiple call doesn\'t cause all calculation over again', function(){

@@ -3,7 +3,7 @@ var expect   = require('chai').expect,
     Project = require('../../../lib/entities/project');
 
 describe('Swagger Importer', function(){
-  var swaggerImporter;
+  var swaggerImporter, filePath = __dirname+'/../../data/swagger.yaml';
   beforeEach(function(){
     swaggerImporter = new Swagger();
   });
@@ -20,28 +20,31 @@ describe('Swagger Importer', function(){
   });
   describe('loadFile', function(){
     it('should be able to load a valid json file', function(done){
-      swaggerImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(){
+      swaggerImporter.loadFile(__dirname+'/../../data/swagger.json', function(){
         done();
       });
     });
     it('should be able to load a valid yaml file', function(){
-      swaggerImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(){
+      swaggerImporter.loadFile(filePath, function(){
         done();
       });
     });
     it('should return error for invalid file', function(done){
-      swaggerImporter.loadFile(__dirname+'/../../data/invalid/swagger.json', function(err){
+      var invalidPath = __dirname+'/../../data/invalid/swagger.json';
+      swaggerImporter.loadFile(invalidPath, function(err){
         expect(err).to.not.equal(undefined);
+        expect(err.message).to.equal(invalidPath + ' is not a valid Swagger API definition');
         done();
       });
     });
   });
   describe('import', function(){
     it('should perform import operation on loaded data', function(done){
-      swaggerImporter.loadFile(__dirname+'/../../data/swagger.json', function(){
+      swaggerImporter.loadFile(filePath, function(){
         try {
           var slProject = swaggerImporter.import();
           expect(slProject).to.be.instanceOf(Project);
+          expect(slProject.Endpoints.length).to.gt(0);
           done();
         }
         catch(err) {

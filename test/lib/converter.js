@@ -14,12 +14,30 @@ describe('Converter', function() {
     it('should successfully create new converter instance', function(){
       expect(converterInstance).to.be.an.instanceof(specConverter.Converter);
     });
-    it('should validate from/to format, throw error otherwise', function(done){
+    it('should validate from format, throw error otherwise', function(done){
+      try{
+
+        //set up a fake format
+        specConverter.Formats.ABCD = {
+          name: 'ABCD',
+          className: 'ABCD'
+        };
+
+        //doesn't support export/convert from abcd format
+        newConverterInstance = new specConverter.Converter(specConverter.Formats.ABCD, specConverter.Formats.POSTMAN);
+        expect(newConverterInstance).to.be.an.instanceof(specConverter.Converter);
+      } catch(e) {
+        expect(e.message).to.equal('from format ABCD not supported');
+        done();
+      }
+    });
+    it('should validate to format, throw error otherwise', function(done){
       try{
         //doesn't support export/convert to postman format
         newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.POSTMAN);
         expect(newConverterInstance).to.be.an.instanceof(specConverter.Converter);
       } catch(e) {
+        expect(e.message).to.equal('to format Postman not supported');
         done();
       }
     });
@@ -35,6 +53,8 @@ describe('Converter', function() {
       var fullPath = __dirname + '/../data/postman.json';
       converterInstance.loadFile(fullPath, function(err){
         expect(err).to.not.be.undefined;
+        expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('The first line must be: \'#%RAML 0.8\'');
         done();
       });
     });

@@ -3,8 +3,9 @@ var expect   = require('chai').expect,
     Project = require('../../../lib/entities/project');
 
 describe('Stoplight Importer', function(){
-  var importer, slData = require(__dirname + '/../../data/stoplight');;
-  before(function(){
+  var importer, filePath = __dirname + '/../../data/stoplight.json';
+  var slData = require(filePath);
+  beforeEach(function(){
     importer = new Stoplight();
   });
   describe('constructor', function(){
@@ -12,13 +13,33 @@ describe('Stoplight Importer', function(){
       expect(importer).to.be.an.instanceof(Stoplight);
     });
   });
+  describe('loadFile', function(){
+    it('should load a stoplight definition file successfully', function(done){
+      expect(importer.data).to.be.null;
+      importer.loadFile(filePath, function(){
+        expect(importer.data).not.to.be.null;
+        done();
+      });
+    });
+    it('should return error for invalid json definition file', function(done){
+      expect(importer.data).to.be.null;
+      importer.loadFile( __dirname + '/../../data/invalid/stoplight.json', function(err){
+        expect(err).not.to.be.null;
+        expect(err.message).to.equal('Unexpected token i');
+        expect(importer.data).to.be.null;
+        done();
+      });
+    });
+  });
   describe('_import', function(){
-    it('should export project to data', function(){
-      expect(importer.data).to.equal(null);
+    it('should import data to project', function(){
+      //should be null before mapping
+      expect(importer.project).to.equal(null);
       //pre-requisite
       importer.loadData(slData);
       importer._import();
       expect(importer.project).to.not.equal(null);
+      expect(importer.project.Endpoints.length).gt(0);
     });
     it('exported data should have at least one endpoint', function(){
       importer.loadData(slData);

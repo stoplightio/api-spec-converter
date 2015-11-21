@@ -1,8 +1,9 @@
 var expect   = require('chai').expect,
-    RAML = require('../../../lib/importers/raml');
+    RAML = require('../../../lib/importers/raml'),
+    Project = require('../../../lib/entities/project');
 
 describe('RAML Importer', function(){
-  var ramlImporter;
+  var ramlImporter, filePath = __dirname+'/../../data/raml.yaml';
   beforeEach(function(){
     ramlImporter = new RAML();
   });
@@ -19,11 +20,33 @@ describe('RAML Importer', function(){
     });
   });
   describe('loadFile', function(){
-    it('should be able to load a valid yaml file');
-    it('should return error for invalid file');
+    it('should be able to load a valid yaml file', function(done){
+      ramlImporter.loadFile(filePath, function(){
+        done();
+      });
+    });
+    it('should return error for invalid file', function(done){
+      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml.yaml', function(err){
+        expect(err).not.to.be.undefined;
+        expect(err.message).to.equal('The first line must be: \'#%RAML 0.8\'');
+        done();
+      });
+    });
   });
-  describe('_import', function(){
-    it('should perform import operation on loaded data');
+  describe('import', function(){
+    it('should perform import operation on loaded data', function(done){
+      ramlImporter.loadFile(filePath, function(){
+        try {
+          var slProject = ramlImporter.import();
+          expect(slProject).to.be.instanceOf(Project);
+          expect(slProject.Endpoints.length).to.gt(0);
+          done();
+        }
+        catch(err){
+          done(err);
+        }
+      });
+    });
   });
 
   //TODO write test for internal functions
