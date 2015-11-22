@@ -2,86 +2,244 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Swagger Petstore",
-    "contact": {
-      "name": "Swagger API Team",
-      "url": "http://swagger.io"
-    },
-    "license": {
-      "name": "Creative Commons 4.0 International",
-      "url": "http://creativecommons.org/licenses/by/4.0/"
-    }
+    "title": "Swagger petstore",
+    "description": "A sample API"
   },
-  "host": "petstore.swagger.io",
-  "basePath": "/api",
-  "schemes": [
-    "http"
-  ],
   "paths": {
-    "/pets": {
+    "/pets/{petName}": {
+      "parameters": [],
       "get": {
-        "tags": [ "Pet Operations" ],
-        "summary": "finds pets in the system",
         "responses": {
-          "200": {
-            "description": "pet response",
+          "400": {
+            "description": "Returns the pet data",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Pet"
-              }
-            },
-            "headers": {
-              "x-expires": {
-                "type": "string"
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/pet"
             }
           }
-        }
+        },
+        "parameters": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "findPetByName",
+        "summary": "",
+        "description": "Returns a pet by name"
+      },
+      "delete": {
+        "responses": {
+          "400": {
+            "description": "Returns the pet that was deleted",
+            "schema": {
+              "$ref": "#/definitions/pet"
+            }
+          }
+        },
+        "parameters": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "deletePet",
+        "summary": "",
+        "description": "Deletes a single pet based on the name supplied"
+      },
+      "patch": {
+        "responses": {
+          "400": {
+            "description": "Returns the updated pet data",
+            "schema": {
+              "$ref": "#/definitions/pet"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "name": "pet",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/pet"
+            },
+            "required": false,
+            "description": "The updated pet info"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "",
+        "summary": "",
+        "description": "Updates a pet by name"
+      }
+    },
+    "/pets/{petName}/photos": {
+      "parameters": [],
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Returns the photo information",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "The auto-generated photo ID"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "photo": {
+                  "description": "Information about the photo (size, file name, etc.)"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "formData",
+            "required": false,
+            "description": "The photo ID (generated automatically)"
+          },
+          {
+            "type": "string",
+            "name": "label",
+            "in": "formData",
+            "required": false,
+            "description": "A label for the photo"
+          },
+          {
+            "type": "string",
+            "name": "description",
+            "in": "formData",
+            "required": false,
+            "description": "An optional description of the photo"
+          },
+          {
+            "type": "string",
+            "name": "photo",
+            "in": "formData",
+            "required": true,
+            "description": "The pet photo"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "addPetPhoto",
+        "summary": "",
+        "description": "Upload a new pet photo"
       }
     }
   },
   "definitions": {
-    "Pet": {
-      "type": "object",
+    "pet": {
       "required": [
-        "id",
-        "name"
+        "name",
+        "type"
       ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "name": {
-          "type": "string"
+          "type": "string",
+          "minLength": 4,
+          "pattern": "^[a-zA-Z0-9- ]+$"
         },
-        "tag": {
-          "type": "string"
+        "age": {
+          "type": "integer"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "cat",
+            "dog",
+            "bird"
+          ]
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "vet": {
+          "$ref": "#/definitions/veterinarian"
+        },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
-    "Error": {
-      "type": "object",
+    "veterinarian": {
       "required": [
-        "code",
-        "message"
+        "name"
       ],
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
+        "name": {
+          "type": "string",
+          "minLength": 1
         },
-        "message": {
-          "type": "string"
+        "address": {
+          "$ref": "#/definitions/address"
+        }
+      }
+    },
+    "address": {
+      "properties": {
+        "street": {
+          "type": "string",
+          "minLength": 1
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]+$"
+        },
+        "zipcode": {
+          "type": "integer",
+          "minimum": 10000,
+          "maximum": 99999
         }
       }
     }
-  }
+  },
+  "basePath": "",
+  "host": "http://localhost:3000",
+  "schemes": [
+    "http",
+    "https",
+    "ws"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ]
 }

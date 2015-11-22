@@ -3,7 +3,7 @@ var expect   = require('chai').expect,
     fs = require('fs');
 
 describe('Converter', function() {
-  var converterInstance;
+  var converterInstance, fullPath = __dirname + '/../data/raml.yaml';
   beforeEach(function(){
     converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
   });
@@ -44,14 +44,12 @@ describe('Converter', function() {
   });
   describe('loadFile', function(){
     it('should successfully load "from"/"importer" comaptible file', function(done){
-      var fullPath = __dirname + '/../data/raml.yaml';
       converterInstance.loadFile(fullPath, function(){
         done();
       });
     });
     it('should throw error for format incompatible file', function(done){
-      var fullPath = __dirname + '/../data/postman.json';
-      converterInstance.loadFile(fullPath, function(err){
+      converterInstance.loadFile(__dirname + '/../data/postman.json', function(err){
         expect(err).to.not.be.undefined;
         expect(err).to.be.instanceof(Error);
         expect(err.message).to.equal('The first line must be: \'#%RAML 0.8\'');
@@ -61,7 +59,6 @@ describe('Converter', function() {
   });
   describe('loadData', function(){
     it('should successfully load raw data', function(){
-      var fullPath = __dirname + '/../data/raml.yaml';
       content = fs.readFileSync(fullPath, 'utf8');
       var returnVal = converterInstance.loadData(content);
       expect(returnVal).to.be.equal(true);
@@ -70,13 +67,43 @@ describe('Converter', function() {
   });
   describe('convert', function(){
     it('should successfully convert and return converted data', function(done){
-      var fullPath = __dirname + '/../data/raml.yaml';
       converterInstance.loadFile(fullPath, function(){
         try {
           var returnedData = converterInstance.convert('json');
           expect(returnedData).to.be.an('object');
           expect(returnedData).to.include.keys('swagger');
           expect(returnedData.swagger).to.be.equal('2.0');
+          done();
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
+    it('converting from stoplight to stoplight format should be identical', function(done){
+      var path = __dirname + '/../data/stoplight.json';
+      var originalData = JSON.stringify(require(path));
+      newConverterInstance = new specConverter.Converter(specConverter.Formats.STOPLIGHT, specConverter.Formats.STOPLIGHT);
+      newConverterInstance.loadFile(path, function(){
+        var convertedData = newConverterInstance.convert('json');
+        expect(JSON.stringify(convertedData)).to.equal(originalData);
+        done();
+      });
+    });
+
+    it('converting from swagger to swagger format should be identical', function(done){
+      /**
+      This test include swagger file that is fully compatible with sl spec.
+      Of course, for some specific properties, librart won't be able to import , these
+      will be documented/listed on library docs
+      */
+      var path = __dirname + '/../data/swagger.json';
+      var originalData = JSON.stringify(require(path), null, 2);
+      newConverterInstance = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.SWAGGER);
+      newConverterInstance.loadFile(path, function(){
+        try {
+          var convertedData = newConverterInstance.convert('json');
+          expect(JSON.stringify(convertedData, null, 2)).to.equal(originalData);
           done();
         }
         catch(err) {
