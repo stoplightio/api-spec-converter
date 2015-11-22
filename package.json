@@ -19,7 +19,8 @@
   "dependencies": {
     "json2yaml": "^1.0.3",
     "raml-parser": "^0.8.12",
-    "swagger-parser": "^3.0.0-alpha.5"
+    "swagger-parser": "^3.0.0-alpha.5",
+    "jsonschema": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^3.4.1",
