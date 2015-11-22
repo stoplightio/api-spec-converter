@@ -111,5 +111,23 @@ describe('Converter', function() {
         }
       });
     });
+
+    /*
+    TODO: YAML format comparisn seems to be not working
+    it('converting from raml to raml format should be identical', function(done){
+      var path = __dirname + '/../data/raml.yaml';
+      var originalData = fs.readFileSync(path, 'utf8');
+      newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
+      newConverterInstance.loadFile(path, function(){
+        try {
+          var convertedData = newConverterInstance.convert('yaml');
+          expect(newConverterInstance.exporter.data).to.equal(convertedData);
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });*/
+
   });
 });
