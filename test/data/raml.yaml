@@ -50,6 +50,10 @@
           required: false
           displayName: "q"
     /{productId}:
+      uriParameters:
+        productId:
+             displayName: Product ID
+             type: integer
       displayName: "{productId}"
       description: ""
       get:

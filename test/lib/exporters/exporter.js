@@ -69,4 +69,46 @@ describe('Exporter', function(){
       expect(exporter.Data).to.equal('srtring with’ apostrophe');
     });
   });
+
+  describe('_mapEndpoint', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapEndpoint).to.throw(Error);
+    });
+  });
+
+  describe('_mapSchema', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapSchema).to.throw(Error);
+    });
+  });
+
+  describe('_mapQueryString', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapQueryString).to.throw(Error);
+    });
+  });
+
+  describe('_mapURIParams', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapURIParams).to.throw(Error);
+    });
+  });
+
+  describe('_mapRequestBody', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapRequestBody).to.throw(Error);
+    });
+  });
+
+  describe('_mapResponseBody', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapResponseBody).to.throw(Error);
+    });
+  });
+
+   describe('_mapRequestHeaders', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(exporter._mapRequestHeaders).to.throw(Error);
+    });
+  });
 });

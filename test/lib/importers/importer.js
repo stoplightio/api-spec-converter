@@ -73,4 +73,46 @@ describe('Importer', function(){
       expect(importer.Mapped).to.be.true;
     });
   });
+
+  describe('_mapEndpoint', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapEndpoint).to.throw(Error);
+    });
+  });
+
+  describe('_mapSchema', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapSchema).to.throw(Error);
+    });
+  });
+
+  describe('_mapQueryString', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapQueryString).to.throw(Error);
+    });
+  });
+
+  describe('_mapURIParams', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapURIParams).to.throw(Error);
+    });
+  });
+
+  describe('_mapRequestBody', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapRequestBody).to.throw(Error);
+    });
+  });
+
+  describe('_mapResponseBody', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapResponseBody).to.throw(Error);
+    });
+  });
+
+   describe('_mapRequestHeaders', function(){
+    it('should throw error if method called, but not implemented by child', function(){
+      expect(importer._mapRequestHeaders).to.throw(Error);
+    });
+  });
 });
