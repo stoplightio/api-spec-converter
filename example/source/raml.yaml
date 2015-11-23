@@ -29,6 +29,17 @@ documentation:
 # API resource definitions
 #===============================================================
 
+/custom:
+  post:
+    body:
+      application/x-www-form-urlencoded:
+        formParameters:
+          AWSAccessKeyId:
+            description: The AWS Access Key ID of the owner of the bucket who grants an Anonymous user access for a request that satisfies the set of constraints in the Policy.
+            type: string
+          acl:
+            description: Specifies an Amazon S3 access control list. If an invalid access control list is specified, an error is generated.
+            type: string
 /products:
   uriParameters:
   displayName: Products
