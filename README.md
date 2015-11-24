@@ -16,5 +16,18 @@ ramlToSwaggerConverter.loadFile('/source/raml.yaml', function(){
   }
 });
 ```
+###Development
+Install dependencies:
+```
+$npm install
+```
 
+Run tests:
+```
+npm test
+```
+
+Run eslint to check linting errors:
+```
+gulp lint
 
