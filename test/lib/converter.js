@@ -60,14 +60,13 @@ describe('Converter', function() {
       });
     });
   });
+
   describe('loadData', function(){
-    it('should successfully load raw data', function(){
-      content = fs.readFileSync(fullPath, 'utf8');
-      var returnVal = converterInstance.loadData(content);
-      expect(returnVal).to.be.equal(true);
-    });
+    //current function will work for only stoplight data and postman json data
+    it('should successfully load raw data');
     it('should throw error for format incompatible data');
   });
+
   describe('convert', function(){
     it('should successfully convert and return converted data', function(done){
       converterInstance.loadFile(fullPath, function(){
@@ -138,5 +137,32 @@ describe('Converter', function() {
       });
     });
 
+    it('should convert reversly from swagger to raml', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
+      converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
+        try{
+          var covertedRAML = converter.convert('yaml');
+          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedRAML, 'utf8');
+          var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
+          converter2.loadFile(__dirname + '/../data/temp.yaml', function(err){
+            try{
+              if(err) {
+                done(err);
+                return;
+              }
+              var resultSwagger = converter2.convert('json');
+              expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml-compatible-swagger.json'));
+              done();
+            }
+            catch(err) {
+              done(err);
+            }
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
   });
 });
