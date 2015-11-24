@@ -164,5 +164,35 @@ describe('Converter', function() {
         }
       });
     });
+
+    it('should convert reversly from raml to swagger', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
+      var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
+      converter.loadFile(ramlPath, function(){
+        try{
+          var covertedRAML = converter.convert('yaml');
+          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedRAML, 'utf8');
+          var converter2 = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
+          converter2.loadFile(__dirname + '/../data/temp.yaml', function(err){
+            try{
+              if(err) {
+                done(err);
+                return;
+              }
+              var resultRAML = converter2.convert('yaml');
+              fs.writeFileSync(__dirname + '/../data/temp.yaml', resultRAML, 'utf8');
+              expect(resultRAML).to.equalIgnoreSpaces(fs.readFileSync(ramlPath, 'utf8'));
+              done();
+            }
+            catch(err) {
+              done(err);
+            }
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
   });
 });
