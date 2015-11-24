@@ -114,4 +114,5 @@
             type: "integer"
             required: true
             displayName: "productId"
-  schemas: []
+  schemas:
+    - testSchema: "{\"type\":\"object\",\"properties\":{\"product\":{\"type\":\"object\",\"_isOpen\":true,\"properties\":{\"name\":{\"type\":\"string\"}}}}}"
