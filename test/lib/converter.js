@@ -1,6 +1,9 @@
-var expect   = require('chai').expect,
+var chai   = require('chai'),
+    expect = chai.expect,
     specConverter = require('../../index'),
     fs = require('fs');
+
+chai.use(require('chai-string'));
 
 describe('Converter', function() {
   var converterInstance, fullPath = __dirname + '/../data/raml.yaml';
@@ -112,22 +115,28 @@ describe('Converter', function() {
       });
     });
 
-    /*
-    TODO: YAML format comparisn seems to be not working
+    //It performs importing from raml to stoplight and exporting from stoplight to raml
+    //and thus verifies in both ways
     it('converting from raml to raml format should be identical', function(done){
+      /**
+      This test include swagger file that is fully compatible with sl spec.
+      Of course, for some specific properties, librart usually skips and won't import, these
+      will be documented/listed on library docs
+      */
       var path = __dirname + '/../data/raml.yaml';
       var originalData = fs.readFileSync(path, 'utf8');
       newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
       newConverterInstance.loadFile(path, function(){
         try {
           var convertedData = newConverterInstance.convert('yaml');
-          expect(newConverterInstance.exporter.data).to.equal(convertedData);
+          expect(originalData).to.equalIgnoreSpaces(convertedData);
+          done();
         }
         catch(err) {
           done(err);
         }
       });
-    });*/
+    });
 
   });
 });
