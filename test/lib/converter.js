@@ -137,7 +137,7 @@ describe('Converter', function() {
       });
     });
 
-    it('should convert reversly from swagger to raml', function(done){
+    it('should convert reversly from swagger to raml without loss', function(done){
       var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
         try{
@@ -165,7 +165,7 @@ describe('Converter', function() {
       });
     });
 
-    it('should convert reversly from raml to swagger', function(done){
+    it('should convert reversly from raml to swagger without loss', function(done){
       var converter = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
       var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
       converter.loadFile(ramlPath, function(){
