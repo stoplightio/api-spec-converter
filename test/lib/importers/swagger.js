@@ -78,4 +78,8 @@ describe('Swagger Importer', function(){
   describe('_mapRequestHeaders', function(){
     it('should map request header data successfully');
   });
+
+  describe('findDefaultMimeType', function(){
+    it('should use application/json as default type while importing if in the produces/consumes list');
+  });
 });
