@@ -53,4 +53,6 @@ describe('RAML Exporter', function(){
     });
   });
   //TODO test internal methods individually
+
+  it('shouldn\'t throw error if param json schema required attribute doesn\'t exist');
 });
