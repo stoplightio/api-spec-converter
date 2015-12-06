@@ -148,6 +148,8 @@
         "script": "function (ctx, request, subpath) {\n  // for example, onlyProcessPath(ctx, request, \"api\") will turn off logging/learning for any\n  // requests that don't have \"api\" in their path.\n  if (request.url.path.get().indexOf(subpath) == -1) {\n     ctx.log.set(false)\n     ctx.learn.set(false)\n  }\n}"
       }
     ],
-    "endpointsOrder": []
+    "resourcesOrder": {
+      "endpoints": []
+    }
   }
 }
