@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/stoplightio/postman-importer#readme",
   "dependencies": {
-    "json2yaml": "^1.0.3",
+    "js-yaml": "^3.4.6",
     "jsonschema": "^1.0.2",
     "lodash": "^3.10.1",
     "raml-parser": "^0.8.12",

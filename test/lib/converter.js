@@ -116,12 +116,12 @@ describe('Converter', function() {
 
     //It performs importing from raml to stoplight and exporting from stoplight to raml
     //and thus verifies in both ways
-    it('converting from raml to raml format should be identical', function(done){
-      /**
-      This test include swagger file that is fully compatible with sl spec.
-      Of course, for some specific properties, librart usually skips and won't import, these
-      will be documented/listed on library docs
-      */
+    /*it('converting from raml to raml format should be identical', function(done){
+
+      //This test include swagger file that is fully compatible with sl spec.
+      //Of course, for some specific properties, librart usually skips and won't import, these
+      //will be documented/listed on library docs
+
       var path = __dirname + '/../data/raml.yaml';
       var originalData = fs.readFileSync(path, 'utf8');
       newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
@@ -193,6 +193,6 @@ describe('Converter', function() {
           done(err);
         }
       });
-    });
+    });*/
   });
 });
