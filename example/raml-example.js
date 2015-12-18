@@ -4,7 +4,11 @@ var slConverter = require('../index'),
 
 try {
   //./source/raml.yaml
-  ramlConverter.loadFile(__dirname + '/source/raml.yaml', function(){
+  ramlConverter.loadFile(__dirname + '/source/raml.yaml', function(err){
+    if (err) {
+      console.log(err.stack);
+      return;
+    }
     try{
       //console.log(ramlConverter.getSLSchemas())
       fs.writeFileSync(__dirname + '/target/raml.yaml', ramlConverter.convert('yaml'), 'utf8');
