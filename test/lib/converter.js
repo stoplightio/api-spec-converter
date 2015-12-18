@@ -165,7 +165,7 @@ describe('Converter', function() {
       });
     });
 
-    /*it('should convert reversly from raml to swagger without loss', function(done){
+    it('should convert reversly from raml to swagger without loss', function(done){
       var converter = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
       var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
       converter.loadFile(ramlPath, function(){
@@ -193,6 +193,6 @@ describe('Converter', function() {
           done(err);
         }
       });
-    });*/
+    });
   });
 });

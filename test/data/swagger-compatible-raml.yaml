@@ -48,7 +48,6 @@ documentation:
       X-Tracking-Example:
         type: string
         description: You can specify request headers like this
-        displayName: X-Tracking-Example
     responses: {}
     queryParameters: {}
   get:
@@ -64,7 +63,6 @@ documentation:
       q:
         type: string
         description: Search phrase to look for products
-        displayName: q
   '/{productId}':
     displayName: '{productId}'
     description: ''
@@ -83,7 +81,6 @@ documentation:
           type: integer
           description: The ID of the product
           required: true
-          displayName: productId
     put:
       description: Updates a single product
       body:
@@ -200,7 +197,6 @@ documentation:
           type: integer
           description: The ID of the product
           required: true
-          displayName: productId
     delete:
       description: Delete a single product
       headers: {}
@@ -215,7 +211,6 @@ documentation:
           type: integer
           description: The ID of the product
           required: true
-          displayName: productId
 schemas:
   - testSchema: |-
       {
