@@ -7,15 +7,7 @@
   },
   "paths": {
     "/pets/{petName}": {
-      "parameters": [
-        {
-          "description": "petName",
-          "in": "path",
-          "name": "petName",
-          "required": true,
-          "type": "string"
-        }
-      ],
+      "parameters": [],
       "get": {
         "responses": {
           "400": {

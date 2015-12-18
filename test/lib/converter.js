@@ -116,7 +116,7 @@ describe('Converter', function() {
 
     //It performs importing from raml to stoplight and exporting from stoplight to raml
     //and thus verifies in both ways
-    /*it('converting from raml to raml format should be identical', function(done){
+    it('converting from raml to raml format should be identical', function(done){
 
       //This test include swagger file that is fully compatible with sl spec.
       //Of course, for some specific properties, librart usually skips and won't import, these
@@ -165,7 +165,7 @@ describe('Converter', function() {
       });
     });
 
-    it('should convert reversly from raml to swagger without loss', function(done){
+    /*it('should convert reversly from raml to swagger without loss', function(done){
       var converter = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
       var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
       converter.loadFile(ramlPath, function(){
