@@ -31,7 +31,7 @@ describe('json utility library', function() {
     });
     it('should stringify a json object with spacing if given', function(){
       var resultString = jsonHelper.stringify(sourceJson, 2);
-      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 2));
+      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 4));
     });
     it('should return as it is if already a string', function(){
       var sourceString = JSON.stringify(sourceJson);
@@ -43,11 +43,11 @@ describe('json utility library', function() {
   describe('format', function(){
     it('should format a given json object into a pretty print styled json string', function(){
       var resultString = jsonHelper.format(sourceJson);
-      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 2));
+      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 4));
     });
     it('should format a given json string into a pretty printed json string', function(){
       var resultString = jsonHelper.format(JSON.stringify(sourceJson));
-      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 2));
+      expect(resultString).to.equal(JSON.stringify(sourceJson, null, 4));
     });
     it('should return as it is for invalid json string', function(){
       var invalidJSON = 'Hello World';

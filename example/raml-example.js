@@ -25,7 +25,7 @@ catch(err) {
 /*var raml = require('raml-parser');
 
 raml.loadFile('./source/raml.yaml').then( function(data) {
-  fs.writeFileSync(__dirname + '/raml.json', JSON.stringify(data, null, 2), 'utf8')
+  fs.writeFileSync(__dirname + '/raml.json', JSON.stringify(data, null, 4), 'utf8')
 }, function(error) {
   console.log('Error parsing: ' + error);
 });*/
