@@ -30,7 +30,7 @@ describe('json utility library', function() {
       expect(resultString).to.equal(JSON.stringify(sourceJson));
     });
     it('should stringify a json object with spacing if given', function(){
-      var resultString = jsonHelper.stringify(sourceJson, 2);
+      var resultString = jsonHelper.stringify(sourceJson, 4);
       expect(resultString).to.equal(JSON.stringify(sourceJson, null, 4));
     });
     it('should return as it is if already a string', function(){
