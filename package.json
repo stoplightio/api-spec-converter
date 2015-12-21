@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stoplightio/postman-importer.git"
+    "url": "git+https://github.com/stoplightio/api-spec-converter.git"
   },
   "author": "Rana <rana@stoplight.io> (http://stoplight.io)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stoplightio/postman-importer/issues"
+    "url": "https://github.com/stoplightio/api-spec-converter/issues"
   },
-  "homepage": "https://github.com/stoplightio/postman-importer#readme",
+  "homepage": "https://github.com/stoplightio/api-spec-converter#readme",
   "dependencies": {
     "chai-fuzzy": "^1.6.0",
     "js-yaml": "git://github.com/stoplightio/js-yaml#e2b249f9b5ca028e45736f8a2958be094a4a9e17",
