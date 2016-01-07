@@ -82,4 +82,11 @@ describe('Swagger Importer', function(){
   describe('findDefaultMimeType', function(){
     it('should use application/json as default type while importing if in the produces/consumes list');
   });
+
+  describe('_mapSecurityDefinitions', function(){
+    it('should map apiKey security definitions to stoplight successfully');
+    it('should map oauth2 security definitions to stoplight successfully');
+    it('should map basic security definitions to stoplight successfully');
+  });
+
 });

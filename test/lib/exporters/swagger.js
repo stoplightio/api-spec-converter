@@ -42,4 +42,10 @@ describe('Swagger Exporter', function(){
   it('shouldn\'t throw error if param json schema required attribute doesn\'t exist');
 
   it('shouldn\'t contain duplicate produces values');
+
+  describe('_mapSecurityDefinitions', function(){
+    it('should map apiKey security definitions to stoplight successfully');
+    it('should map oauth2 security definitions to stoplight successfully');
+    it('should map basic security definitions to stoplight successfully');
+  });
 });
