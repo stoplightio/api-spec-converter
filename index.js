@@ -18,6 +18,10 @@ var supportedFormats = {
   'STOPLIGHT': {
     name: 'StopLight',
     className: 'StopLight'
+  },
+  'STOPLIGHTX': {
+    name: 'StopLightX',
+    className: 'StopLightX'
   }
 };
 
