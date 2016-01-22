@@ -149,7 +149,8 @@
       }
     ],
     "resourcesOrder": {
-      "endpoints": []
+      "paths": [],
+      "definitions": []
     }
   }
 }
