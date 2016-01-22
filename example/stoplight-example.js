@@ -1,6 +1,6 @@
 var slConverter = require('../index'),
     fs = require('fs'),
-    slConverter = new slConverter.Converter(slConverter.Formats.STOPLIGHT, slConverter.Formats.STOPLIGHT);
+    slConverter = new slConverter.Converter(slConverter.Formats.STOPLIGHTX, slConverter.Formats.STOPLIGHTX);
 
 try {
   slConverter.loadFile(__dirname + '/source/stoplight.json', function(){

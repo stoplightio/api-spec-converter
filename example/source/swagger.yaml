@@ -89,8 +89,8 @@ securityDefinitions:
     authorizationUrl: http://swagger.io/api/oauth/dialog
     flow: implicit
     scopes:
-      write:pets: modify pets in your account
-      read:pets: read your pets
+      'write:pets': 'modify pets in your account'
+      'read:pets': 'read your pets'
 
 paths:
   /pets:

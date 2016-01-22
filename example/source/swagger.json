@@ -127,7 +127,14 @@
         ],
         "operationId": "findPets",
         "summary": "",
-        "description": "Returns all pets, optionally filtered by one or more criteria"
+        "description": "Returns all pets, optionally filtered by one or more criteria",
+        "security": [
+          {
+            "petstore_auth": [
+              "read:pets"
+            ]
+          }
+        ]
       },
       "delete": {
         "responses": {
