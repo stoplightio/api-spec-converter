@@ -616,10 +616,21 @@
         }
     },
     "x-stoplight": {
-        "before": "function(){return 'Hello World env before';}",
-        "after": "function(){return 'Hello World env before';}",
-        "proxy": {
-            "foo": "bar"
+        "environment": {
+            "forwardHost": "http://localhost:3000",
+            "basePath": "",
+            "defaultResponseType": "application/json",
+            "defaultRequestType": "application/json",
+            "protocols": [
+                "http",
+                "https",
+                "ws"
+            ],
+            "version": "1.0.0",
+            "resourcesOrder": {
+                "utilFuncs": [],
+                "docs": []
+            }
         },
         "functions": [
             {
@@ -647,7 +658,6 @@
                 "description": "Calling this function will validate the request, and add a request header indicating wether or not validation passed. It also adds all the validation errors to the entry messages, which are viewable in an entry tab.",
                 "script": "function (ctx, request) {\n  var messages = request.validate(),\n      isValid = true\n\n  if (messages.length) {\n    isValid = false\n\n    for (var i in messages) {\n      request.logError(messages[i])\n    }\n\n    // Uncomment the line below to respond immediately\n    // with the validation error messages. Useful to let\n    // developers know exactly what is wrong with their API request.\n    //\n    // var response = request.hijack(400, \"application/json\", messages)\n  }\n\n  request.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  request.valid.set(isValid)\n}"
             }
-        ],
-        "resourcesOrder": []
+        ]
     }
 }
