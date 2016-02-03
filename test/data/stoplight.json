@@ -15,7 +15,11 @@
       "version": "1.0.0",
       "middlewareBefore": "",
       "middlewareAfter": "",
-      "proxy": {}
+      "proxy": {},
+      "resourcesOrder": {
+        "utilFuncs": [],
+        "docs": []
+      }
     },
     "endpoints": [
       {
@@ -147,10 +151,6 @@
         "description": "If your API lives at a subpath, for example, localhost:3000/api, then this function is useful to only learn / log requests that match the given subpath.",
         "script": "function (ctx, request, subpath) {\n  // for example, onlyProcessPath(ctx, request, \"api\") will turn off logging/learning for any\n  // requests that don't have \"api\" in their path.\n  if (request.url.path.get().indexOf(subpath) == -1) {\n     ctx.log.set(false)\n     ctx.learn.set(false)\n  }\n}"
       }
-    ],
-    "resourcesOrder": {
-      "paths": [],
-      "definitions": []
-    }
+    ]
   }
 }
