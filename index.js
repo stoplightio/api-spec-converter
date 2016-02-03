@@ -1,33 +1,11 @@
 var converter = require('./lib/converter'),
     Importer = require('./lib/importers/index'),
-    Exporter = require('./lib/exporters/index');
-
-var supportedFormats = {
-  'POSTMAN': {
-    name: 'Postman',
-    className: 'Postman'
-  },
-  'RAML':  {
-    name: 'RAML',
-    className: 'RAML'
-  },
-  'SWAGGER': {
-    name: 'Swagger',
-    className: 'Swagger'
-  },
-  'STOPLIGHT': {
-    name: 'StopLight',
-    className: 'StopLight'
-  },
-  'STOPLIGHTX': {
-    name: 'StopLightX',
-    className: 'StopLightX'
-  }
-};
+    Exporter = require('./lib/exporters/index'),
+    Formats = require('./lib/formats');
 
 module.exports = {
   Converter: converter.Converter,
-  Formats: supportedFormats,
+  Formats: Formats,
   Importer: Importer,
   Exporter: Exporter
 };
