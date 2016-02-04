@@ -19,6 +19,26 @@
       "resourcesOrder": {
         "utilFuncs": [],
         "docs": []
+      },
+      "securitySchemes": {
+        "apikey": {
+          "queryString": [],
+          "headers": []
+        },
+        "basic": {
+          "name": "",
+          "value": "",
+          "description": ""
+        },
+        "oauth2": {
+          "queryString": [],
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer"
+            }
+          ]
+        }
       }
     },
     "endpoints": [
@@ -125,26 +145,6 @@
         "example": {}
       }
     ],
-    "securitySchemes": {
-      "apikey": {
-        "queryString": [],
-        "headers": []
-      },
-      "basic": {
-        "name": "",
-        "value": "",
-        "description": ""
-      },
-      "oauth2": {
-        "queryString": [],
-        "headers": [
-          {
-            "name": "Authorization",
-            "value": "Bearer"
-          }
-        ]
-      }
-    },
     "utilityFunctions": [
       {
         "name": "onlyProcessPath",
