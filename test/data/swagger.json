@@ -63,11 +63,11 @@
           {
             "name": "pet",
             "in": "body",
+            "description": "The updated pet info",
+            "required": false,
             "schema": {
               "$ref": "#/definitions/pet"
-            },
-            "required": false,
-            "description": "The updated pet info"
+            }
           }
         ],
         "responses": {
@@ -94,32 +94,32 @@
         ],
         "parameters": [
           {
-            "type": "string",
             "name": "id",
             "in": "formData",
+            "description": "The photo ID (generated automatically)",
             "required": false,
-            "description": "The photo ID (generated automatically)"
+            "type": "string"
           },
           {
-            "type": "string",
             "name": "label",
             "in": "formData",
+            "description": "A label for the photo",
             "required": false,
-            "description": "A label for the photo"
+            "type": "string"
           },
           {
-            "type": "string",
             "name": "description",
             "in": "formData",
+            "description": "An optional description of the photo",
             "required": false,
-            "description": "An optional description of the photo"
+            "type": "string"
           },
           {
-            "type": "string",
             "name": "photo",
             "in": "formData",
+            "description": "The pet photo",
             "required": true,
-            "description": "The pet photo"
+            "type": "string"
           }
         ],
         "responses": {
