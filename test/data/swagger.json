@@ -11,6 +11,15 @@
     "/pets/{petName}": {
       "parameters": [],
       "get": {
+        "description": "Returns a pet by name",
+        "operationId": "findPetByName",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet data",
@@ -19,18 +28,18 @@
             }
           }
         },
-        "parameters": [],
+        "summary": ""
+      },
+      "delete": {
+        "description": "Deletes a single pet based on the name supplied",
+        "operationId": "deletePet",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "operationId": "findPetByName",
-        "summary": "",
-        "description": "Returns a pet by name"
-      },
-      "delete": {
+        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet that was deleted",
@@ -39,26 +48,17 @@
             }
           }
         },
-        "parameters": [],
+        "summary": ""
+      },
+      "patch": {
+        "description": "Updates a pet by name",
+        "operationId": "",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "operationId": "deletePet",
-        "summary": "",
-        "description": "Deletes a single pet based on the name supplied"
-      },
-      "patch": {
-        "responses": {
-          "400": {
-            "description": "Returns the updated pet data",
-            "schema": {
-              "$ref": "#/definitions/pet"
-            }
-          }
-        },
         "parameters": [
           {
             "name": "pet",
@@ -70,43 +70,28 @@
             "description": "The updated pet info"
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "operationId": "",
-        "summary": "",
-        "description": "Updates a pet by name"
+        "responses": {
+          "400": {
+            "description": "Returns the updated pet data",
+            "schema": {
+              "$ref": "#/definitions/pet"
+            }
+          }
+        },
+        "summary": ""
       }
     },
     "/pets/{petName}/photos": {
       "parameters": [],
       "post": {
-        "responses": {
-          "400": {
-            "description": "Returns the photo information",
-            "schema": {
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "format": "int32",
-                  "description": "The auto-generated photo ID"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "photo": {
-                  "description": "Information about the photo (size, file name, etc.)"
-                }
-              }
-            }
-          }
-        },
+        "description": "Upload a new pet photo",
+        "operationId": "addPetPhoto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "type": "string",
@@ -137,15 +122,30 @@
             "description": "The pet photo"
           }
         ],
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "operationId": "addPetPhoto",
-        "summary": "",
-        "description": "Upload a new pet photo"
+        "responses": {
+          "400": {
+            "description": "Returns the photo information",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "The auto-generated photo ID"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "photo": {
+                  "description": "Information about the photo (size, file name, etc.)"
+                }
+              }
+            }
+          }
+        },
+        "summary": ""
       }
     }
   },
