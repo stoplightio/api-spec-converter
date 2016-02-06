@@ -52,7 +52,6 @@
       },
       "patch": {
         "description": "Updates a pet by name",
-        "operationId": "",
         "consumes": [
           "application/json"
         ],

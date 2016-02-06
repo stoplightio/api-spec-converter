@@ -72,7 +72,6 @@
         "produces": [
           "application/json"
         ],
-        "operationId": "",
         "summary": "",
         "description": "Updates a pet by name"
       }
