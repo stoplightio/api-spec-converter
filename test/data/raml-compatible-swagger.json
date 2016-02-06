@@ -7,7 +7,15 @@
   },
   "paths": {
     "/pets/{petName}": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "get": {
         "responses": {
           "400": {
@@ -77,7 +85,15 @@
       }
     },
     "/pets/{petName}/photos": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "post": {
         "responses": {
           "400": {

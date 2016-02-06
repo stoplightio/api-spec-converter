@@ -9,7 +9,15 @@
   "host": "localhost:3000",
   "paths": {
     "/pets/{petName}": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "get": {
         "description": "Returns a pet by name",
         "operationId": "findPetByName",
@@ -79,7 +87,15 @@
       }
     },
     "/pets/{petName}/photos": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "post": {
         "description": "Upload a new pet photo",
         "operationId": "addPetPhoto",
