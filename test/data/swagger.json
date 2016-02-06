@@ -6,7 +6,7 @@
     "description": "A sample API"
   },
   "basePath": "/api",
-  "host": "http://localhost:3000",
+  "host": "localhost:3000",
   "paths": {
     "/pets/{petName}": {
       "parameters": [],
