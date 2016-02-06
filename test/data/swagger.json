@@ -61,10 +61,8 @@
         ],
         "parameters": [
           {
-            "name": "pet",
+            "name": "body",
             "in": "body",
-            "description": "The updated pet info",
-            "required": false,
             "schema": {
               "$ref": "#/definitions/pet"
             }

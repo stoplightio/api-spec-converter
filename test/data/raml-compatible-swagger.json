@@ -59,13 +59,11 @@
         },
         "parameters": [
           {
-            "name": "pet",
+            "name": "body",
             "in": "body",
             "schema": {
               "$ref": "#/definitions/pet"
-            },
-            "required": false,
-            "description": "The updated pet info"
+            }
           }
         ],
         "consumes": [
