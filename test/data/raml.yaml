@@ -155,7 +155,8 @@ documentation:
     description: ''
     uriParameters:
       productId:
-        description: productId
+        displayName: productId
+        type: string
     get:
       description: Get a single product
       responses:
