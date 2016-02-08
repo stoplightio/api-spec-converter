@@ -1,12 +1,23 @@
 {
   "swagger": "2.0",
+  "schemes": [
+    "http",
+    "https",
+    "ws"
+  ],
+  "basePath": "/api",
+  "host": "localhost:3000",
   "info": {
     "version": "1.0.0",
     "title": "Swagger petstore",
     "description": "A sample API"
   },
-  "basePath": "/api",
-  "host": "localhost:3000",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/pets/{petName}": {
       "parameters": [
@@ -242,16 +253,5 @@
         }
       }
     }
-  },
-  "schemes": [
-    "http",
-    "https",
-    "ws"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "consumes": [
-    "application/json"
-  ]
+  }
 }
