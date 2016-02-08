@@ -170,8 +170,8 @@ describe('Converter', function() {
       var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
       converter.loadFile(ramlPath, function(){
         try{
-          var covertedRAML = converter.convert('yaml');
-          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedRAML, 'utf8');
+          var covertedSwagger = converter.convert('yaml');
+          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedSwagger, 'utf8');
           var converter2 = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
           converter2.loadFile(__dirname + '/../data/temp.yaml', function(err){
             try{

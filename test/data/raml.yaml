@@ -146,8 +146,8 @@ documentation:
             example: ''
     queryParameters:
       q:
-        description: Search phrase to look for products
         type: string
+        description: Search phrase to look for products
         required: false
         displayName: q
   '/{productId}':
@@ -167,8 +167,8 @@ documentation:
               example: ''
       queryParameters:
         productId:
-          description: The ID of the product
           type: integer
+          description: The ID of the product
           required: true
           displayName: productId
     put:
@@ -361,8 +361,8 @@ documentation:
                 }
       queryParameters:
         productId:
-          description: The ID of the product
           type: integer
+          description: The ID of the product
           required: true
           displayName: productId
     delete:
@@ -375,8 +375,8 @@ documentation:
               example: ''
       queryParameters:
         productId:
-          description: The ID of the product
           type: integer
+          description: The ID of the product
           required: true
           displayName: productId
 schemas: []
