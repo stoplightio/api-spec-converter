@@ -118,32 +118,31 @@
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "formData",
-            "description": "The photo ID (generated automatically)",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "label",
-            "in": "formData",
-            "description": "A label for the photo",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "description",
-            "in": "formData",
-            "description": "An optional description of the photo",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "photo",
-            "in": "formData",
-            "description": "The pet photo",
-            "required": true,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "id": {
+                  "description": "The photo ID (generated automatically)",
+                  "type": "string"
+                },
+                "label": {
+                  "description": "A label for the photo",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "An optional description of the photo",
+                  "type": "string"
+                },
+                "photo": {
+                  "description": "The pet photo",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "photo"
+              ]
+            }
           }
         ],
         "responses": {
