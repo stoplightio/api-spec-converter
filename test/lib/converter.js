@@ -102,7 +102,7 @@ describe('Converter', function() {
       var path = __dirname + '/../data/swagger.json';
       var originalData = JSON.stringify(require(path), null, 2);
       newConverterInstance = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.SWAGGER);
-      newConverterInstance.loadFile(path, function(){
+      newConverterInstance.loadData(originalData, function(){
         try {
           var convertedData = newConverterInstance.convert('json');
           expect(JSON.stringify(convertedData, null, 2)).to.equal(originalData);
@@ -125,7 +125,7 @@ describe('Converter', function() {
       var path = __dirname + '/../data/raml.yaml';
       var originalData = fs.readFileSync(path, 'utf8');
       newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
-      newConverterInstance.loadFile(path, function(){
+      newConverterInstance.loadData(originalData, function(){
         try {
           var convertedData = newConverterInstance.convert('yaml');
           expect(originalData).to.equalIgnoreSpaces(convertedData);
@@ -142,9 +142,8 @@ describe('Converter', function() {
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
         try{
           var covertedRAML = converter.convert('yaml');
-          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedRAML, 'utf8');
           var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
-          converter2.loadFile(__dirname + '/../data/temp.yaml', function(err){
+          converter2.loadData(covertedRAML, function(err){
             try{
               if(err) {
                 done(err);
@@ -171,16 +170,14 @@ describe('Converter', function() {
       converter.loadFile(ramlPath, function(){
         try{
           var covertedSwagger = converter.convert('yaml');
-          fs.writeFileSync(__dirname + '/../data/temp.yaml', covertedSwagger, 'utf8');
           var converter2 = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
-          converter2.loadFile(__dirname + '/../data/temp.yaml', function(err){
+          converter2.loadData(covertedSwagger, function(err){
             try{
               if(err) {
                 done(err);
                 return;
               }
               var resultRAML = converter2.convert('yaml');
-              fs.writeFileSync(__dirname + '/../data/temp.yaml', resultRAML, 'utf8');
               expect(resultRAML).to.equalIgnoreSpaces(fs.readFileSync(ramlPath, 'utf8'));
               done();
             }
