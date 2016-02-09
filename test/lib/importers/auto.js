@@ -22,6 +22,9 @@ describe('Auto Importer', function(){
     it('should be able to load a valid postman json file', function(done){
       autoImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
         expect(err).to.be.equal(undefined);
+        var slProject = autoImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
         done();
       });
     });
@@ -34,17 +37,27 @@ describe('Auto Importer', function(){
     it('should be able to load a valid swagger json file', function(done){
       autoImporter.loadFile(__dirname+'/../../data/swagger.json', function(err){
         expect(err).to.be.equal(undefined);
+        var slProject = autoImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
         done();
       });
     });
     it('should be able to load a valid swagger yaml file', function(done){
       autoImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(err){
         expect(err).to.be.equal(undefined);
+        var slProject = autoImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
         done();
       });
     });
     it('should be able to load a valid raml yaml file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/raml.yaml', function(){
+      autoImporter.loadFile(__dirname+'/../../data/raml.yaml', function(err){
+        expect(err).to.be.equal(undefined);
+        var slProject = autoImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
         done();
       });
     });
