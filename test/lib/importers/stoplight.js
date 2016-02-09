@@ -36,15 +36,19 @@ describe('Stoplight Importer', function(){
       //should be null before mapping
       expect(importer.project).to.equal(null);
       //pre-requisite
-      importer.loadData(slData);
-      importer._import();
-      expect(importer.project).to.not.equal(null);
-      expect(importer.project.Endpoints.length).gt(0);
+      importer.loadData(slData, function(err){
+        expect(err).to.be.equal(undefined);
+        importer._import();
+        expect(importer.project).to.not.equal(null);
+        expect(importer.project.Endpoints.length).gt(0);
+      });
     });
     it('exported data should have at least one endpoint', function(){
-      importer.loadData(slData);
-      importer._import();
-      expect(importer.project.Endpoints.length).to.gt(0);
+      importer.loadData(slData, function(err){
+        expect(err).to.be.equal(undefined);
+        importer._import();
+        expect(importer.project.Endpoints.length).to.gt(0);
+      });
     });
   });
   describe('middleware', function(){

@@ -20,23 +20,26 @@ describe('Auto Importer', function(){
   });
   describe('loadFile', function(){
     it('should be able to load a valid postman json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/postman.json', function(){
+      autoImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
+        expect(err).to.be.equal(undefined);
         done();
       });
     });
     it('should return error for invalid json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
+      autoImporter.loadFile(__dirname+'/../../data/invalid/postman.json', function(err){
         expect(err).to.not.equal(undefined);
         done();
       });
     });
     it('should be able to load a valid swagger json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/swagger.json', function(){
+      autoImporter.loadFile(__dirname+'/../../data/swagger.json', function(err){
+        expect(err).to.be.equal(undefined);
         done();
       });
     });
     it('should be able to load a valid swagger yaml file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(){
+      autoImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(err){
+        expect(err).to.be.equal(undefined);
         done();
       });
     });
@@ -48,7 +51,8 @@ describe('Auto Importer', function(){
   });
   describe('_import', function(){
     it('should perform import operation on loaded data', function(){
-      autoImporter.loadFile(__dirname+'/../../data/stoplightx.json', function(){
+      autoImporter.loadFile(__dirname+'/../../data/stoplightx.json', function(err){
+        expect(err).to.be.equal(undefined);
         var slProject = autoImporter.import();
         expect(slProject).to.be.instanceOf(Project);
         expect(slProject.Endpoints.length).to.gt(0);

@@ -27,7 +27,9 @@ describe('Importer', function(){
   });
   describe('loadData', function(){
     it('should be able to load data directly', function(){
-      expect(importer.loadData(require(filePath))).to.be.true;
+      importer.loadData(require(filePath), function(err){
+        expect(err).to.be.equal(undefined);
+      });
     });
   });
   describe('_import', function(){

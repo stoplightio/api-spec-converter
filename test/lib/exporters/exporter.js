@@ -18,8 +18,10 @@ describe('Exporter', function(){
       var slData = require(__dirname + '/../../data/stoplight');
       try {
         expect(exporter.project).to.equal(null);
-        exporter.loadSLData(slData);
-        expect(exporter.project).to.not.equal(null);
+        exporter.loadSLData(slData, function(err){
+          expect(err).to.equal(undefined);
+          expect(exporter.project).to.not.be.null;
+        });
       }
       catch(err) {
         expect(err).to.equal(undefined);

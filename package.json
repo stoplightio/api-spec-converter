@@ -22,7 +22,9 @@
     "jsonschema": "^1.0.2",
     "lodash": "^3.10.1",
     "raml-parser": "^0.8.12",
-    "swagger-parser": "^3.0.0-alpha.5"
+    "request": "^2.69.0",
+    "swagger-parser": "^3.0.0-alpha.5",
+    "yamljs": "^0.2.4"
   },
   "devDependencies": {
     "chai": "^3.4.1",

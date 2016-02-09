@@ -24,16 +24,18 @@ describe('Swagger Exporter', function(){
 
   describe('_export', function(){
     it('should perform export for loaded data', function(done){
-      swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'));
-      var exportedData = swaggerExporter.export('yaml');
-      fs.writeFileSync('temp.yaml', exportedData, 'utf8');
-      parser.parse('temp.yaml')
-      .then(function(api, metadata) {
-        done();
-      })
-      .catch(function(err) {
+      swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'), function(err){
         expect(err).to.equal(undefined);
-        done();
+        var exportedData = swaggerExporter.export('yaml');
+        fs.writeFileSync('temp.yaml', exportedData, 'utf8');
+        parser.parse('temp.yaml')
+        .then(function(api, metadata) {
+          done();
+        })
+        .catch(function(err) {
+          expect(err).to.equal(undefined);
+          done();
+        });
       });
     });
   });
