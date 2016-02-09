@@ -206,6 +206,8 @@ paths:
             Location:
               type: string
               description: The URL of the newly-added pet
+      security:
+        - api_key: []
 
   /pets/{petName}:
     parameters:
