@@ -61,6 +61,15 @@ describe('Auto Importer', function(){
         done();
       });
     });
+    it('should be able to load a remote swagger url', function(done){
+      autoImporter.loadFile('http://petstore.swagger.io/v2/swagger.json', function(err){
+        expect(err).to.be.equal(undefined);
+        var slProject = autoImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
   });
   describe('_import', function(){
     it('should perform import operation on loaded data', function(){
