@@ -24,11 +24,13 @@
                 "operationId": "deletePetPhoto",
                 "summary": "",
                 "description": "Deletes a pet photo",
-                "x-stoplight-before": "function(){return 'Hello World';}",
-                "x-stoplight-after": "function(){return 'Hello World After';}",
-                "x-stoplight-mock": {
-                    "enabled": true,
-                    "statusCode": 400
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "get": {
@@ -50,11 +52,13 @@
                 "operationId": "getPetPhoto",
                 "summary": "",
                 "description": "Gets a pet photo",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             }
         },
@@ -97,11 +101,13 @@
                 "operationId": "",
                 "summary": "",
                 "description": "Get a list of the photos for a pet",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "post": {
@@ -167,11 +173,13 @@
                 "operationId": "addPetPhoto",
                 "summary": "",
                 "description": "Upload a new pet photo",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             }
         },
@@ -277,11 +285,13 @@
                 "operationId": "deletePets",
                 "summary": "",
                 "description": "Deletes all pets, optionally filtered by one or more criteria",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "get": {
@@ -384,11 +394,13 @@
                 "operationId": "findPets",
                 "summary": "",
                 "description": "Returns all pets, optionally filtered by one or more criteria",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "post": {
@@ -418,11 +430,13 @@
                 "operationId": "addPet",
                 "summary": "",
                 "description": "Creates a new pet in the store",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             }
         },
@@ -455,11 +469,13 @@
                 "operationId": "",
                 "summary": "",
                 "description": "Updates a pet by name",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "delete": {
@@ -481,11 +497,13 @@
                 "operationId": "deletePet",
                 "summary": "",
                 "description": "Deletes a single pet based on the name supplied",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             },
             "get": {
@@ -507,11 +525,13 @@
                 "operationId": "findPetByName",
                 "summary": "",
                 "description": "Returns a pet by name",
-                "x-stoplight-before": "",
-                "x-stoplight-after": "",
-                "x-stoplight-mock": {
-                    "enabled": null,
-                    "statusCode": null
+                "x-stoplight": {
+                    "beforeScript": "function(){return 'Hello World';}",
+                    "afterScript": "function(){return 'Hello World After';}",
+                    "mock": {
+                        "enabled": true,
+                        "statusCode": 400
+                    }
                 }
             }
         }
@@ -538,6 +558,13 @@
                     "minimum": 10000,
                     "maximum": 99999
                 }
+            },
+            "x-stoplight": {
+                "id": "mongo identifier",
+                "name": "Todo Model",
+                "summary": "Some summary",
+                "description": "some description",
+                "public": true
             }
         },
         "veterinarian": {
@@ -552,6 +579,13 @@
                 "address": {
                     "$ref": "#/definitions/address"
                 }
+            },
+            "x-stoplight": {
+                "id": "mongo identifier",
+                "name": "Todo Model",
+                "summary": "Some summary",
+                "description": "some description",
+                "public": true
             }
         },
         "pet": {
@@ -594,6 +628,13 @@
                         "minLength": 1
                     }
                 }
+            },
+            "x-stoplight": {
+                "id": "mongo identifier",
+                "name": "Todo Model",
+                "summary": "Some summary",
+                "description": "some description",
+                "public": true
             }
         }
     },
@@ -616,48 +657,44 @@
         }
     },
     "x-stoplight": {
-        "environment": {
-            "forwardHost": "http://localhost:3000",
-            "basePath": "",
-            "defaultResponseType": "application/json",
-            "defaultRequestType": "application/json",
-            "protocols": [
-                "http",
-                "https",
-                "ws"
-            ],
-            "version": "1.0.0",
-            "resourcesOrder": {
+        "version": {
+            "groups": {
                 "utilFuncs": [],
                 "docs": []
             }
         },
-        "functions": [
-            {
+        "functions": {
+            "onlyProcessPath": {
+                "id": "onlyProcessPath",
                 "name": "onlyProcessPath",
                 "description": "If your API lives at a subpath, for example, localhost:3000/api, then this function is useful to only learn / log requests that match the given subpath.",
                 "script": "function (ctx, request, subpath) {\n  // for example, onlyProcessPath(ctx, request, \"api\") will turn off logging/learning for any\n  // requests that don't have \"api\" in their path.\n  if (request.url.path.get().indexOf(subpath) == -1) {\n     ctx.log.set(false)\n     ctx.learn.set(false)\n  }\n}"
             },
-            {
+            "validateResponse": {
+                "id": "validateResponse",
                 "name": "validateResponse",
                 "description": "Calling this function will validate the response, and add a response header indicating wether or not validation passed. It also adds all the validation errors to the entry messages, which are viewable in an entry tab. Lastly, it extends mocking with useful error messages.",
                 "script": "function (ctx, response) {\n  var messages = response.validate(),\n      isValid = true\n      \n  if (messages.length) {\n    isValid = false\n    for (var i in messages) {\n      response.logError(messages[i])\n    }\n    \n    // If mocking is enabled and validation fails, this means \n    // the example mock we've set for this endpoint/status code \n    // does not match the schema.. we don't want developers working \n    // off of an invalid example, so here we ovewrite the response\n    // with the the validation error messages.\n    if (ctx.mock.enabled.get()) {\n      response.body.set(messages)\n    }\n  }\n  \n  response.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  response.valid.set(isValid)\n}"
             },
-            {
+            "addRandomLatency": {
+                "id": "addRandomLatency",
                 "name": "addRandomLatency",
                 "description": "Sleep for a random amount of time. Useful to simulate latency.",
                 "script": "function (min, max) {\n  SL.sleep(SL.rand(min, max))\n}"
             },
-            {
+            "queryStringMocking": {
+                "id": "queryStringMocking",
                 "name": "queryStringMocking",
                 "description": "This extends the basic mocking functionality, and makes it possible to control mocking behavior via the request query string.",
                 "script": "function (ctx, request) {\n  // For example, adding ?mock=200 to a request url will enable mocking,\n  // using the example endpoint response for the 200 status code.\n  var mock = request.url.query.get(\"mock\")\n  if (mock) {\n    ctx.mock.set(true, mock)\n  }\n}"
             },
-            {
+            "validateRequest": {
+                "id": "validateRequest",
                 "name": "validateRequest",
                 "description": "Calling this function will validate the request, and add a request header indicating wether or not validation passed. It also adds all the validation errors to the entry messages, which are viewable in an entry tab.",
                 "script": "function (ctx, request) {\n  var messages = request.validate(),\n      isValid = true\n\n  if (messages.length) {\n    isValid = false\n\n    for (var i in messages) {\n      request.logError(messages[i])\n    }\n\n    // Uncomment the line below to respond immediately\n    // with the validation error messages. Useful to let\n    // developers know exactly what is wrong with their API request.\n    //\n    // var response = request.hijack(400, \"application/json\", messages)\n  }\n\n  request.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  request.valid.set(isValid)\n}"
             }
-        ]
+        },
+        "textSections": {}
     }
 }

@@ -34,10 +34,6 @@ describe('index', function() {
         var exporterInstance = new specConverter.Exporter.factory(specConverter.Formats.SWAGGER);
         expect(exporterInstance).to.be.an.instanceof(require('../lib/exporters/swagger'));
       });
-      it('should expose stoplight exporter api', function(){
-        var exporterInstance = new specConverter.Exporter.factory(specConverter.Formats.STOPLIGHT);
-        expect(exporterInstance).to.be.an.instanceof(require('../lib/exporters/stoplight'));
-      });
     });
 
     describe('importers', function(){

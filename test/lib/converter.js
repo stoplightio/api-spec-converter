@@ -82,13 +82,15 @@ describe('Converter', function() {
         }
       });
     });
-    it('converting from stoplight to stoplight format should be identical', function(done){
-      var path = __dirname + '/../data/stoplight.json';
-      var originalData = JSON.stringify(require(path));
-      newConverterInstance = new specConverter.Converter(specConverter.Formats.STOPLIGHT, specConverter.Formats.STOPLIGHT);
-      newConverterInstance.loadFile(path, function(){
+    it('converting from stoplightx to stoplightx format should be identical', function(done){
+      var path = __dirname + '/../data/stoplightx.json';
+      var originalData = require(path);
+      newConverterInstance = new specConverter.Converter(specConverter.Formats.STOPLIGHTX, specConverter.Formats.STOPLIGHTX);
+      newConverterInstance.loadFile(path, function(err){
+        expect(err).to.be.equal.undefined;
         var convertedData = newConverterInstance.convert('json');
-        expect(JSON.stringify(convertedData)).to.equal(originalData);
+        fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
+        expect(JSON.stringify(convertedData)).to.deep.equal(JSON.stringify(originalData));
         done();
       });
     });
