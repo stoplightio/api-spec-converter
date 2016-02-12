@@ -692,8 +692,8 @@
   },
   "x-stoplight": {
     "version": {
-      "beforeScript": "",
-      "afterScript": "",
+      "beforeScript": "function(){ return 'before stript'}",
+      "afterScript": "function(){ return 'after stript'}",
       "groups": {
         "utilFuncs": [],
         "docs": [
