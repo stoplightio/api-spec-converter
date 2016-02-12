@@ -606,6 +606,7 @@
         }
       },
       "x-stoplight": {
+        "id": "address",
         "name": "address",
         "summary": "",
         "description": "",
@@ -626,6 +627,7 @@
         }
       },
       "x-stoplight": {
+        "id": "veterinarian",
         "name": "veterinarian",
         "summary": "",
         "description": "",
@@ -674,6 +676,7 @@
         }
       },
       "x-stoplight": {
+        "id": "pet",
         "name": "pet",
         "summary": "",
         "description": "",

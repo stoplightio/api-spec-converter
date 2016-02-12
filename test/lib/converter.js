@@ -91,7 +91,7 @@ describe('Converter', function() {
           expect(err).to.be.equal.undefined;
           var convertedData = newConverterInstance.convert('json');
           fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
-          expect(JSON.parse(JSON.stringify(convertedData))).to.equal(originalData);
+          expect(convertedData).to.deep.equal(originalData);
           done();
         } catch(err) {
           done(err);
