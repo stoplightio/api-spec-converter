@@ -728,6 +728,13 @@
         "script": "function (ctx, request) {\n  var messages = request.validate(),\n      isValid = true\n\n  if (messages.length) {\n    isValid = false\n\n    for (var i in messages) {\n      request.logError(messages[i])\n    }\n\n    // Uncomment the line below to respond immediately\n    // with the validation error messages. Useful to let\n    // developers know exactly what is wrong with their API request.\n    //\n    // var response = request.hijack(400, \"application/json\", messages)\n  }\n\n  request.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  request.valid.set(isValid)\n}"
       }
     },
-    "textSections": {}
+    "textSections": {
+      "todo-text-section-o2inf3829x": {
+        "id": "todo-text-section-o2inf3829x",
+        "name": "Todo Text Section",
+        "content": "This is what a todo is.",
+        "public": false
+      }
+    }
   }
 }
