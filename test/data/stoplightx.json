@@ -689,8 +689,8 @@
   },
   "x-stoplight": {
     "version": {
-      "middlewareBefore": "",
-      "middlewareAfter": "",
+      "beforeScript": "",
+      "afterScript": "",
       "groups": {
         "utilFuncs": [],
         "docs": []
