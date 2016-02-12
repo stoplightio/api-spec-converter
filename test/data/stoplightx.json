@@ -37,6 +37,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "delete_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -66,6 +67,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "get_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -115,6 +117,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "get_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -188,6 +191,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "post_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -301,6 +305,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "delete_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -411,6 +416,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "get_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -456,6 +462,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "post_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -503,6 +510,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "patch_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -532,6 +540,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "delete_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -561,6 +570,7 @@
         },
         "summary": "",
         "x-stoplight": {
+          "id": "get_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
