@@ -693,7 +693,35 @@
       "afterScript": "",
       "groups": {
         "utilFuncs": [],
-        "docs": []
+        "docs": [
+          {
+              "name": "Group1",
+              "items": [
+                  {
+                      "_id": "DELETE_pets-petName-photos-id",
+                      "type": "endpoints"
+                  }
+              ]
+          },
+          {
+              "name": "Group2",
+              "items": [
+                  {
+                      "_id": "GET_pets",
+                      "type": "endpoints"
+                  }
+              ]
+          },
+          {
+              "name": "Models",
+              "items": [
+                  {
+                      "_id": "pet",
+                      "type": "schemas"
+                  }
+              ]
+          }
+        ]
       }
     },
     "functions": {

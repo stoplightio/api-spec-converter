@@ -87,11 +87,15 @@ describe('Converter', function() {
       var originalData = require(path);
       newConverterInstance = new specConverter.Converter(specConverter.Formats.STOPLIGHTX, specConverter.Formats.STOPLIGHTX);
       newConverterInstance.loadFile(path, function(err){
-        expect(err).to.be.equal.undefined;
-        var convertedData = newConverterInstance.convert('json');
-        fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
-        expect(JSON.stringify(convertedData)).to.deep.equal(JSON.stringify(originalData));
-        done();
+        try {
+          expect(err).to.be.equal.undefined;
+          var convertedData = newConverterInstance.convert('json');
+          fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
+          expect(JSON.parse(JSON.stringify(convertedData))).to.equal(originalData);
+          done();
+        } catch(err) {
+          done(err);
+        }
       });
     });
 
