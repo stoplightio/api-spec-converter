@@ -50,4 +50,61 @@ describe('Swagger Exporter', function(){
     it('should map oauth2 security definitions to stoplight successfully');
     it('should map basic security definitions to stoplight successfully');
   });
+
+  describe('_mapRequestBody', function(){
+    it('should map map request body params and return successfully', function(){
+      var stoplightParams = {
+        'type': 'object',
+        'properties': {
+          'id': {
+            'description': 'The photo ID',
+            'type': 'string'
+          },
+          'photo': {
+            'description': 'The pet photo',
+            'type': 'string'
+          }
+        },
+        'required': [
+          'photo'
+        ]
+      };
+      var stoplightBody = {
+        body: JSON.stringify(stoplightParams)
+      };
+
+      var params = swaggerExporter._mapRequestBody(stoplightBody);
+      expect(params).to.not.be.undefined;
+      expect(params.length).to.be.equal(1);
+    });
+
+    it('should map as formData param for file type prop existence', function(){
+      var stoplightParams = {
+        'type': 'object',
+        'properties': {
+          'id': {
+            'description': 'The photo ID',
+            'type': 'string'
+          },
+          'photo': {
+            'description': 'The pet photo',
+            'type': 'file'
+          }
+        },
+        'required': [
+          'photo'
+        ]
+      };
+      var stoplightBody = {
+        body: JSON.stringify(stoplightParams)
+      };
+
+      var params = swaggerExporter._mapRequestBody(stoplightBody);
+      expect(params).to.not.be.undefined;
+      expect(params.length).to.be.equal(2);
+      expect(params[0].name).to.be.equal('id');
+      expect(params[1].required).to.be.equal(true);
+    });
+
+  });
 });
