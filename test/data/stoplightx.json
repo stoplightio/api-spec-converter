@@ -729,31 +729,26 @@
     },
     "functions": {
       "onlyProcessPath": {
-        "id": "onlyProcessPath",
         "name": "onlyProcessPath",
         "description": "If your API lives at a subpath, for example, localhost:3000/api, then this function is useful to only learn / log requests that match the given subpath.",
         "script": "function (ctx, request, subpath) {\n  // for example, onlyProcessPath(ctx, request, \"api\") will turn off logging/learning for any\n  // requests that don't have \"api\" in their path.\n  if (request.url.path.get().indexOf(subpath) == -1) {\n     ctx.log.set(false)\n     ctx.learn.set(false)\n  }\n}"
       },
       "validateResponse": {
-        "id": "validateResponse",
         "name": "validateResponse",
         "description": "Calling this function will validate the response, and add a response header indicating wether or not validation passed. It also adds all the validation errors to the entry messages, which are viewable in an entry tab. Lastly, it extends mocking with useful error messages.",
         "script": "function (ctx, response) {\n  var messages = response.validate(),\n      isValid = true\n      \n  if (messages.length) {\n    isValid = false\n    for (var i in messages) {\n      response.logError(messages[i])\n    }\n    \n    // If mocking is enabled and validation fails, this means \n    // the example mock we've set for this endpoint/status code \n    // does not match the schema.. we don't want developers working \n    // off of an invalid example, so here we ovewrite the response\n    // with the the validation error messages.\n    if (ctx.mock.enabled.get()) {\n      response.body.set(messages)\n    }\n  }\n  \n  response.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  response.valid.set(isValid)\n}"
       },
       "addRandomLatency": {
-        "id": "addRandomLatency",
         "name": "addRandomLatency",
         "description": "Sleep for a random amount of time. Useful to simulate latency.",
         "script": "function (min, max) {\n  SL.sleep(SL.rand(min, max))\n}"
       },
       "queryStringMocking": {
-        "id": "queryStringMocking",
         "name": "queryStringMocking",
         "description": "This extends the basic mocking functionality, and makes it possible to control mocking behavior via the request query string.",
         "script": "function (ctx, request) {\n  // For example, adding ?mock=200 to a request url will enable mocking,\n  // using the example endpoint response for the 200 status code.\n  var mock = request.url.query.get(\"mock\")\n  if (mock) {\n    ctx.mock.set(true, mock)\n  }\n}"
       },
       "validateRequest": {
-        "id": "validateRequest",
         "name": "validateRequest",
         "description": "Calling this function will validate the request, and add a request header indicating wether or not validation passed. It also adds all the validation errors to the entry messages, which are viewable in an entry tab.",
         "script": "function (ctx, request) {\n  var messages = request.validate(),\n      isValid = true\n\n  if (messages.length) {\n    isValid = false\n\n    for (var i in messages) {\n      request.logError(messages[i])\n    }\n\n    // Uncomment the line below to respond immediately\n    // with the validation error messages. Useful to let\n    // developers know exactly what is wrong with their API request.\n    //\n    // var response = request.hijack(400, \"application/json\", messages)\n  }\n\n  request.header.set(\"Validation-Passed\", isValid)\n  ctx.isValid = isValid\n  request.valid.set(isValid)\n}"
