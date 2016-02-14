@@ -1,6 +1,7 @@
 var expect   = require('chai').expect,
     Swagger = require('../../../lib/importers/swagger'),
-    Project = require('../../../lib/entities/project');
+    Project = require('../../../lib/entities/project'),
+    Schema = require('../../../lib/entities/schema');
 
 describe('Swagger Importer', function(){
   var swaggerImporter, filePath = __dirname+'/../../data/swagger.yaml';
@@ -56,7 +57,48 @@ describe('Swagger Importer', function(){
 
   //TODO write test for internal functions
   describe('_mapSchema', function(){
-    it('should map schema data successfully');
+    it('should map schema data successfully', function(){
+      var schemaData = {
+            address: {
+              properties: {
+                street: {
+                  type: 'string',
+                  minLength: 1
+                }
+              }
+            }
+          };
+
+      var schemas = swaggerImporter._mapSchema(schemaData);
+      expect(schemas).to.not.be.undefined;
+      expect(schemas.length).to.be.equal(1);
+      expect(schemas[0]).to.be.instanceOf(Schema);
+    });
+    it('should avoid extensions properties', function(){
+      var schemaData = {
+            address: {
+              properties: {
+                street: {
+                  type: 'string',
+                  minLength: 1
+                }
+              },
+              'x-stoplight': {
+                id: 'address',
+                name: 'address',
+                summary: '',
+                description: '',
+                public: true
+              }
+            }
+          };
+
+      var schemas = swaggerImporter._mapSchema(schemaData);
+      expect(schemas).to.not.be.undefined;
+      expect(schemas.length).to.be.equal(1);
+      expect(schemas[0]).to.be.instanceOf(Schema);
+      expect(JSON.parse(schemas[0].Definition)).to.not.equal(schemaData);
+    });
   });
 
   describe('_mapQueryString', function(){
