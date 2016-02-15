@@ -81,4 +81,13 @@ describe('Auto Importer', function(){
       });
     });
   });
+  describe('getDetectedFormat', function(){
+    it('should return detected format', function(){
+      autoImporter.loadFile(__dirname+'/../../data/stoplightx.json', function(err){
+        expect(err).to.be.equal(undefined);
+        expect(autoImporter.getDetectedFormat()).to.be.equal('STOPLIGHTX');
+        expect(autoImporter.detectedFormat).to.be.equal('STOPLIGHTX');
+      });
+    });
+  });
 });
