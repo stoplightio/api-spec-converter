@@ -50,6 +50,20 @@ describe('RAML Importer', function(){
   });
 
   //TODO write test for internal functions
+  describe('_mapHost', function(){
+    it('should map empty host as null', function(){
+      var importer = new RAML();
+      importer.project = new Project('test');
+      importer.data = {
+        baseUri: undefined
+      };
+      importer._mapHost();
+      expect(importer.project.Environment.Host).to.be.equal(null);
+    });
+  });
+
+
+  //TODO write test for internal functions
   describe('_mapSchema', function(){
     it('should map schema data successfully');
   });
