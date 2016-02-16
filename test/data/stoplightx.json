@@ -19,7 +19,22 @@
   ],
   "paths": {
     "/pets/{petName}/photos/{id}": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id for the pet",
+          "required": true,
+          "type": "integer"
+        }
+      ],
       "delete": {
         "description": "Deletes a pet photo",
         "operationId": "deletePetPhoto",
@@ -79,7 +94,15 @@
       }
     },
     "/pets/{petName}/photos": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "get": {
         "description": "Get a list of the photos for a pet",
         "consumes": [
@@ -216,6 +239,7 @@
         "parameters": [
           {
             "name": "tags",
+            "required": false,
             "in": "query",
             "description": "Filters pets by one or more tags",
             "type": "array",
@@ -225,12 +249,14 @@
           },
           {
             "name": "type",
+            "required": false,
             "in": "query",
             "description": "Filters pets by type (dog, cat, or bird)",
             "type": "string"
           },
           {
             "name": "age",
+            "required": false,
             "in": "query",
             "description": "Filters pets by age",
             "required": true,
@@ -238,48 +264,56 @@
           },
           {
             "name": "dob",
+            "required": false,
             "in": "query",
             "description": "Filters pets by date of birth",
             "type": "string"
           },
           {
             "name": "address.city",
+            "required": false,
             "in": "query",
             "description": "Filters pets by city",
             "type": "string"
           },
           {
             "name": "address.state",
+            "required": false,
             "in": "query",
             "description": "Filters pets by state",
             "type": "string"
           },
           {
             "name": "address.zipcode",
+            "required": false,
             "in": "query",
             "description": "Filters pets by zip code",
             "type": "integer"
           },
           {
             "name": "vet.name",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian name",
             "type": "string"
           },
           {
             "name": "vet.address.city",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian city",
             "type": "string"
           },
           {
             "name": "vet.address.state",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian state",
             "type": "string"
           },
           {
             "name": "vet.address.zipcode",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian zip code",
             "type": "integer"
@@ -327,6 +361,7 @@
         "parameters": [
           {
             "name": "tags",
+            "required": false,
             "in": "query",
             "description": "Filters pets by one or more tags",
             "type": "array",
@@ -336,12 +371,14 @@
           },
           {
             "name": "type",
+            "required": false,
             "in": "query",
             "description": "Filters pets by type (dog, cat, or bird)",
             "type": "string"
           },
           {
             "name": "age",
+            "required": false,
             "in": "query",
             "description": "Filters pets by age",
             "required": true,
@@ -349,48 +386,56 @@
           },
           {
             "name": "dob",
+            "required": false,
             "in": "query",
             "description": "Filters pets by date of birth",
             "type": "string"
           },
           {
             "name": "address.city",
+            "required": false,
             "in": "query",
             "description": "Filters pets by city",
             "type": "string"
           },
           {
             "name": "address.state",
+            "required": false,
             "in": "query",
             "description": "Filters pets by state",
             "type": "string"
           },
           {
             "name": "address.zipcode",
+            "required": false,
             "in": "query",
             "description": "Filters pets by zip code",
             "type": "integer"
           },
           {
             "name": "vet.name",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian name",
             "type": "string"
           },
           {
             "name": "vet.address.city",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian city",
             "type": "string"
           },
           {
             "name": "vet.address.state",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian state",
             "type": "string"
           },
           {
             "name": "vet.address.zipcode",
+            "required": false,
             "in": "query",
             "description": "Filters pets by veterinarian zip code",
             "type": "integer"
@@ -474,7 +519,15 @@
       }
     },
     "/pets/{petName}": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "petName",
+          "in": "path",
+          "description": "name for the pet",
+          "required": true,
+          "type": "string"
+        }
+      ],
       "patch": {
         "description": "Updates a pet by name",
         "consumes": [
