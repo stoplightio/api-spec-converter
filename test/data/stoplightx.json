@@ -52,7 +52,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "delete_pets-petName-photos-id",
+          "id": "DELETE_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -82,7 +82,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "get_pets-petName-photos-id",
+          "id": "GET_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -140,7 +140,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "get_pets-petName-photos",
+          "id": "GET_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -214,7 +214,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "post_pets-petName-photos",
+          "id": "POST_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -339,7 +339,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "delete_pets",
+          "id": "DELETE_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -461,7 +461,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "get_pets",
+          "id": "GET_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -507,7 +507,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "post_pets",
+          "id": "POST_pets",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -563,7 +563,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "patch_pets-petName",
+          "id": "PATCH_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -593,7 +593,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "delete_pets-petName",
+          "id": "DELETE_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
@@ -623,7 +623,7 @@
         },
         "summary": "",
         "x-stoplight": {
-          "id": "get_pets-petName",
+          "id": "GET_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
           "public": true,
