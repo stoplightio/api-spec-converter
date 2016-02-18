@@ -3,7 +3,7 @@
 This package helps to convert between different API specifications (Postman, Swagger, RAML, StopLight).
 
 ###Installation
-We didn't released any official npm package just yet. But that doesn't stop you from start using it at all. 
+We didn't released any official npm package just yet. But that doesn't stop you from start using it at all.
 Use this command to install the latest revision:
 
 ```
@@ -30,12 +30,14 @@ ramlToSwaggerConverter.loadFile('/source/raml.yaml', function(err){
     console.log(err.stack);
     return;
   }
-  try{
-    fs.writeFileSync('/target/raml.yaml', ramlToSwaggerConverter.convert('yaml'), 'utf8');
-  }
-  catch(err) {
-    console.log(err.stack);
-  }
+
+  ramlToSwaggerConverter.convert('yaml')
+  .then(function(convertedData){
+    fs.writeFileSync('/target/raml.yaml', convertedData, 'utf8');
+  })
+  .catch(function(err){
+    console.log(err);
+  })
 });
 ```
 Not that `loadFile` method supports both a local file path and a remote url as well.
@@ -49,9 +51,10 @@ var myConverter = new slConverter.Converter(slConverter.Formats.AUTO, slConverte
 You can also load string data instead of a file path:
 
 ```
-myConverter.loadData(myData, function(err){
-    var convertedData = myConverter.convert('yaml');
-    //do whatever you need with 'convertedData';
+myConverter.loadData(myData)
+.then(function(){
+    //do the convert
+}
 });
 ```
 
