@@ -9,7 +9,12 @@ swaggerConverter.loadData(data, function(err){
     return console.log(err);
   }
   try{
-    fs.writeFileSync(__dirname + '/target/npr.json', JSON.stringify(swaggerConverter.convert('json'), 'utf8'), null, 4);
+    swaggerConverter.convert('json', function(err, exportedData){
+      if (err) {
+        return console.log(err);
+      }
+      fs.writeFileSync(__dirname + '/target/npr.json', JSON.stringify(exportedData, 'utf8'), null, 4);
+    });
   }
   catch(err) {
     console.log(err.stack);

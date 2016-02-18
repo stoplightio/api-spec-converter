@@ -10,8 +10,12 @@ try {
       return;
     }
     try{
-      //console.log(ramlConverter.getSLSchemas())
-      fs.writeFileSync(__dirname + '/target/raml.yaml', ramlConverter.convert('yaml'), 'utf8');
+      ramlConverter.convert('yaml', function(err, exportedData){
+        if (err) {
+          return console.log(err);
+        }
+        fs.writeFileSync(__dirname + '/target/raml.yaml', exportedData, 'utf8');
+      });
     }
     catch(err) {
       console.log(err.stack);

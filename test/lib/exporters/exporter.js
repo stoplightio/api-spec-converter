@@ -56,7 +56,10 @@ describe('Exporter', function(){
     });
 
     it('should perform export and return raw data with given format', function(){
-      expect(exporter.export('json')).to.equal(dummyData);
+      exporter.export('json', function(err, exportedData){
+        expect(err).to.be.null;
+        expect(exportedData).to.equal(dummyData);
+      });
     });
     it('should return error if format not supported');
   });

@@ -19,7 +19,6 @@ describe('Converter', function() {
     });
     it('should validate from format, throw error otherwise', function(done){
       try{
-
         //set up a fake format
         specConverter.Formats.ABCD = {
           name: 'ABCD',
@@ -71,11 +70,13 @@ describe('Converter', function() {
     it('should successfully convert and return converted data', function(done){
       converterInstance.loadFile(fullPath, function(){
         try {
-          var returnedData = converterInstance.convert('json');
-          expect(returnedData).to.be.an('object');
-          expect(returnedData).to.include.keys('swagger');
-          expect(returnedData.swagger).to.be.equal('2.0');
-          done();
+          converterInstance.convert('json', function(err, returnedData){
+            expect(err).to.be.null;
+            expect(returnedData).to.be.an('object');
+            expect(returnedData).to.include.keys('swagger');
+            expect(returnedData.swagger).to.be.equal('2.0');
+            done();
+          });
         }
         catch(err) {
           done(err);
@@ -89,10 +90,12 @@ describe('Converter', function() {
       newConverterInstance.loadFile(path, function(err){
         try {
           expect(err).to.be.equal.undefined;
-          var convertedData = newConverterInstance.convert('json');
-          fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
-          expect(convertedData).to.deep.equal(originalData);
-          done();
+          newConverterInstance.convert('json', function(err, convertedData){
+            expect(err).to.be.null;
+            fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
+            expect(convertedData).to.deep.equal(originalData);
+            done();
+          });
         } catch(err) {
           done(err);
         }
@@ -110,9 +113,11 @@ describe('Converter', function() {
       newConverterInstance = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.SWAGGER);
       newConverterInstance.loadData(originalData, function(){
         try {
-          var convertedData = newConverterInstance.convert('json');
-          expect(JSON.stringify(convertedData, null, 2)).to.equal(originalData);
-          done();
+          newConverterInstance.convert('json', function(err, convertedData){
+            expect(err).to.be.null;
+            expect(JSON.stringify(convertedData, null, 2)).to.equal(originalData);
+            done();
+          });
         }
         catch(err) {
           done(err);
@@ -133,9 +138,11 @@ describe('Converter', function() {
       newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.RAML);
       newConverterInstance.loadData(originalData, function(){
         try {
-          var convertedData = newConverterInstance.convert('yaml');
-          expect(originalData).to.equalIgnoreSpaces(convertedData);
-          done();
+          newConverterInstance.convert('yaml', function(err, convertedData){
+            expect(err).to.be.null;
+            expect(originalData).to.equalIgnoreSpaces(convertedData);
+            done();
+          });
         }
         catch(err) {
           done(err);
@@ -147,21 +154,25 @@ describe('Converter', function() {
       var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
         try{
-          var covertedRAML = converter.convert('yaml');
-          var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
-          converter2.loadData(covertedRAML, function(err){
-            try{
-              if(err) {
-                done(err);
-                return;
+          converter.convert('yaml', function(err, covertedRAML){
+            expect(err).to.be.null;
+            var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
+            converter2.loadData(covertedRAML, function(err){
+              try{
+                if(err) {
+                  done(err);
+                  return;
+                }
+                converter2.convert('json', function(err, resultSwagger){
+                  expect(err).to.be.null;
+                  expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml-compatible-swagger.json'));
+                  done();
+                });
               }
-              var resultSwagger = converter2.convert('json');
-              expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml-compatible-swagger.json'));
-              done();
-            }
-            catch(err) {
-              done(err);
-            }
+              catch(err) {
+                done(err);
+              }
+            });
           });
         }
         catch(err) {
@@ -175,21 +186,25 @@ describe('Converter', function() {
       var ramlPath = __dirname + '/../data/swagger-compatible-raml.yaml';
       converter.loadFile(ramlPath, function(){
         try{
-          var covertedSwagger = converter.convert('yaml');
-          var converter2 = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
-          converter2.loadData(covertedSwagger, function(err){
-            try{
-              if(err) {
-                done(err);
-                return;
+          converter.convert('yaml', function(err, covertedSwagger){
+            expect(err).to.be.null;
+            var converter2 = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
+            converter2.loadData(covertedSwagger, function(err){
+              try{
+                if(err) {
+                  done(err);
+                  return;
+                }
+                converter2.convert('yaml', function(err, resultRAML){
+                  expect(err).to.be.null;
+                  expect(resultRAML).to.equalIgnoreSpaces(fs.readFileSync(ramlPath, 'utf8'));
+                  done();
+                });
               }
-              var resultRAML = converter2.convert('yaml');
-              expect(resultRAML).to.equalIgnoreSpaces(fs.readFileSync(ramlPath, 'utf8'));
-              done();
-            }
-            catch(err) {
-              done(err);
-            }
+              catch(err) {
+                done(err);
+              }
+            });
           });
         }
         catch(err) {

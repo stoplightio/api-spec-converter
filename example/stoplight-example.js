@@ -5,7 +5,12 @@ var slConverter = require('../index'),
 try {
   slConverter.loadFile(__dirname + '/source/stoplight.json', function(){
     try{
-      fs.writeFileSync(__dirname + '/target/stoplight.json', JSON.stringify(slConverter.convert('json'), null, 4), 'utf8');
+      slConverter.convert('json', function(err, exportedData){
+        if (err) {
+          return console.log(err);
+        }
+        fs.writeFileSync(__dirname + '/target/stoplight.json', JSON.stringify(exportedData, null, 4), 'utf8');
+      });
     }
     catch(err) {
       console.log(err.stack);

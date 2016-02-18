@@ -28,14 +28,16 @@ describe('RAML Exporter', function(){
     it('should perform export for loaded data', function(){
       ramlExporter.loadSLData(slData, function(err){
         expect(err).to.be.undefined;
-        var ramlData = ramlExporter.export('yaml');
-        expect(ramlData).to.not.be.empty;
-        //verify its valid raml data
-        parser.load(ramlData).then(function(data) {
-          done();
-        }, function(error) {
-          expect(error).to.be.equal(undefined);
-          done();
+        ramlExporter.export('yaml', function(err, ramlData){
+          expect(err).to.be.null;
+          expect(ramlData).to.not.be.empty;
+          //verify its valid raml data
+          parser.load(ramlData).then(function(data) {
+            done();
+          }, function(error) {
+            expect(error).to.be.equal(undefined);
+            done();
+          });
         });
       });
     });
