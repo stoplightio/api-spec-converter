@@ -32,23 +32,31 @@ describe('Stoplight Importer', function(){
     });
   });
   describe('_import', function(){
-    it('should import data to project', function(){
+    it('should import data to project', function(done){
       //should be null before mapping
       expect(importer.project).to.equal(null);
       //pre-requisite
-      importer.loadData(slData, function(err){
-        expect(err).to.be.equal(undefined);
-        importer._import();
-        expect(importer.project).to.not.equal(null);
-        expect(importer.project.Endpoints.length).gt(0);
-      });
+      importer.loadData(slData)
+      .then(function(){
+        try {
+          importer._import();
+          expect(importer.project).to.not.equal(null);
+          expect(importer.project.Endpoints.length).gt(0);
+          done();
+        } catch(err) {
+          done(err);
+        }
+      })
+      .catch(done);
     });
-    it('exported data should have at least one endpoint', function(){
-      importer.loadData(slData, function(err){
-        expect(err).to.be.equal(undefined);
+    it('exported data should have at least one endpoint', function(done){
+      importer.loadData(slData)
+      .then(function(){
         importer._import();
         expect(importer.project.Endpoints.length).to.gt(0);
-      });
+        done();
+      })
+      .catch(done);
     });
   });
   describe('middleware', function(){

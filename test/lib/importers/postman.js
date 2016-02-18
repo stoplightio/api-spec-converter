@@ -25,10 +25,14 @@ describe('Postman Importer', function(){
       });
     });
     it('should return error for invalid json file', function(done){
-      postmanImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
-        expect(err).to.not.equal(undefined);
-        //TODO error message comparisn
-        done();
+      postmanImporter.loadFile(__dirname+'/../../data/invalid/postman.json', function(err){
+        try {
+          expect(err).to.not.equal(undefined);
+          //TODO error message comparisn
+          done();
+        } catch(err) {
+          done(err);
+        }
       });
     });
     it('should return error for valid json, but invalid formatted postman definition file');
