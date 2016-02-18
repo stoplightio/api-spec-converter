@@ -14,17 +14,17 @@ describe('Exporter', function(){
     });
   });
   describe('loadSLData', function(){
-    it('should load Stoplight data successfully', function(){
+    it('should load Stoplight data successfully', function(done){
       var slData = require(__dirname + '/../../data/stoplight');
       try {
         expect(exporter.project).to.equal(null);
         exporter.loadSLData(slData, function(err){
           expect(err).to.equal(undefined);
           expect(exporter.project).to.not.be.null;
+          done();
         });
-      }
-      catch(err) {
-        expect(err).to.equal(undefined);
+      } catch(err) {
+        done(err);
       }
     });
     it('should return error for invalid formatted data');

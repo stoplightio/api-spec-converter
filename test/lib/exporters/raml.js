@@ -25,11 +25,11 @@ describe('RAML Exporter', function(){
   });
 
   describe('_export', function(){
-    it('should perform export for loaded data', function(){
+    it('should perform export for loaded data', function(done){
       ramlExporter.loadSLData(slData, function(err){
         expect(err).to.be.undefined;
-        ramlExporter.export('yaml', function(err, ramlData){
-          expect(err).to.be.null;
+        ramlExporter.export('yaml')
+        .then(function(ramlData){
           expect(ramlData).to.not.be.empty;
           //verify its valid raml data
           parser.load(ramlData).then(function(data) {
@@ -38,6 +38,9 @@ describe('RAML Exporter', function(){
             expect(error).to.be.equal(undefined);
             done();
           });
+        })
+        .catch(function(err){
+          done(err);
         });
       });
     });

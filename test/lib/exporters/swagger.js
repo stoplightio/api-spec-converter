@@ -26,8 +26,8 @@ describe('Swagger Exporter', function(){
     it('should perform export for loaded data', function(done){
       swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'), function(err){
         expect(err).to.equal(undefined);
-        swaggerExporter.export('yaml', function(err, exportedData){
-          expect(err).to.be.null;
+        swaggerExporter.export('yaml')
+        .then(function(exportedData){
           fs.writeFileSync('temp.yaml', exportedData, 'utf8');
           parser.parse('temp.yaml')
           .then(function(api, metadata) {
@@ -37,6 +37,9 @@ describe('Swagger Exporter', function(){
             expect(err).to.equal(undefined);
             done();
           });
+        })
+        .catch(function(err){
+          done(err);
         });
       });
     });
