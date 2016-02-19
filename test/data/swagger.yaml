@@ -260,29 +260,30 @@ paths:
       consumes:
         - multipart/form-data
       parameters:
-        name: body
-        in: body
-        schema:
-          properties:
-            id:
-              description: The photo ID (generated automatically)
-              type: integer
-              minimum: 1
-            label:
-              description: A label for the photo
-              type: string
-              minLength: 1
-            description:
-              description: An optional description of the photo
-              type: string
-            photo:
-              description: The pet photo
-              type: file
-              minLength: 1
-              maxLength: 5000000  # ~5MB
-          required:
-            - label
-            - photo
+        - name: id
+          in: formData
+          description: The photo ID (generated automatically)
+          type: integer
+          minimum: 1
+          required: false
+        - name: label
+          in: formData
+          description: A label for the photo
+          type: string
+          minLength: 1
+          required: true
+        - name: description
+          in: formData
+          description: An optional description of the photo
+          type: string
+          required: false
+        - name: photo
+          in: formData
+          description: The pet photo
+          type: file
+          minLength: 1
+          maxLength: 5000000  # ~5MB
+          required: true
       responses:
         default:
           description: Returns the photo information

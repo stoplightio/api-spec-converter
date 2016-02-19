@@ -22,7 +22,12 @@ documentation:
           acl:
             type: string
     headers: {}
-    responses: {}
+    responses:
+      '200':
+        body:
+          application/json:
+            schema: '{}'
+            example: ''
     queryParameters: {}
 /products:
   displayName: products
@@ -48,7 +53,12 @@ documentation:
       X-Tracking-Example:
         type: string
         description: You can specify request headers like this
-    responses: {}
+    responses:
+      '200':
+        body:
+          application/json:
+            schema: '{}'
+            example: ''
     queryParameters: {}
   get:
     description: Get a list of products
@@ -221,7 +231,6 @@ schemas:
         "properties": {
           "product": {
             "type": "object",
-            "_isOpen": true,
             "properties": {
               "name": {
                 "type": "string"

@@ -41,7 +41,8 @@ describe('Swagger Importer', function(){
   });
   describe('import', function(){
     it('should perform import operation on loaded data', function(done){
-      swaggerImporter.loadFile(filePath, function(){
+      swaggerImporter.loadFile(filePath, function(err){
+        if(err)return done(err);
         try {
           var slProject = swaggerImporter.import();
           expect(slProject).to.be.instanceOf(Project);
