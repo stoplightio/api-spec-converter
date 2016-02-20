@@ -35,6 +35,15 @@ describe('Postman Importer', function(){
         }
       });
     });
+    it('should be able to load a remote url', function(done){
+      postmanImporter.loadFile('https://raw.githubusercontent.com/stoplightio/api-spec-converter/master/example/source/postman.json', function(err){
+        if(err)return done(err);
+        var slProject = postmanImporter.import();
+        expect(slProject).to.be.instanceOf(Project);
+        expect(slProject.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
     it('should return error for valid json, but invalid formatted postman definition file');
   });
   describe('_import', function(){
