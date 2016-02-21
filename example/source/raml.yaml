@@ -25,6 +25,16 @@ documentation:
   - title: Getting Started
     content: TODO
 
+securitySchemes:
+  - oauth_2_0:
+      description: |
+        api is secured by oauth 2.0 scurity
+      type: OAuth 2.0
+      settings:
+          authorizationUri: https://www.dropbox.com/1/oauth2/authorize
+          accessTokenUri: https://api.dropbox.com/1/oauth2/token
+          authorizationGrants: [ code, token ]
+
 #===============================================================
 # API resource definitions
 #===============================================================
@@ -55,6 +65,7 @@ documentation:
         enum: [ accounting, payroll, finance ]
         required: false # require it by changing this to true
         example: accounting
+    securedBy: [oauth_2_0]
     body:
       application/json:
         schema: |
