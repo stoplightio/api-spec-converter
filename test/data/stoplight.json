@@ -31,13 +31,10 @@
           "description": ""
         },
         "oauth2": {
-          "queryString": [],
-          "headers": [
-            {
-              "name": "Authorization",
-              "value": "Bearer"
-            }
-          ]
+          "authorizationUrl": "",
+          "tokenUrl": "",
+          "flow": "implicit",
+          "scopes": []
         }
       }
     },

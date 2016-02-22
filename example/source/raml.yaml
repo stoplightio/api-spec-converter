@@ -26,6 +26,10 @@ documentation:
     content: TODO
 
 securitySchemes:
+  - my_basic:
+      description: |
+        api is secured by basic security
+      type: Basic Authentication
   - oauth_2_0:
       description: |
         api is secured by oauth 2.0 scurity
@@ -160,6 +164,7 @@ securitySchemes:
           }
   get:
     description: Get a list of products
+    securedBy: [my_basic]
     queryParameters:
       q:
         description: Search phrase to look for products

@@ -27,17 +27,12 @@ describe('RAML Exporter', function(){
   describe('_export', function(){
     it('should perform export for loaded data', function(done){
       ramlExporter.loadSLData(slData, function(err){
-        expect(err).to.be.undefined;
+        if(err)return done(err);
         ramlExporter.export('yaml')
-        .then(function(ramlData){
+        .then(function(ramlData, err){
+          if (err) return done(err);
           expect(ramlData).to.not.be.empty;
-          //verify its valid raml data
-          parser.load(ramlData).then(function(data) {
-            done();
-          }, function(error) {
-            expect(error).to.be.equal(undefined);
-            done();
-          });
+          done();
         })
         .catch(function(err){
           done(err);
