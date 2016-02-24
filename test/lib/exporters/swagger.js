@@ -1,5 +1,6 @@
 var expect   = require('chai').expect,
     Swagger = require('../../../lib/exporters/swagger'),
+    Schema = require('../../../lib/entities/schema'),
     parser = require('swagger-parser'),
     fs = require('fs');
 
@@ -111,5 +112,98 @@ describe('Swagger Exporter', function(){
       expect(params[1].required).to.be.equal(true);
     });
 
+    describe('_mapSchema', function(){
+      it('should able to parse sl schemas to swagger schemas as key/schema structure', function(){
+        var schemas = [], schema1, schema2, mappedSchemas;
+
+        schema1 = new Schema('abcd');
+        schema1.Definition = JSON.stringify({
+          type: 'object',
+          properties:
+            {myField:
+              {
+                type: 'string'
+              }
+            },
+            required: []
+          });
+        schemas.push(schema1);
+
+        schema2 = new Schema('abcd2');
+        schema2.Definition = JSON.stringify({
+          type: 'object',
+          properties:
+            {myField:
+              {
+                type: 'string'
+              }
+            },
+            required: []
+        });
+        schemas.push(schema2);
+
+        mappedSchemas = swaggerExporter._mapSchema(schemas);
+        expect(Object.keys(mappedSchemas).length).equal(2);
+        expect(mappedSchemas.abcd).to.be.an('object');
+      });
+    });
+
+    describe('_mapSecurityDefinitions', function(){
+      it('should able to parse sl security schemes to swagger security definitions', function(){
+        var schemes = {
+          'apiKey' : {
+              'headers' : [
+                  {
+                      'name' : 'api_key',
+                      'value' : ''
+                  }
+              ]
+          },
+          'oauth2' : {
+              'name' : 'petstore_auth',
+              'authorizationUrl' : 'http://swagger.io/api/oauth/dialog',
+              'scopes' : [
+                  {
+                      'name' : 'write:pets',
+                      'value' : 'modify pets in your account'
+                  },
+                  {
+                      'name' : 'read:pets',
+                      'value' : 'read your pets'
+                  }
+              ],
+              'tokenUrl' : '',
+              'flow' : 'implicit'
+          },
+          'basic' : {
+              'name' : 'test',
+              'value' : '',
+              'description' : ''
+          }
+        };
+
+        var schema1, schema2, mappedSchemes;
+
+        mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
+        expect(Object.keys(mappedSchemes).length).equal(3);
+      });
+    });
+
+    describe('_validateParameters', function(){
+      it('should truncate not valid parameters', function(){
+        var parameters = [
+          {
+            name : 'myparam',
+            in: 'header',
+            type: 'abcd'
+          }
+        ];
+        parameters = swaggerExporter._validateParameters(parameters);
+        expect(parameters.length).equal(1);
+
+        //should assign string type for non valid types
+        expect(parameters[0].type).equal('string');
+      });
+    });
   });
 });
