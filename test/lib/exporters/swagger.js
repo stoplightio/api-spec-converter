@@ -160,7 +160,6 @@ describe('Swagger Exporter', function(){
               ]
           },
           'oauth2' : {
-              'name' : 'petstore_auth',
               'authorizationUrl' : 'http://swagger.io/api/oauth/dialog',
               'scopes' : [
                   {
@@ -173,7 +172,7 @@ describe('Swagger Exporter', function(){
                   }
               ],
               'tokenUrl' : '',
-              'flow' : 'implicit'
+              'flow' : 'accessCode'
           },
           'basic' : {
               'name' : 'test',
@@ -186,11 +185,18 @@ describe('Swagger Exporter', function(){
 
         mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
         expect(Object.keys(mappedSchemes).length).equal(3);
+        expect(mappedSchemes.api_key).to.be.an('object');
+        expect(mappedSchemes.api_key.in).to.be.equal('header');
+
+        expect(mappedSchemes.oauth2).to.be.an('object');
+        expect(mappedSchemes.oauth2.authorizationUrl).to.be.equal('http://swagger.io/api/oauth/dialog');
+        expect(mappedSchemes.oauth2).to.have.property('authorizationUrl');
+        expect(mappedSchemes.oauth2).to.have.property('tokenUrl');
       });
     });
 
     describe('_validateParameters', function(){
-      it('should truncate not valid parameters', function(){
+      it('should change type not valid parameter types', function(){
         var parameters = [
           {
             name : 'myparam',
