@@ -1,6 +1,7 @@
 var expect   = require('chai').expect,
     Swagger = require('../../../lib/exporters/swagger'),
     Schema = require('../../../lib/entities/schema'),
+    Endpoint = require('../../../lib/entities/endpoint'),
     parser = require('swagger-parser'),
     fs = require('fs');
 
@@ -209,6 +210,59 @@ describe('Swagger Exporter', function(){
 
         //should assign string type for non valid types
         expect(parameters[0].type).equal('string');
+      });
+    });
+
+    describe('_getRequestTypes', function(){
+      it('should set applicaiton/json as default request type', function(){
+        var endpoint = new Endpoint('test'), requestType, parameters = [];
+        endpoint.Body = {
+          mimeType: ''
+        };
+        parameters.push({
+          name : 'myparam',
+          in: 'header',
+          type: 'string'
+        });
+        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+        //should assign string type for non valid types
+        expect(requestType).to.be.an('array');
+        expect(requestType.length).to.gt(0);
+        expect(requestType[0]).to.equal('application/json');
+      });
+
+      it('should set form data for having file type param', function(){
+        var endpoint = new Endpoint('test'), requestType, parameters = [];
+        endpoint.Body = {
+          mimeType: 'application/json'
+        };
+        parameters.push({
+          name : 'myparam',
+          in: 'body',
+          type: 'file'
+        });
+        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+        //should assign string type for non valid types
+        expect(requestType).to.be.an('array');
+        expect(requestType.length).to.gt(0);
+        expect(requestType[0]).to.equal('multipart/form-data');
+      });
+
+      it('should include endpoint body type if match for file type', function(){
+        var endpoint = new Endpoint('test'), requestType, parameters = [];
+        endpoint.Body = {
+          mimeType: 'application/x-www-form-urlencoded'
+        };
+        parameters.push({
+          name : 'myparam',
+          in: 'body',
+          type: 'file'
+        });
+        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+        //should assign string type for non valid types
+        expect(requestType).to.be.an('array');
+        expect(requestType.length).to.gt(0);
+        expect(requestType[0]).to.equal('application/x-www-form-urlencoded');
       });
     });
   });
