@@ -55,9 +55,147 @@ describe('Swagger Exporter', function(){
   it('shouldn\'t contain duplicate produces values');
 
   describe('_mapSecurityDefinitions', function(){
-    it('should map apiKey security definitions to stoplight successfully');
-    it('should map oauth2 security definitions to stoplight successfully');
-    it('should map basic security definitions to stoplight successfully');
+    it('should map apiKey security definitions from sl security schemes successfully', function(){
+      var schemes = {
+        'apiKey' : {
+          'headers' : [
+            {
+              'name' : 'api_key',
+              'value' : ''
+            }
+          ]
+        }
+      };
+
+      var mappedSchemes;
+
+      mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
+      expect(Object.keys(mappedSchemes).length).equal(1);
+      expect(mappedSchemes.api_key).to.be.an('object');
+      expect(mappedSchemes.api_key).to.have.property('in');
+      expect(mappedSchemes.api_key.in).to.equal('header');
+      expect(mappedSchemes.api_key.type).to.equal('apiKey');
+    });
+
+    it('should able to map oauth2 security definitions successfully', function(){
+        var schemes = {
+          'oauth2' : {
+              'authorizationUrl' : 'http://swagger.io/api/oauth/dialog',
+              'scopes' : [
+                  {
+                      'name' : 'write:pets',
+                      'value' : 'modify pets in your account'
+                  },
+                  {
+                      'name' : 'read:pets',
+                      'value' : 'read your pets'
+                  }
+              ],
+              'tokenUrl' : '',
+              'flow' : 'accessCode'
+          }
+        };
+
+        var mappedSchemes;
+
+        mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
+        expect(Object.keys(mappedSchemes).length).equal(1);
+
+        expect(mappedSchemes.oauth2).to.be.an('object');
+        expect(mappedSchemes.oauth2).to.have.property('authorizationUrl');
+        expect(mappedSchemes.oauth2).to.have.property('tokenUrl');
+        expect(mappedSchemes.oauth2).to.have.property('flow');
+        expect(mappedSchemes.oauth2).to.have.property('scopes');
+
+        //verify individual data
+        expect(mappedSchemes.oauth2.authorizationUrl).to.be.equal('http://swagger.io/api/oauth/dialog');
+        expect(mappedSchemes.oauth2.tokenUrl).to.be.equal('');
+        expect(mappedSchemes.oauth2.scopes).to.be.an('object');
+        expect(mappedSchemes.oauth2.scopes['write:pets']).to.be.equal('modify pets in your account');
+        expect(mappedSchemes.oauth2.scopes['read:pets']).to.be.equal('read your pets');
+      });
+    it('should map basic security definitions to stoplight successfully', function(){
+      var schemes = {
+        'basic' : {
+          'name' : 'test',
+          'value' : '',
+          'description' : ''
+        }
+      };
+
+      var mappedSchemes;
+
+      mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
+      expect(Object.keys(mappedSchemes).length).equal(1);
+      expect(mappedSchemes.test).to.be.an('object');
+      expect(mappedSchemes.test.type).to.equal('basic');
+    });
+  });
+
+  describe('_mapEndpointSecurity', function(){
+    it('should map apiKey security for endpoint', function(){
+      var securedBy = {
+        none: true,
+        apiKey: true
+      };
+      var securityDefinitions = {
+        apiKey: {
+          headers: [
+            {
+              name: 'api_key',
+              value: ''
+            }
+          ]
+        }
+      };
+      var result = swaggerExporter._mapEndpointSecurity(securedBy, securityDefinitions);
+      expect(result).to.be.an('array');
+      expect(result.length).to.be.equal(1);
+      expect(result[0]).to.be.an('object');
+      expect(Object.keys(result[0])[0]).to.be.equal('api_key');
+    });
+    it('should map basic security for endpoint', function(){
+      var securedBy = {
+        none: true,
+        basic: true
+      };
+      var securityDefinitions = {
+        basic: {
+          name: 'abcd',
+          value: '',
+          description: 'test desc'
+        }
+      };
+      var result = swaggerExporter._mapEndpointSecurity(securedBy, securityDefinitions);
+      expect(result).to.be.an('array');
+      expect(result.length).to.be.equal(1);
+      expect(result[0]).to.be.an('object');
+      expect(Object.keys(result[0])[0]).to.be.equal('abcd');
+    });
+    it('should map oauth2 security for endpoint', function(){
+      var securedBy = {
+        none: true,
+        oauth2: true
+      };
+      var securityDefinitions = {
+        oauth2 : {
+            'flow' : 'implicit',
+            'authorizationUrl' : 'http://test-authorization',
+            'tokenUrl' : '',
+            'scopes' : [
+                {
+                    'name' : 'write:posts',
+                    'value' : ''
+                }
+            ]
+        }
+      };
+      var result = swaggerExporter._mapEndpointSecurity(securedBy, securityDefinitions);
+      expect(result).to.be.an('array');
+      expect(result.length).to.be.equal(1);
+      expect(result[0]).to.be.an('object');
+      expect(Object.keys(result[0])[0]).to.be.equal('oauth2');
+    });
   });
 
   describe('_mapRequestBody', function(){
@@ -148,53 +286,6 @@ describe('Swagger Exporter', function(){
         mappedSchemas = swaggerExporter._mapSchema(schemas);
         expect(Object.keys(mappedSchemas).length).equal(2);
         expect(mappedSchemas.abcd).to.be.an('object');
-      });
-    });
-
-    describe('_mapSecurityDefinitions', function(){
-      it('should able to parse sl security schemes to swagger security definitions', function(){
-        var schemes = {
-          'apiKey' : {
-              'headers' : [
-                  {
-                      'name' : 'api_key',
-                      'value' : ''
-                  }
-              ]
-          },
-          'oauth2' : {
-              'authorizationUrl' : 'http://swagger.io/api/oauth/dialog',
-              'scopes' : [
-                  {
-                      'name' : 'write:pets',
-                      'value' : 'modify pets in your account'
-                  },
-                  {
-                      'name' : 'read:pets',
-                      'value' : 'read your pets'
-                  }
-              ],
-              'tokenUrl' : '',
-              'flow' : 'accessCode'
-          },
-          'basic' : {
-              'name' : 'test',
-              'value' : '',
-              'description' : ''
-          }
-        };
-
-        var schema1, schema2, mappedSchemes;
-
-        mappedSchemes = swaggerExporter._mapSecurityDefinitions(schemes);
-        expect(Object.keys(mappedSchemes).length).equal(3);
-        expect(mappedSchemes.api_key).to.be.an('object');
-        expect(mappedSchemes.api_key.in).to.be.equal('header');
-
-        expect(mappedSchemes.oauth2).to.be.an('object');
-        expect(mappedSchemes.oauth2.authorizationUrl).to.be.equal('http://swagger.io/api/oauth/dialog');
-        expect(mappedSchemes.oauth2).to.have.property('authorizationUrl');
-        expect(mappedSchemes.oauth2).to.have.property('tokenUrl');
       });
     });
 
