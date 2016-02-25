@@ -2,6 +2,7 @@ var expect   = require('chai').expect,
     Swagger = require('../../../lib/exporters/swagger'),
     Schema = require('../../../lib/entities/schema'),
     Endpoint = require('../../../lib/entities/endpoint'),
+    Environment = require('../../../lib/entities/environment'),
     parser = require('swagger-parser'),
     fs = require('fs');
 
@@ -263,6 +264,58 @@ describe('Swagger Exporter', function(){
         expect(requestType).to.be.an('array');
         expect(requestType.length).to.gt(0);
         expect(requestType[0]).to.equal('application/x-www-form-urlencoded');
+      });
+    });
+
+    describe('_getResponseTypes', function(){
+      it('should include all response mime types from all responses', function(){
+        var responses = [], respTypes;
+        responses.push({
+          mimeType: 'application/json'
+        });
+        responses.push({
+          mimeType: 'multipart/form-data'
+        });
+        respTypes = swaggerExporter._getResponseTypes(responses);
+        expect(respTypes).to.be.an('array');
+        expect(respTypes.length).to.equal(2);
+        expect(respTypes[0]).to.equal('application/json');
+        expect(respTypes[1]).to.equal('multipart/form-data');
+      });
+    });
+
+    describe('_constructSwaggerMethod', function(){
+      it('should return constrcuted swagger method from given data', function(){
+        var responses = [], endpoint, parameters = [], env, swaggerMethod;
+
+        //endpoint
+        endpoint = new Endpoint('test');
+        endpoint.Body = {
+          mimeType: 'application/json'
+        };
+
+        //responses
+        responses.push({
+          mimeType: 'application/json'
+        });
+
+        //parameters
+        parameters.push({
+          name : 'myparam',
+          in: 'header',
+          type: 'string'
+        });
+
+        env = new Environment();
+        env.DefaultRequestType = 'application/json';
+
+        swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, parameters, responses, env);
+
+        expect(swaggerMethod).to.be.an('object');
+        expect(swaggerMethod.operationId).to.equal('test');
+        expect(swaggerMethod.parameters.length).to.equal(1);
+        expect(swaggerMethod.responses.length).to.equal(1);
+        expect(swaggerMethod.responses.length).to.equal(1);
       });
     });
   });
