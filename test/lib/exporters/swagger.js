@@ -2,6 +2,7 @@ var expect   = require('chai').expect,
     Swagger = require('../../../lib/exporters/swagger'),
     Schema = require('../../../lib/entities/schema'),
     Endpoint = require('../../../lib/entities/endpoint'),
+    Project = require('../../../lib/entities/project'),
     Environment = require('../../../lib/entities/environment'),
     parser = require('swagger-parser'),
     fs = require('fs');
@@ -288,6 +289,8 @@ describe('Swagger Exporter', function(){
       it('should return constrcuted swagger method from given data', function(){
         var responses = [], endpoint, parameters = [], env, swaggerMethod;
 
+        swaggerExporter.project = new Project('test project');
+
         //endpoint
         endpoint = new Endpoint('test');
         endpoint.Body = {
@@ -318,5 +321,69 @@ describe('Swagger Exporter', function(){
         expect(swaggerMethod.responses.length).to.equal(1);
       });
     });
+
+     describe('_getUniqueOperationId', function(){
+      it('should return endpoint name as operationId if unique', function(){
+        var endpoints = [], endpoint, endpoint2;
+
+        swaggerExporter.project = new Project('test project');
+
+        //endpoint
+        endpoint = new Endpoint('test');
+        endpoint.Path = '/test';
+        endpoint.Method = 'get';
+        endpoint.Body = {
+          mimeType: 'application/json'
+        };
+        swaggerExporter.project.addEndpoint(endpoint);
+
+        endpoint2 = new Endpoint('test2');
+        endpoint2.Path = '/test';
+        endpoint2.Method = 'post';
+        endpoint2.Body = {
+          mimeType: 'application/json'
+        };
+        swaggerExporter.project.addEndpoint(endpoint2);
+
+
+        operationId = swaggerExporter._getUniqueOperationId(endpoint);
+        expect(operationId).to.equal('test');
+
+        operationId = swaggerExporter._getUniqueOperationId(endpoint2);
+        expect(operationId).to.equal('test2');
+      });
+
+      it('should return empty string as operationId if not unique', function(){
+        var endpoints = [], endpoint, endpoint2;
+
+        swaggerExporter.project = new Project('test project');
+        //endpoint
+        endpoint = new Endpoint('test');
+        endpoint.Path = '/test';
+        endpoint.Method = 'get';
+        endpoint.Body = {
+          mimeType: 'application/json'
+        };
+
+        swaggerExporter.project.addEndpoint(endpoint);
+
+        endpoint2 = new Endpoint('test');
+        endpoint2.Path = '/test';
+        endpoint2.Method = 'post';
+        endpoint2.Body = {
+          mimeType: 'application/json'
+        };
+        swaggerExporter.project.addEndpoint(endpoint2);
+
+
+        operationId = swaggerExporter._getUniqueOperationId(endpoint);
+        expect(operationId).to.equal('');
+
+        operationId = swaggerExporter._getUniqueOperationId(endpoint2);
+        expect(operationId).to.equal('');
+      });
+
+    });
+
   });
 });
