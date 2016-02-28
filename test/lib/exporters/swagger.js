@@ -4,6 +4,7 @@ var expect   = require('chai').expect,
     Endpoint = require('../../../lib/entities/endpoint'),
     Project = require('../../../lib/entities/project'),
     Environment = require('../../../lib/entities/environment'),
+    SwaggerDefinition = require('../../../lib/entities/swagger/definition'),
     parser = require('swagger-parser'),
     fs = require('fs');
 
@@ -466,7 +467,41 @@ describe('Swagger Exporter', function(){
   });
 
   describe('_mapHostAndProtocol', function(){
-    it('should map host and protocols successfully');
+    it('Should map host and protocols successfully', function(){
+      var swaggerDef = new SwaggerDefinition('test', 'test');
+      var env = new Environment();
+      env.Host = 'http://localhost:3000';
+      env.Protocols = ['http', 'https'];
+      swaggerExporter._mapHostAndProtocol(env, swaggerDef);
+      expect(swaggerDef.host).to.equal('localhost:3000');
+      expect(swaggerDef.schemes).to.be.an('array');
+      expect(swaggerDef.schemes.length).to.equal(2);
+    });
+    it('Should not include host if empty', function(){
+      var swaggerDef = new SwaggerDefinition('test', 'test');
+      var env = new Environment();
+      env.Host = '';
+      swaggerExporter._mapHostAndProtocol(env, swaggerDef);
+      expect(swaggerDef).to.not.have.property('host');
+    });
+    it('Should not include protocol if not supported', function(){
+      var swaggerDef = new SwaggerDefinition('test', 'test');
+      var env = new Environment();
+      env.Protocols = ['abcd'];
+      swaggerExporter._mapHostAndProtocol(env, swaggerDef);
+      expect(swaggerDef.schemes).to.be.an('array');
+      expect(swaggerDef.schemes.length).to.equal(0);
+    });
+    it('Should include protocol from host if available', function(){
+      var swaggerDef = new SwaggerDefinition('test', 'test');
+      var env = new Environment();
+      env.Host = 'https://localhost:3000';
+      env.Protocols = [];
+      swaggerExporter._mapHostAndProtocol(env, swaggerDef);
+      expect(swaggerDef.schemes).to.be.an('array');
+      expect(swaggerDef.schemes.length).to.equal(1);
+      expect(swaggerDef.schemes[0]).to.equal('https');
+    });
   });
 
   describe('_export', function(){
