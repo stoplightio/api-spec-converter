@@ -89,33 +89,129 @@ describe('Swagger Exporter', function(){
 
   });
 
-  describe('_export', function(){
-    it('should perform export for loaded data', function(done){
-      swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'), function(err){
-        expect(err).to.equal(undefined);
-        swaggerExporter.export('yaml')
-        .then(function(exportedData){
-          fs.writeFileSync('temp.yaml', exportedData, 'utf8');
-          parser.parse('temp.yaml')
-          .then(function(api, metadata) {
-            done();
-          })
-          .catch(function(err) {
-            expect(err).to.equal(undefined);
-            done();
-          });
-        })
-        .catch(function(err){
-          done(err);
-        });
+  describe('_getResponseTypes', function(){
+    it('should include all response mime types from all responses', function(){
+      var responses = [], respTypes;
+      responses.push({
+        mimeType: 'application/json'
       });
+      responses.push({
+        mimeType: 'multipart/form-data'
+      });
+      respTypes = swaggerExporter._getResponseTypes(responses);
+      expect(respTypes).to.be.an('array');
+      expect(respTypes.length).to.equal(2);
+      expect(respTypes[0]).to.equal('application/json');
+      expect(respTypes[1]).to.equal('multipart/form-data');
     });
   });
 
-  //TODO test internal methods individually
-  it('shouldn\'t throw error if param json schema required attribute doesn\'t exist');
+  describe('_getRequestTypes', function(){
+    it('should set applicaiton/json as default request type', function(){
+      var endpoint = new Endpoint('test'), requestType, parameters = [];
+      endpoint.Body = {
+        mimeType: ''
+      };
+      parameters.push({
+        name : 'myparam',
+        in: 'header',
+        type: 'string'
+      });
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      //should assign string type for non valid types
+      expect(requestType).to.be.an('array');
+      expect(requestType.length).to.gt(0);
+      expect(requestType[0]).to.equal('application/json');
+    });
 
-  it('shouldn\'t contain duplicate produces values');
+    it('should set form data for having file type param', function(){
+      var endpoint = new Endpoint('test'), requestType, parameters = [];
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+      parameters.push({
+        name : 'myparam',
+        in: 'body',
+        type: 'file'
+      });
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      //should assign string type for non valid types
+      expect(requestType).to.be.an('array');
+      expect(requestType.length).to.gt(0);
+      expect(requestType[0]).to.equal('multipart/form-data');
+    });
+
+    it('should include endpoint body type if match for file type', function(){
+      var endpoint = new Endpoint('test'), requestType, parameters = [];
+      endpoint.Body = {
+        mimeType: 'application/x-www-form-urlencoded'
+      };
+      parameters.push({
+        name : 'myparam',
+        in: 'body',
+        type: 'file'
+      });
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      //should assign string type for non valid types
+      expect(requestType).to.be.an('array');
+      expect(requestType.length).to.gt(0);
+      expect(requestType[0]).to.equal('application/x-www-form-urlencoded');
+    });
+  });
+
+  describe('_validateParameters', function(){
+    it('should change type not valid parameter types', function(){
+      var parameters = [
+        {
+          name : 'myparam',
+          in: 'header',
+          type: 'abcd'
+        }
+      ];
+      parameters = swaggerExporter._validateParameters(parameters);
+      expect(parameters.length).equal(1);
+
+      //should assign string type for non valid types
+      expect(parameters[0].type).equal('string');
+    });
+  });
+
+  describe('_constructSwaggerMethod', function(){
+    it('should return constrcuted swagger method from given data', function(){
+      var responses = [], endpoint, parameters = [], env, swaggerMethod;
+
+      swaggerExporter.project = new Project('test project');
+
+      //endpoint
+      endpoint = new Endpoint('test');
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+
+      //responses
+      responses.push({
+        mimeType: 'application/json'
+      });
+
+      //parameters
+      parameters.push({
+        name : 'myparam',
+        in: 'header',
+        type: 'string'
+      });
+
+      env = new Environment();
+      env.DefaultRequestType = 'application/json';
+
+      swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, parameters, responses, env);
+
+      expect(swaggerMethod).to.be.an('object');
+      expect(swaggerMethod.operationId).to.equal('test');
+      expect(swaggerMethod.parameters.length).to.equal(1);
+      expect(swaggerMethod.responses.length).to.equal(1);
+      expect(swaggerMethod.responses.length).to.equal(1);
+    });
+  });
 
   describe('_mapSecurityDefinitions', function(){
     it('should map apiKey security definitions from sl security schemes successfully', function(){
@@ -224,6 +320,7 @@ describe('Swagger Exporter', function(){
       expect(Object.keys(result[0])[0]).to.be.equal('api_key');
       expect(Object.keys(result[1])[0]).to.be.equal('qs');
     });
+
     it('should map basic security for endpoint', function(){
       var securedBy = {
         none: true,
@@ -322,165 +419,77 @@ describe('Swagger Exporter', function(){
       expect(params[0].name).to.be.equal('id');
       expect(params[1].required).to.be.equal(true);
     });
+  });
 
-    describe('_mapSchema', function(){
-      it('should able to parse sl schemas to swagger schemas as key/schema structure', function(){
-        var schemas = [], schema1, schema2, mappedSchemas;
+  describe('_mapRequestHeaders', function(){
+    it('should map request headers successfully');
+  });
 
-        schema1 = new Schema('abcd');
-        schema1.Definition = JSON.stringify({
-          type: 'object',
-          properties:
-            {myField:
-              {
-                type: 'string'
-              }
-            },
-            required: []
+  describe('_mapSchema', function(){
+    it('should able to parse sl schemas to swagger schemas as key/schema structure', function(){
+      var schemas = [], schema1, schema2, mappedSchemas;
+
+      schema1 = new Schema('abcd');
+      schema1.Definition = JSON.stringify({
+        type: 'object',
+        properties:
+          {myField:
+            {
+              type: 'string'
+            }
+          },
+          required: []
+        });
+      schemas.push(schema1);
+
+      schema2 = new Schema('abcd2');
+      schema2.Definition = JSON.stringify({
+        type: 'object',
+        properties:
+          {myField:
+            {
+              type: 'string'
+            }
+          },
+          required: []
+      });
+      schemas.push(schema2);
+
+      mappedSchemas = swaggerExporter._mapSchema(schemas);
+      expect(Object.keys(mappedSchemas).length).equal(2);
+      expect(mappedSchemas.abcd).to.be.an('object');
+    });
+  });
+
+  describe('_mapEndpoints', function(){
+    it('should map endpoints successfully');
+  });
+
+  describe('_mapHostAndProtocol', function(){
+    it('should map host and protocols successfully');
+  });
+
+  describe('_export', function(){
+    it('should perform export for loaded data', function(done){
+      swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'), function(err){
+        expect(err).to.equal(undefined);
+        swaggerExporter.export('yaml')
+        .then(function(exportedData){
+          fs.writeFileSync('temp.yaml', exportedData, 'utf8');
+          parser.parse('temp.yaml')
+          .then(function(api, metadata) {
+            done();
+          })
+          .catch(function(err) {
+            expect(err).to.equal(undefined);
+            done();
           });
-        schemas.push(schema1);
-
-        schema2 = new Schema('abcd2');
-        schema2.Definition = JSON.stringify({
-          type: 'object',
-          properties:
-            {myField:
-              {
-                type: 'string'
-              }
-            },
-            required: []
+        })
+        .catch(function(err){
+          done(err);
         });
-        schemas.push(schema2);
-
-        mappedSchemas = swaggerExporter._mapSchema(schemas);
-        expect(Object.keys(mappedSchemas).length).equal(2);
-        expect(mappedSchemas.abcd).to.be.an('object');
       });
     });
-
-    describe('_validateParameters', function(){
-      it('should change type not valid parameter types', function(){
-        var parameters = [
-          {
-            name : 'myparam',
-            in: 'header',
-            type: 'abcd'
-          }
-        ];
-        parameters = swaggerExporter._validateParameters(parameters);
-        expect(parameters.length).equal(1);
-
-        //should assign string type for non valid types
-        expect(parameters[0].type).equal('string');
-      });
-    });
-
-    describe('_getRequestTypes', function(){
-      it('should set applicaiton/json as default request type', function(){
-        var endpoint = new Endpoint('test'), requestType, parameters = [];
-        endpoint.Body = {
-          mimeType: ''
-        };
-        parameters.push({
-          name : 'myparam',
-          in: 'header',
-          type: 'string'
-        });
-        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
-        //should assign string type for non valid types
-        expect(requestType).to.be.an('array');
-        expect(requestType.length).to.gt(0);
-        expect(requestType[0]).to.equal('application/json');
-      });
-
-      it('should set form data for having file type param', function(){
-        var endpoint = new Endpoint('test'), requestType, parameters = [];
-        endpoint.Body = {
-          mimeType: 'application/json'
-        };
-        parameters.push({
-          name : 'myparam',
-          in: 'body',
-          type: 'file'
-        });
-        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
-        //should assign string type for non valid types
-        expect(requestType).to.be.an('array');
-        expect(requestType.length).to.gt(0);
-        expect(requestType[0]).to.equal('multipart/form-data');
-      });
-
-      it('should include endpoint body type if match for file type', function(){
-        var endpoint = new Endpoint('test'), requestType, parameters = [];
-        endpoint.Body = {
-          mimeType: 'application/x-www-form-urlencoded'
-        };
-        parameters.push({
-          name : 'myparam',
-          in: 'body',
-          type: 'file'
-        });
-        requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
-        //should assign string type for non valid types
-        expect(requestType).to.be.an('array');
-        expect(requestType.length).to.gt(0);
-        expect(requestType[0]).to.equal('application/x-www-form-urlencoded');
-      });
-    });
-
-    describe('_getResponseTypes', function(){
-      it('should include all response mime types from all responses', function(){
-        var responses = [], respTypes;
-        responses.push({
-          mimeType: 'application/json'
-        });
-        responses.push({
-          mimeType: 'multipart/form-data'
-        });
-        respTypes = swaggerExporter._getResponseTypes(responses);
-        expect(respTypes).to.be.an('array');
-        expect(respTypes.length).to.equal(2);
-        expect(respTypes[0]).to.equal('application/json');
-        expect(respTypes[1]).to.equal('multipart/form-data');
-      });
-    });
-
-    describe('_constructSwaggerMethod', function(){
-      it('should return constrcuted swagger method from given data', function(){
-        var responses = [], endpoint, parameters = [], env, swaggerMethod;
-
-        swaggerExporter.project = new Project('test project');
-
-        //endpoint
-        endpoint = new Endpoint('test');
-        endpoint.Body = {
-          mimeType: 'application/json'
-        };
-
-        //responses
-        responses.push({
-          mimeType: 'application/json'
-        });
-
-        //parameters
-        parameters.push({
-          name : 'myparam',
-          in: 'header',
-          type: 'string'
-        });
-
-        env = new Environment();
-        env.DefaultRequestType = 'application/json';
-
-        swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, parameters, responses, env);
-
-        expect(swaggerMethod).to.be.an('object');
-        expect(swaggerMethod.operationId).to.equal('test');
-        expect(swaggerMethod.parameters.length).to.equal(1);
-        expect(swaggerMethod.responses.length).to.equal(1);
-        expect(swaggerMethod.responses.length).to.equal(1);
-      });
-    });
+    it('shouldn\'t contain duplicate produces values');
   });
 });
