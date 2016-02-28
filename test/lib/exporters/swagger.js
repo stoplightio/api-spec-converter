@@ -26,6 +26,69 @@ describe('Swagger Exporter', function(){
     });
   });
 
+  describe('_getUniqueOperationId', function(){
+    it('should return endpoint name as operationId if unique', function(){
+      var endpoints = [], endpoint, endpoint2;
+
+      swaggerExporter.project = new Project('test project');
+
+      //endpoint
+      endpoint = new Endpoint('test');
+      endpoint.Path = '/test';
+      endpoint.Method = 'get';
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+      swaggerExporter.project.addEndpoint(endpoint);
+
+      endpoint2 = new Endpoint('test2');
+      endpoint2.Path = '/test';
+      endpoint2.Method = 'post';
+      endpoint2.Body = {
+        mimeType: 'application/json'
+      };
+      swaggerExporter.project.addEndpoint(endpoint2);
+
+
+      operationId = swaggerExporter._getUniqueOperationId(endpoint);
+      expect(operationId).to.equal('test');
+
+      operationId = swaggerExporter._getUniqueOperationId(endpoint2);
+      expect(operationId).to.equal('test2');
+    });
+
+    it('should return empty string as operationId if not unique', function(){
+      var endpoints = [], endpoint, endpoint2;
+
+      swaggerExporter.project = new Project('test project');
+      //endpoint
+      endpoint = new Endpoint('test');
+      endpoint.Path = '/test';
+      endpoint.Method = 'get';
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+
+      swaggerExporter.project.addEndpoint(endpoint);
+
+      endpoint2 = new Endpoint('test');
+      endpoint2.Path = '/test';
+      endpoint2.Method = 'post';
+      endpoint2.Body = {
+        mimeType: 'application/json'
+      };
+      swaggerExporter.project.addEndpoint(endpoint2);
+
+
+      operationId = swaggerExporter._getUniqueOperationId(endpoint);
+      expect(operationId).to.equal('');
+
+      operationId = swaggerExporter._getUniqueOperationId(endpoint2);
+      expect(operationId).to.equal('');
+    });
+
+  });
+
   describe('_export', function(){
     it('should perform export for loaded data', function(done){
       swaggerExporter.loadSLData(require(__dirname+'/../../data/stoplight.json'), function(err){
@@ -145,14 +208,21 @@ describe('Swagger Exporter', function(){
               name: 'api_key',
               value: ''
             }
+          ],
+          'queryString' : [
+            {
+              'name' : 'qs',
+              'value' : ''
+            }
           ]
         }
       };
       var result = swaggerExporter._mapEndpointSecurity(securedBy, securityDefinitions);
       expect(result).to.be.an('array');
-      expect(result.length).to.be.equal(1);
+      expect(result.length).to.be.equal(2);
       expect(result[0]).to.be.an('object');
       expect(Object.keys(result[0])[0]).to.be.equal('api_key');
+      expect(Object.keys(result[1])[0]).to.be.equal('qs');
     });
     it('should map basic security for endpoint', function(){
       var securedBy = {
@@ -412,69 +482,5 @@ describe('Swagger Exporter', function(){
         expect(swaggerMethod.responses.length).to.equal(1);
       });
     });
-
-     describe('_getUniqueOperationId', function(){
-      it('should return endpoint name as operationId if unique', function(){
-        var endpoints = [], endpoint, endpoint2;
-
-        swaggerExporter.project = new Project('test project');
-
-        //endpoint
-        endpoint = new Endpoint('test');
-        endpoint.Path = '/test';
-        endpoint.Method = 'get';
-        endpoint.Body = {
-          mimeType: 'application/json'
-        };
-        swaggerExporter.project.addEndpoint(endpoint);
-
-        endpoint2 = new Endpoint('test2');
-        endpoint2.Path = '/test';
-        endpoint2.Method = 'post';
-        endpoint2.Body = {
-          mimeType: 'application/json'
-        };
-        swaggerExporter.project.addEndpoint(endpoint2);
-
-
-        operationId = swaggerExporter._getUniqueOperationId(endpoint);
-        expect(operationId).to.equal('test');
-
-        operationId = swaggerExporter._getUniqueOperationId(endpoint2);
-        expect(operationId).to.equal('test2');
-      });
-
-      it('should return empty string as operationId if not unique', function(){
-        var endpoints = [], endpoint, endpoint2;
-
-        swaggerExporter.project = new Project('test project');
-        //endpoint
-        endpoint = new Endpoint('test');
-        endpoint.Path = '/test';
-        endpoint.Method = 'get';
-        endpoint.Body = {
-          mimeType: 'application/json'
-        };
-
-        swaggerExporter.project.addEndpoint(endpoint);
-
-        endpoint2 = new Endpoint('test');
-        endpoint2.Path = '/test';
-        endpoint2.Method = 'post';
-        endpoint2.Body = {
-          mimeType: 'application/json'
-        };
-        swaggerExporter.project.addEndpoint(endpoint2);
-
-
-        operationId = swaggerExporter._getUniqueOperationId(endpoint);
-        expect(operationId).to.equal('');
-
-        operationId = swaggerExporter._getUniqueOperationId(endpoint2);
-        expect(operationId).to.equal('');
-      });
-
-    });
-
   });
 });
