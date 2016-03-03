@@ -19,22 +19,22 @@
   "dependencies": {
     "chai-fuzzy": "^1.6.0",
     "js-yaml": "git://github.com/stoplightio/js-yaml#e2b249f9b5ca028e45736f8a2958be094a4a9e17",
-    "jsonschema": "^1.0.2",
-    "lodash": "^3.10.1",
-    "raml-parser": "^0.8.12",
+    "jsonschema": "^1.1.0",
+    "lodash": "^4.6.1",
+    "raml-parser": "^0.8.15",
     "request": "^2.69.0",
-    "swagger-parser": "^3.0.0-alpha.5",
-    "yamljs": "^0.2.4"
+    "swagger-parser": "^3.4.0",
+    "yamljs": "^0.2.6"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-string": "^1.1.4",
-    "coveralls": "^2.11.4",
-    "gulp": "^3.9.0",
+    "chai": "^3.5.0",
+    "chai-string": "^1.2.0",
+    "coveralls": "^2.11.8",
+    "gulp": "^3.9.1",
     "gulp-coveralls": "^0.1.4",
-    "gulp-eslint": "^1.1.0",
+    "gulp-eslint": "^2.0.0",
     "jscover": "^1.0.0",
-    "mocha": "^2.3.3",
-    "mocha-lcov-reporter": "^1.0.0"
+    "mocha": "^2.4.5",
+    "mocha-lcov-reporter": "^1.2.0"
   }
 }

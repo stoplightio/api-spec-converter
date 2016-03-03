@@ -27,69 +27,6 @@ describe('Swagger Exporter', function(){
     });
   });
 
-  describe('_getUniqueOperationId', function(){
-    it('should return endpoint name as operationId if unique', function(){
-      var endpoints = [], endpoint, endpoint2;
-
-      swaggerExporter.project = new Project('test project');
-
-      //endpoint
-      endpoint = new Endpoint('test');
-      endpoint.Path = '/test';
-      endpoint.Method = 'get';
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
-      swaggerExporter.project.addEndpoint(endpoint);
-
-      endpoint2 = new Endpoint('test2');
-      endpoint2.Path = '/test';
-      endpoint2.Method = 'post';
-      endpoint2.Body = {
-        mimeType: 'application/json'
-      };
-      swaggerExporter.project.addEndpoint(endpoint2);
-
-
-      operationId = swaggerExporter._getUniqueOperationId(endpoint);
-      expect(operationId).to.equal('test');
-
-      operationId = swaggerExporter._getUniqueOperationId(endpoint2);
-      expect(operationId).to.equal('test2');
-    });
-
-    it('should return empty string as operationId if not unique', function(){
-      var endpoints = [], endpoint, endpoint2;
-
-      swaggerExporter.project = new Project('test project');
-      //endpoint
-      endpoint = new Endpoint('test');
-      endpoint.Path = '/test';
-      endpoint.Method = 'get';
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
-
-      swaggerExporter.project.addEndpoint(endpoint);
-
-      endpoint2 = new Endpoint('test');
-      endpoint2.Path = '/test';
-      endpoint2.Method = 'post';
-      endpoint2.Body = {
-        mimeType: 'application/json'
-      };
-      swaggerExporter.project.addEndpoint(endpoint2);
-
-
-      operationId = swaggerExporter._getUniqueOperationId(endpoint);
-      expect(operationId).to.equal('');
-
-      operationId = swaggerExporter._getUniqueOperationId(endpoint2);
-      expect(operationId).to.equal('');
-    });
-
-  });
-
   describe('_getResponseTypes', function(){
     it('should include all response mime types from all responses', function(){
       var responses = [], respTypes;
@@ -183,7 +120,7 @@ describe('Swagger Exporter', function(){
 
       swaggerExporter.project = new Project('test project');
 
-      //endpoint
+      // endpoint
       endpoint = new Endpoint('test');
       endpoint.Body = {
         mimeType: 'application/json'
@@ -201,13 +138,15 @@ describe('Swagger Exporter', function(){
         type: 'string'
       });
 
+      endpoint.SetOperationId(null, 'GET', '/foo/bar/');
+
       env = new Environment();
       env.DefaultRequestType = 'application/json';
 
       swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, parameters, responses, env);
 
       expect(swaggerMethod).to.be.an('object');
-      expect(swaggerMethod.operationId).to.equal('test');
+      expect(swaggerMethod.summary).to.equal('test');
       expect(swaggerMethod.parameters.length).to.equal(1);
       expect(swaggerMethod.responses.length).to.equal(1);
       expect(swaggerMethod.responses.length).to.equal(1);
