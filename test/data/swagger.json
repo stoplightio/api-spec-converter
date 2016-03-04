@@ -30,9 +30,10 @@
         }
       ],
       "get": {
-        "operationId": "findPetByName",
+        "tags": ["production"],
         "summary": "",
         "description": "Returns a pet by name",
+        "operationId": "findPetByName",
         "consumes": [
           "application/json"
         ],
@@ -50,9 +51,9 @@
         }
       },
       "delete": {
-        "operationId": "deletePet",
         "summary": "",
         "description": "Deletes a single pet based on the name supplied",
+        "operationId": "deletePet",
         "consumes": [
           "application/json"
         ],
@@ -72,6 +73,7 @@
       "patch": {
         "summary": "",
         "description": "Updates a pet by name",
+        "operationId": "patchPet",
         "consumes": [
           "application/json"
         ],
@@ -108,9 +110,9 @@
         }
       ],
       "post": {
-        "operationId": "addPetPhoto",
         "summary": "",
         "description": "Upload a new pet photo",
+        "operationId": "addPetPhoto",
         "consumes": [
           "multipart/form-data"
         ],

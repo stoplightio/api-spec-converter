@@ -80,6 +80,7 @@
         "produces": [
           "application/json"
         ],
+        "operationId": "updatePet",
         "summary": "",
         "description": "Updates a pet by name"
       }

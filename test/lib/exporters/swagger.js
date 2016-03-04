@@ -114,8 +114,35 @@ describe('Swagger Exporter', function(){
     });
   });
 
+  describe('_constructTags', function(){
+    it('should return constructed tags from given data', function(){
+      var responses = [], endpoint, parameters = [], env, swaggerMethod;
+
+      swaggerExporter.project = new Project('test project');
+
+      // endpoint
+      endpoint = new Endpoint('test');
+      endpoint.SetOperationId('POST_pet', 'POST', '/pet');
+
+      env = new Environment();
+      env.GroupsOrder = {
+        docs: [{
+          name: 'Pet',
+          items: [{
+            _id: 'POST_pet',
+            type: 'endpoint'
+          }]
+        }]
+      };
+
+      tags = swaggerExporter._constructTags(endpoint, env);
+
+      expect(tags).to.deep.equal(['Pet']);
+    });
+  });
+
   describe('_constructSwaggerMethod', function(){
-    it('should return constrcuted swagger method from given data', function(){
+    it('should return constructed swagger method from given data', function(){
       var responses = [], endpoint, parameters = [], env, swaggerMethod;
 
       swaggerExporter.project = new Project('test project');

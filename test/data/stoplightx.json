@@ -139,6 +139,7 @@
           }
         },
         "summary": "",
+        "operationId": "getPetPhotos",
         "x-stoplight": {
           "id": "GET_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
@@ -530,6 +531,7 @@
       ],
       "patch": {
         "description": "Updates a pet by name",
+        "operationId": "updatePetName",
         "consumes": [
           "application/json"
         ],
