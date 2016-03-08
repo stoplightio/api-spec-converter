@@ -1,1477 +1,356 @@
----
 swagger: "2.0"
 info:
-  version: "2016-01-18T09:03:22Z"
-  title: "v3"
-host: "jht09q1u3b.execute-api.eu-west-1.amazonaws.com"
-basePath: "/prod"
+  version: 1.0.0
+  title: Swagger petstore
+  description: A sample API
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
 schemes:
-- "https"
-paths:
-  /account/domains:
-    post:
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "AccountDomains"
-        required: true
-        schema:
-          $ref: "#/definitions/AccountDomains"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/AccountDomainsResponse"
-          headers:
-            Content-type:
-              type: "string"
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"domains\"\
-                \ : [\n#foreach($domain in $inputRoot.domains)\n {\n    \"objectId\"\
-                \ : $domain.id,\n    \"domainName\" : \"$domain.name\",\n    \"abbreviation\"\
-                \ : \"$domain.identifier\",\n    \"hostname\" : \"$domain.hostname\"\
-                ,\n    \"language\" : \"$domain.language\",\n    \"logoImageUrl\"\
-                \ : \"$domain.logo_image_url\",\n\t\"headerImageUrl\" : \"$domain.header_image_url\"\
-                ,\n\t\"colorHighlightStart\" : \"$domain.color_highlight_start\",\n\
-                \t\"colorHighlightEnd\" : \"$domain.color_highlight_end\",\n\t\"colorHighlightBorder\"\
-                \ : \"$domain.color_highlight_border\",\n\t\"colorLink\" : \"$domain.color_link\"\
-                ,\n\t\"colorLinkHover\" : \"$domain.color_link_hover\",\n\t\"colorLinkActive\"\
-                \ : \"$domain.color_link_active\",\n\t\"colorLinkVisited\" : \"$domain.color_link_visited\"\
-                ,\n\t\"colorTextHeadline\" : \"$domain.color_text_headline\",\n\t\"\
-                colorTextBody\" : \"$domain.color_text_body\",\n\t\"colorTextAside\"\
-                \ : \"$domain.color_text_aside\",\n\t\"colorLine\" : \"$domain.color_line\"\
-                ,\n\t\"colorLineAside\" : \"$domain.color_line_aside\",\n    \"createTime\"\
-                \ : $domain.create_time,\n    \"updateTime\" : $domain.update_time\n\
-                \  } \n#if($foreach.hasNext),#end\n#end\n]\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        requestTemplates:
-          application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/account/domains"
-        httpMethod: "POST"
-        type: "http"
-  /account/login:
-    post:
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "AccountLogin"
-        required: true
-        schema:
-          $ref: "#/definitions/AccountLogin"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/AccountLoginResponse"
-          headers:
-            Content-type:
-              type: "string"
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"token\"\
-                \ : \"$inputRoot.token\",\n  \"objectId\" : $inputRoot.id,\n  \"username\"\
-                \ : \"$inputRoot.name\",\n  \"userType\" : \"$inputRoot.type\",\n\
-                \  \"roles\" : [\n#foreach($role in $inputRoot.roles)\n \"$role\"\
-                \ \n#if($foreach.hasNext),#end\n#end\n],\n  \"properties\": {\n  \"\
-                companies\" : [\n#foreach($company in $inputRoot.companies)\n {\n\
-                \    \"objectId\" : $company.id,\n    \"domains\" : [\n#foreach($domain\
-                \ in $company.domains)\n {\n      \"objectId\" : $domain.id,\n   \
-                \   \"domainName\" : \"$domain.name\",\n      \"abbreviation\" : \"\
-                $domain.identifier\",\n      \"hostname\" : \"$domain.hostname\",\n\
-                \      \"language\" : \"$domain.language\",\n      \"logoImageUrl\"\
-                \ : \"$domain.logo_image_url\",\n      \"headerImageUrl\" : \"$domain.header_image_url\"\
-                ,\n      \"colorHighlightStart\" : \"$domain.color_highlight_start\"\
-                ,\n      \"colorHighlightEnd\" : \"$domain.color_highlight_end\",\n\
-                \      \"colorHighlightBorder\" : \"$domain.color_highlight_border\"\
-                ,\n      \"colorLink\" : \"$domain.color_link\",\n      \"colorLinkHover\"\
-                \ : \"$domain.color_link_hover\",\n      \"colorLinkActive\" : \"\
-                $domain.color_link_active\",\n      \"colorLinkVisited\" : \"$domain.color_link_visited\"\
-                ,\n      \"colorTextHeadline\" : \"$domain.color_text_headline\",\n\
-                \      \"colorTextBody\" : \"$domain.color_text_body\",\n      \"\
-                colorTextAside\" : \"$domain.color_text_aside\",\n      \"colorLine\"\
-                \ : \"$domain.color_line\",\n      \"colorLineAside\" : \"$domain.color_line_aside\"\
-                ,\n      \"createTime\" : $domain.create_time,\n      \"updateTime\"\
-                \ : $domain.update_time\n    } \n#if($foreach.hasNext),#end\n#end\n\
-                ],\n    \"premiumProfile\" : $company.premium_profile,\n    \"parentCompanyId\"\
-                \ : #if($company.parent_company_id != \"\")$company.parent_company_id#{else}null#end,\n\
-                \    \"companyName\" : \"$company.name\",\n    \"logoFile\" : \n#if($company.logo_file)\
-                \    \n    {\n      \"objectId\" : $company.logo_file.id,\n      \"\
-                imageUrl\" : \"$company.logo_file.original_image_url\",\n      \"\
-                thumbUrl\" : \"$company.logo_file.thumb_url\",\n      \"width\" :\
-                \ $company.logo_file.width,\n      \"height\" : $company.logo_file.height,\n\
-                \      \"cropLeft\" : #if($company.logo_file.crop_left != \"\")$company.logo_file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($company.logo_file.crop_top != \"\")$company.logo_file.crop_top#{else}null#end,\n\
-                \      \"cropRight\" : #if($company.logo_file.crop_right != \"\")$company.logo_file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($company.logo_file.crop_bottom != \"\"\
-                )$company.logo_file.crop_bottom#{else}null#end,\n      \"contentType\"\
-                \ : \"$company.logo_file.image_content_type\",\n      \"createTime\"\
-                \ : $company.logo_file.create_time,\n      \"updateTime\" : $company.logo_file.update_time\n\
-                \    }\n#else\nnull\n#end,\n    \"public\" : $company.public,\n  \
-                \  \"viewCount\" : $company.view_count,\n    \"createTime\" : $company.create_time,\n\
-                \    \"updateTime\" : $company.update_time\n  } \n#if($foreach.hasNext),#end\n\
-                #end\n]\n}\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        requestTemplates:
-          application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"username\"\
-            \ : \"$inputRoot.username\",\n  \"password\" : \"$inputRoot.password\"\
-            ,\n  \"domain_id\" : $inputRoot.domainId,\n  \"device_name\" : \"$inputRoot.deviceName\"\
-            \n}"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/account/login"
-        httpMethod: "POST"
-        type: "http"
-  /employer/company:
-    get:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompaniesResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"companies\"\
-                \ : [\n#foreach($company in $inputRoot.companies)\n {\n    \"objectId\"\
-                \ : $company.id,\n    \"domains\" : [\n#foreach($domain in $company.domains)\n\
-                \ {\n      \"objectId\" : $domain.id,\n      \"domainName\" : \"$domain.name\"\
-                ,\n      \"abbreviation\" : \"$domain.identifier\",\n      \"hostname\"\
-                \ : \"$domain.hostname\",\n      \"language\" : \"$domain.language\"\
-                ,\n      \"logoImageUrl\" : \"$domain.logo_image_url\",\n      \"\
-                headerImageUrl\" : \"$domain.header_image_url\",\n      \"colorHighlightStart\"\
-                \ : \"$domain.color_highlight_start\",\n      \"colorHighlightEnd\"\
-                \ : \"$domain.color_highlight_end\",\n      \"colorHighlightBorder\"\
-                \ : \"$domain.color_highlight_border\",\n      \"colorLink\" : \"\
-                $domain.color_link\",\n      \"colorLinkHover\" : \"$domain.color_link_hover\"\
-                ,\n      \"colorLinkActive\" : \"$domain.color_link_active\",\n  \
-                \    \"colorLinkVisited\" : \"$domain.color_link_visited\",\n    \
-                \  \"colorTextHeadline\" : \"$domain.color_text_headline\",\n    \
-                \  \"colorTextBody\" : \"$domain.color_text_body\",\n      \"colorTextAside\"\
-                \ : \"$domain.color_text_aside\",\n      \"colorLine\" : \"$domain.color_line\"\
-                ,\n      \"colorLineAside\" : \"$domain.color_line_aside\",\n    \
-                \  \"createTime\" : $domain.create_time,\n      \"updateTime\" : $domain.update_time\n\
-                \    } \n#if($foreach.hasNext),#end\n#end\n],\n    \"parentCompanyId\"\
-                \ : $company.parent_company_id,\n    \"companyName\" : \"$company.name\"\
-                ,\n    \"logoFile\" : \n#if($company.logo_file)    \n    {\n     \
-                \ \"objectId\" : $company.logo_file.id,\n      \"imageUrl\" : \"$company.logo_file.original_image_url\"\
-                ,\n      \"thumbUrl\" : \"$company.logo_file.thumb_url\",\n      \"\
-                width\" : $company.logo_file.width,\n      \"height\" : $company.logo_file.height,\n\
-                \      \"cropLeft\" : #if($company.logo_file.crop_left != \"\")$company.logo_file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($company.logo_file.crop_top != \"\")$company.logo_file.crop_top#{else}null#end,\n\
-                \      \"cropRight\" : #if($company.logo_file.crop_right != \"\")$company.logo_file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($company.logo_file.crop_bottom != \"\"\
-                )$company.logo_file.crop_bottom#{else}null#end,\n      \"contentType\"\
-                \ : \"$company.logo_file.image_content_type\",\n      \"createTime\"\
-                \ : $company.logo_file.create_time,\n      \"updateTime\" : $company.logo_file.update_time\n\
-                \    }\n#else\nnull\n#end,\n    \"public\" : $company.public,\n  \
-                \  \"viewCount\" : $company.view_count,\n    \"createTime\" : $company.create_time,\n\
-                \    \"updateTime\" : $company.update_time\n  } \n#if($foreach.hasNext),#end\n\
-                #end\n]\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/default/index"
-        httpMethod: "GET"
-        requestParameters:
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-  /employer/company/{company_id}:
-    get:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n#set($company\
-                \ = $inputRoot.company)\n{\n  \"company\" : {\n    \"objectId\" :\
-                \ $company.id,\n    \"domains\" : [\n#foreach($domain in $company.domains)\n\
-                \ {\n      \"objectId\" : $domain.id,\n      \"domainName\" : \"$domain.name\"\
-                ,\n      \"abbreviation\" : \"$domain.identifier\",\n      \"hostname\"\
-                \ : \"$domain.hostname\",\n      \"language\" : \"$domain.language\"\
-                ,\n      \"logoImageUrl\" : \"$domain.logo_image_url\",\n      \"\
-                headerImageUrl\" : \"$domain.header_image_url\",\n      \"colorHighlightStart\"\
-                \ : \"$domain.color_highlight_start\",\n      \"colorHighlightEnd\"\
-                \ : \"$domain.color_highlight_end\",\n      \"colorHighlightBorder\"\
-                \ : \"$domain.color_highlight_border\",\n      \"colorLink\" : \"\
-                $domain.color_link\",\n      \"colorLinkHover\" : \"$domain.color_link_hover\"\
-                ,\n      \"colorLinkActive\" : \"$domain.color_link_active\",\n  \
-                \    \"colorLinkVisited\" : \"$domain.color_link_visited\",\n    \
-                \  \"colorTextHeadline\" : \"$domain.color_text_headline\",\n    \
-                \  \"colorTextBody\" : \"$domain.color_text_body\",\n      \"colorTextAside\"\
-                \ : \"$domain.color_text_aside\",\n      \"colorLine\" : \"$domain.color_line\"\
-                ,\n      \"colorLineAside\" : \"$domain.color_line_aside\",\n    \
-                \  \"createTime\" : $domain.create_time,\n      \"updateTime\" : $domain.update_time\n\
-                \    } \n#if($foreach.hasNext),#end\n#end\n],\n    \"parentCompanyId\"\
-                \ : $company.parent_company_id,\n    \"companyName\" : \"$company.name\"\
-                ,\n    \"logoFile\" : \n#if($company.logo_file)    \n    {\n     \
-                \ \"objectId\" : $company.logo_file.id,\n      \"imageUrl\" : \"$company.logo_file.original_image_url\"\
-                ,\n      \"thumbUrl\" : \"$company.logo_file.thumb_url\",\n      \"\
-                width\" : $company.logo_file.width,\n      \"height\" : $company.logo_file.height,\n\
-                \      \"cropLeft\" : #if($company.logo_file.crop_left != \"\")$company.logo_file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($company.logo_file.crop_top != \"\")$company.logo_file.crop_top#{else}null#end,\n\
-                \      \"cropRight\" : #if($company.logo_file.crop_right != \"\")$company.logo_file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($company.logo_file.crop_bottom != \"\"\
-                )$company.logo_file.crop_bottom#{else}null#end,\n      \"contentType\"\
-                \ : \"$company.logo_file.image_content_type\",\n      \"createTime\"\
-                \ : $company.logo_file.create_time,\n      \"updateTime\" : $company.logo_file.update_time\n\
-                \    }\n#else\nnull\n#end,\n    \"public\" : $company.public,\n  \
-                \  \"viewCount\" : $company.view_count,\n    \"createTime\" : $company.create_time,\n\
-                \    \"updateTime\" : $company.update_time\n  }\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/default/view"
-        httpMethod: "GET"
-        requestParameters:
-          integration.request.querystring.id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-  /employer/company/{company_id}/profile/header:
-    get:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfileHeaderResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"file\"\
-                \ : \n#if($inputRoot.file)\n  {\n    \"objectId\" : $inputRoot.file.id,\n\
-                \    \"imageUrl\" : \"$inputRoot.file.original_image_url\",\n    \"\
-                thumbUrl\" : \"$inputRoot.file.thumb_url\",\n    \"width\" : $inputRoot.file.width,\n\
-                \    \"height\" : $inputRoot.file.height,\n    \"cropLeft\" : #if($inputRoot.file.crop_left\
-                \ != \"\")$inputRoot.file.crop_left#{else}null#end,\n    \"cropTop\"\
-                \ : #if($inputRoot.file.crop_top != \"\")$inputRoot.file.crop_top#{else}null#end,\n\
-                \    \"cropRight\" : #if($inputRoot.file.crop_right != \"\")$inputRoot.file.crop_right#{else}null#end,\n\
-                \    \"cropBottom\" : #if($inputRoot.file.crop_bottom != \"\")$inputRoot.file.crop_bottom#{else}null#end,\n\
-                \    \"contentType\" : \"$inputRoot.file.image_content_type\",\n \
-                \   \"createTime\" : $inputRoot.file.create_time,\n    \"updateTime\"\
-                \ : $inputRoot.file.update_time\n  }\n#else\nnull\n#end  \n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/header/index"
-        httpMethod: "GET"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    post:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfileHeaderResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"file\"\
-                \ : \n#if($inputRoot.file)\n  {\n    \"objectId\" : $inputRoot.file.id,\n\
-                \    \"imageUrl\" : \"$inputRoot.file.original_image_url\",\n    \"\
-                thumbUrl\" : \"$inputRoot.file.thumb_url\",\n    \"width\" : $inputRoot.file.width,\n\
-                \    \"height\" : $inputRoot.file.height,\n    \"cropLeft\" : #if($inputRoot.file.crop_left\
-                \ != \"\")$inputRoot.file.crop_left#{else}null#end,\n    \"cropTop\"\
-                \ : #if($inputRoot.file.crop_top != \"\")$inputRoot.file.crop_top#{else}null#end,\n\
-                \    \"cropRight\" : #if($inputRoot.file.crop_right != \"\")$inputRoot.file.crop_right#{else}null#end,\n\
-                \    \"cropBottom\" : #if($inputRoot.file.crop_bottom != \"\")$inputRoot.file.crop_bottom#{else}null#end,\n\
-                \    \"contentType\" : \"$inputRoot.file.image_content_type\",\n \
-                \   \"createTime\" : $inputRoot.file.create_time,\n    \"updateTime\"\
-                \ : $inputRoot.file.update_time\n  }\n#else\nnull\n#end  \n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        requestTemplates:
-          application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/header/create"
-        httpMethod: "POST"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    delete:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "__passthrough__"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/header/delete"
-        httpMethod: "DELETE"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-  /employer/company/{company_id}/profile/pictures:
-    get:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfilePicturesResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"pictures\"\
-                \ : [\n#foreach($picture in $inputRoot.pictures)\n {\n    \"objectId\"\
-                \ : $picture.id,\n    \"title\" : \"$picture.title\",\n    \"descriptionText\"\
-                \ : \"$picture.description_text\",\n    \"sort\" : $picture.sort,\n\
-                \    \"file\" : {\n      \"objectId\" : $picture.file.id,\n      \"\
-                imageUrl\" : \"$picture.file.original_image_url\",\n      \"thumbUrl\"\
-                \ : \"$picture.file.thumb_url\",\n      \"width\" : $picture.file.width,\n\
-                \      \"height\" : $picture.file.height,\n      \"cropLeft\" : #if($picture.file.crop_left\
-                \ != \"\")$picture.file.crop_left#{else}null#end,\n      \"cropTop\"\
-                \ : #if($picture.file.crop_top != \"\")$picture.file.crop_top#{else}null#end,\n\
-                \      \"cropRight\" : #if($picture.file.crop_right != \"\")$picture.file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($picture.file.crop_bottom != \"\")$picture.file.crop_bottom#{else}null#end,\n\
-                \      \"contentType\" : \"$picture.file.image_content_type\",\n \
-                \     \"createTime\" : $picture.file.create_time,\n      \"updateTime\"\
-                \ : $picture.file.update_time\n    },\n    \"createTime\" : $picture.create_time,\n\
-                \    \"updateTime\" : $picture.update_time\n  } \n#if($foreach.hasNext),#end\n\
-                #end\n]\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/index"
-        httpMethod: "GET"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    post:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfilePictureResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"picture\"\
-                \ : {\n    \"objectId\" : $inputRoot.picture.id,\n    \"title\" :\
-                \ \"$inputRoot.picture.title\",\n    \"descriptionText\" : \"$inputRoot.picture.description_text\"\
-                ,\n    \"sort\" : $inputRoot.picture.sort,\n    \"file\" : {\n   \
-                \   \"objectId\" : $inputRoot.picture.file.id,\n      \"imageUrl\"\
-                \ : \"$inputRoot.picture.file.original_image_url\",\n      \"thumbUrl\"\
-                \ : \"$inputRoot.picture.file.thumb_url\",\n      \"width\" : $inputRoot.picture.file.width,\n\
-                \      \"height\" : $inputRoot.picture.file.height,\n      \"cropLeft\"\
-                \ : #if($inputRoot.picture.file.crop_left)$inputRoot.picture.file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($inputRoot.picture.file.crop_top)$inputRoot.picture.file.crop_top#{else}null#end,\n\
-                \      \"cropRight\" : #if($inputRoot.picture.file.crop_right)$inputRoot.picture.file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($inputRoot.picture.file.crop_bottom)$inputRoot.picture.file.crop_bottom#{else}null#end,\n\
-                \      \"contentType\" : \"$inputRoot.picture.file.image_content_type\"\
-                ,\n      \"createTime\" : $inputRoot.picture.file.create_time,\n \
-                \     \"updateTime\" : $inputRoot.picture.file.update_time\n    },\n\
-                \    \"createTime\" : $inputRoot.picture.create_time,\n    \"updateTime\"\
-                \ : $inputRoot.picture.update_time\n  }\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/create"
-        httpMethod: "POST"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    put:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "__passthrough__"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/sort"
-        httpMethod: "PUT"
-        requestParameters:
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-  /employer/company/{company_id}/profile/pictures/{picture_id}:
-    get:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "picture_id"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfilePictureResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"picture\"\
-                \ : {\n    \"objectId\" : $inputRoot.picture.id,\n    \"title\" :\
-                \ \"$inputRoot.picture.title\",\n    \"descriptionText\" : \"$inputRoot.picture.description_text\"\
-                ,\n    \"sort\" : $inputRoot.picture.sort,\n    \"file\" : {\n   \
-                \   \"objectId\" : $inputRoot.picture.file.id,\n      \"imageUrl\"\
-                \ : \"$inputRoot.picture.file.original_image_url\",\n      \"thumbUrl\"\
-                \ : \"$inputRoot.picture.file.thumb_url\",\n      \"width\" : $inputRoot.picture.file.width,\n\
-                \      \"height\" : $inputRoot.picture.file.height,\n      \"cropLeft\"\
-                \ : #if($inputRoot.picture.file.crop_left != \"\")$inputRoot.picture.file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($inputRoot.picture.file.crop_top != \"\"\
-                )$inputRoot.picture.file.crop_top#{else}null#end,\n      \"cropRight\"\
-                \ : #if($inputRoot.picture.file.crop_right != \"\")$inputRoot.picture.file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($inputRoot.picture.file.crop_bottom !=\
-                \ \"\")$inputRoot.picture.file.crop_bottom#{else}null#end,\n     \
-                \ \"contentType\" : \"$inputRoot.picture.file.image_content_type\"\
-                ,\n      \"createTime\" : $inputRoot.picture.file.create_time,\n \
-                \     \"updateTime\" : $inputRoot.picture.file.update_time\n    },\n\
-                \    \"createTime\" : $inputRoot.picture.create_time,\n    \"updateTime\"\
-                \ : $inputRoot.picture.update_time\n  }\n}"
-          5\d{2}:
-            statusCode: "500"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/view"
-        httpMethod: "GET"
-        requestParameters:
-          integration.request.querystring.id: "method.request.path.picture_id"
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    post:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "picture_id"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/EmployerCompanyPremiumProfilePictureResponse"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n{\n  \"picture\"\
-                \ : {\n    \"objectId\" : $inputRoot.picture.id,\n    \"title\" :\
-                \ \"$inputRoot.picture.title\",\n    \"descriptionText\" : \"$inputRoot.picture.description_text\"\
-                ,\n    \"sort\" : $inputRoot.picture.sort,\n    \"file\" : {\n   \
-                \   \"objectId\" : $inputRoot.picture.file.id,\n      \"imageUrl\"\
-                \ : \"$inputRoot.picture.file.original_image_url\",\n      \"thumbUrl\"\
-                \ : \"$inputRoot.picture.file.thumb_url\",\n      \"width\" : $inputRoot.picture.file.width,\n\
-                \      \"height\" : $inputRoot.picture.file.height,\n      \"cropLeft\"\
-                \ : #if($inputRoot.picture.file.crop_left != \"\")$inputRoot.picture.file.crop_left#{else}null#end,\n\
-                \      \"cropTop\" : #if($inputRoot.picture.file.crop_top != \"\"\
-                )$inputRoot.picture.file.crop_top#{else}null#end,\n      \"cropRight\"\
-                \ : #if($inputRoot.picture.file.crop_right != \"\")$inputRoot.picture.file.crop_right#{else}null#end,\n\
-                \      \"cropBottom\" : #if($inputRoot.picture.file.crop_bottom !=\
-                \ \"\")$inputRoot.picture.file.crop_bottom#{else}null#end,\n     \
-                \ \"contentType\" : \"$inputRoot.picture.file.image_content_type\"\
-                ,\n      \"createTime\" : $inputRoot.picture.file.create_time,\n \
-                \     \"updateTime\" : $inputRoot.picture.file.update_time\n    },\n\
-                \    \"createTime\" : $inputRoot.picture.create_time,\n    \"updateTime\"\
-                \ : $inputRoot.picture.update_time\n  }\n}"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/update"
-        httpMethod: "POST"
-        requestParameters:
-          integration.request.querystring.id: "method.request.path.picture_id"
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-    delete:
-      produces:
-      - "application/json"
-      parameters:
-      - name: "company_id"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "auth-token"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "picture_id"
-        in: "path"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers: {}
-        400:
-          description: "400 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-        500:
-          description: "500 response"
-          schema:
-            $ref: "#/definitions/Error"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          4\d{2}:
-            statusCode: "400"
-            responseTemplates:
-              application/json: "__passthrough__"
-          200:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "__passthrough__"
-          5\d{2}:
-            statusCode: "500"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/employer/company/profile/pictures/delete"
-        httpMethod: "DELETE"
-        requestParameters:
-          integration.request.querystring.id: "method.request.path.picture_id"
-          integration.request.querystring.company_id: "method.request.path.company_id"
-          integration.request.header.auth-token: "method.request.header.auth-token"
-        type: "http"
-  /ping:
-    get:
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers: {}
-      security:
-      - api_key: []
-      x-amazon-apigateway-integration:
-        responses:
-          default:
-            statusCode: "200"
-            responseTemplates:
-              application/json: "__passthrough__"
-        uri: "https://${stageVariables.hostname}/api/${stageVariables.version}/ping"
-        httpMethod: "GET"
-        type: "http"
+  - http
+  - https
+  - ws
+
+definitions:
+  pet:
+    required:
+      - name
+      - type
+    properties:
+      name:
+        type: string
+        minLength: 4
+        pattern: "^[a-zA-Z0-9- ]+$"
+      age:
+        type: integer
+      dob:
+        type: string
+        format: 'date'
+      type:
+        type: string
+        enum: [cat, dog, bird]
+      address:
+        $ref: "#/definitions/address"
+      vet:
+        $ref: "#/definitions/veterinarian"
+      tags:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+
+  veterinarian:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        minLength: 1
+      address:
+        $ref: "#/definitions/address"
+
+  address:
+    properties:
+      street:
+        type: string
+        minLength: 1
+      city:
+        type: string
+        minLength: 1
+      state:
+        type: string
+        minLength: 2
+        maxLength: 2
+        pattern: "^[A-Z]+$"
+      zipcode:
+        type: integer
+        minimum: 10000
+        maximum: 99999
+
+parameters:
+  petName:
+    name: petName
+    in: path
+    description: Name of the pet
+    required: true
+    type: string
+
 securityDefinitions:
   api_key:
-    type: "apiKey"
-    name: "x-api-key"
-    in: "header"
-definitions:
-  Empty:
-    type: "object"
-  EmployerCompanyResponse:
-    type: "object"
-    properties:
-      company:
-        type: "object"
-        properties:
-          parentCompanyId:
-            type: "integer"
-            minimum: 0.0
-          logoFile:
-            type: "object"
-            properties:
-              cropLeft:
-                type: "integer"
-              cropTop:
-                type: "integer"
-              cropBottom:
-                type: "integer"
-              createTime:
-                type: "integer"
-              imageUrl:
-                type: "string"
-              width:
-                type: "integer"
-                minimum: 0.0
-              cropRight:
-                type: "integer"
-              updateTime:
-                type: "integer"
-              thumbUrl:
-                type: "string"
-              contentType:
-                type: "string"
-              objectId:
-                type: "integer"
-                minimum: 0.0
-              height:
-                type: "integer"
-                minimum: 0.0
-          public:
-            type: "boolean"
-          createTime:
-            type: "integer"
-          premiumProfile:
-            type: "array"
-            items:
-              type: "integer"
-          companyName:
-            type: "string"
-          domains:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                headerImageUrl:
-                  type: "string"
-                colorLinkHover:
-                  type: "string"
-                colorLineAside:
-                  type: "string"
-                language:
-                  type: "string"
-                updateTime:
-                  type: "integer"
-                colorHighlightEnd:
-                  type: "string"
-                abbreviation:
-                  type: "string"
-                colorHighlightBorder:
-                  type: "string"
-                colorTextBody:
-                  type: "string"
-                logoImageUrl:
-                  type: "string"
-                colorLinkVisited:
-                  type: "string"
-                hostname: null
-                colorLink:
-                  type: "string"
-                createTime:
-                  type: "integer"
-                domainName:
-                  type: "string"
-                colorTextHeadline:
-                  type: "string"
-                colorLine:
-                  type: "string"
-                colorHighlightStart:
-                  type: "string"
-                colorLinkActive:
-                  type: "string"
-                objectId:
-                  type: "integer"
-                  minimum: 0.0
-                colorTextAside:
-                  type: "string"
-          updateTime:
-            type: "integer"
-          viewCount:
-            type: "integer"
-            minimum: 0.0
-          objectId:
-            type: "integer"
-            minimum: 0.0
-  EmployerCompaniesResponse:
-    type: "object"
-    properties:
-      companies:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            parentCompanyId:
-              type: "integer"
-              minimum: 0.0
-            logoFile:
-              type: "object"
-              properties:
-                cropLeft:
-                  type: "integer"
-                cropTop:
-                  type: "integer"
-                cropBottom:
-                  type: "integer"
-                createTime:
-                  type: "integer"
-                imageUrl:
-                  type: "string"
-                width:
-                  type: "integer"
-                  minimum: 0.0
-                cropRight:
-                  type: "integer"
-                updateTime:
-                  type: "integer"
-                thumbUrl:
-                  type: "string"
-                contentType:
-                  type: "string"
-                objectId:
-                  type: "integer"
-                  minimum: 0.0
-                height:
-                  type: "integer"
-                  minimum: 0.0
-            public:
-              type: "boolean"
-            createTime:
-              type: "integer"
-            premiumProfile:
-              type: "array"
-              items:
-                type: "integer"
-            companyName:
-              type: "string"
-            domains:
-              type: "array"
-              items:
-                type: "object"
-                properties:
-                  headerImageUrl:
-                    type: "string"
-                  colorLinkHover:
-                    type: "string"
-                  colorLineAside:
-                    type: "string"
-                  language:
-                    type: "string"
-                  updateTime:
-                    type: "integer"
-                  colorHighlightEnd:
-                    type: "string"
-                  abbreviation:
-                    type: "string"
-                  colorHighlightBorder:
-                    type: "string"
-                  colorTextBody:
-                    type: "string"
-                  logoImageUrl:
-                    type: "string"
-                  colorLinkVisited:
-                    type: "string"
-                  hostname: null
-                  colorLink:
-                    type: "string"
-                  createTime:
-                    type: "integer"
-                  domainName:
-                    type: "string"
-                  colorTextHeadline:
-                    type: "string"
-                  colorLine:
-                    type: "string"
-                  colorHighlightStart:
-                    type: "string"
-                  colorLinkActive:
-                    type: "string"
-                  objectId:
-                    type: "integer"
-                    minimum: 0.0
-                  colorTextAside:
-                    type: "string"
-            updateTime:
-              type: "integer"
-            viewCount:
-              type: "integer"
-              minimum: 0.0
-            objectId:
-              type: "integer"
-              minimum: 0.0
-  AccountLogin:
-    type: "object"
-    required:
-    - "domainId"
-    - "password"
-    - "username"
-    properties:
-      username:
-        type: "string"
-        format: "email"
-      password:
-        type: "string"
-      domainId:
-        type: "integer"
-      deviceName:
-        type: "string"
-  EmployerCompanyPremiumProfilePictureResponse:
-    type: "object"
-    properties:
-      picture:
-        type: "object"
-        properties:
-          file:
-            type: "object"
-            properties:
-              cropLeft:
-                type: "integer"
-              cropTop:
-                type: "integer"
-              cropBottom:
-                type: "integer"
-              createTime:
-                type: "integer"
-              imageUrl:
-                type: "string"
-              width:
-                type: "integer"
-                minimum: 0.0
-              cropRight:
-                type: "integer"
-              updateTime:
-                type: "integer"
-              thumbUrl:
-                type: "string"
-              contentType:
-                type: "string"
-              objectId:
-                type: "integer"
-                minimum: 0.0
-              height:
-                type: "integer"
-                minimum: 0.0
-          createTime:
-            type: "integer"
-          updateTime:
-            type: "integer"
-          descriptionText:
-            type: "string"
-          sort:
-            type: "integer"
-            minimum: 0.0
-          title:
-            type: "string"
-          objectId:
-            type: "integer"
-            minimum: 0.0
-  AccountDomainsResponse:
-    type: "object"
-    properties:
-      domains:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            headerImageUrl:
-              type: "string"
-            colorLinkHover:
-              type: "string"
-            colorLineAside:
-              type: "string"
-            language:
-              type: "string"
-            updateTime:
-              type: "integer"
-            colorHighlightEnd:
-              type: "string"
-            abbreviation:
-              type: "string"
-            colorHighlightBorder:
-              type: "string"
-            colorTextBody:
-              type: "string"
-            logoImageUrl:
-              type: "string"
-            colorLinkVisited:
-              type: "string"
-            hostname: null
-            colorLink:
-              type: "string"
-            createTime:
-              type: "integer"
-            domainName:
-              type: "string"
-            colorTextHeadline:
-              type: "string"
-            colorLine:
-              type: "string"
-            colorHighlightStart:
-              type: "string"
-            colorLinkActive:
-              type: "string"
-            objectId:
-              type: "integer"
-              minimum: 0.0
-            colorTextAside:
-              type: "string"
-  Error:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-      message:
-        type: "string"
-      fields:
-        type: "object"
-        additionalProperties:
-          type: "array"
+    type: apiKey
+    name: api_key
+    in: header
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: http://swagger.io/api/oauth/dialog
+    flow: implicit
+    scopes:
+      write:pets: modify pets in your account
+      read:pets: read your pets
+
+paths:
+  /pets:
+    get:
+      description: Returns all pets, optionally filtered by one or more criteria
+      operationId: findPets
+      parameters: &petFilters
+        - name: tags
+          in: query
+          description: Filters pets by one or more tags
+          required: false
+          type: array
           items:
-            type: "string"
-  AccountLoginResponse:
-    type: "object"
-    properties:
-      token:
-        type: "string"
-      objectId:
-        type: "integer"
-      username:
-        type: "string"
-      userType:
-        type: "string"
-      roles:
-        type: "array"
-        items:
-          type: "string"
-      companies:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            parentCompanyId:
-              type: "integer"
-              minimum: 0.0
-            logoFile:
-              type: "object"
+            type: string
+          uniqueItems: true
+          collectionFormat: csv
+        - name: type
+          in: query
+          description: Filters pets by type (dog, cat, or bird)
+          required: false
+          type: string
+          enum: [cat, dog, bird]
+        - name: age
+          in: query
+          description: Filters pets by age
+          required: true
+          type: integer
+        - name: dob
+          in: query
+          description: Filters pets by date of birth
+          required: false
+          type: string
+          format: date
+        - name: address.city
+          in: query
+          description: Filters pets by city
+          required: false
+          type: string
+        - name: address.state
+          in: query
+          description: Filters pets by state
+          required: false
+          type: string
+        - name: address.zipcode
+          in: query
+          description: Filters pets by zip code
+          required: false
+          type: integer
+        - name: vet.name
+          in: query
+          description: Filters pets by veterinarian name
+          required: false
+          type: string
+        - name: vet.address.city
+          in: query
+          description: Filters pets by veterinarian city
+          required: false
+          type: string
+        - name: vet.address.state
+          in: query
+          description: Filters pets by veterinarian state
+          required: false
+          type: string
+        - name: vet.address.zipcode
+          in: query
+          description: Filters pets by veterinarian zip code
+          required: false
+          type: integer
+        - name: token
+          in: header
+          required: true
+          type: string
+      responses:
+        default:
+          description: Returns the matching pets
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/pet"
+          headers:
+            last-modified:
+              type: string
+              description: The date/time that a pet was last modified
+
+    delete:
+      description: Deletes all pets, optionally filtered by one or more criteria
+      operationId: deletePets
+      parameters: *petFilters
+      responses:
+        default:
+          description: Returns the pets that were deleted
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/pet"
+
+    post:
+      description: Creates a new pet in the store
+      operationId: addPet
+      parameters:
+        - name: pet
+          in: body
+          description: The pet to add to the store
+          required: true
+          schema:
+            $ref: "#/definitions/pet"
+      responses:
+        201:
+          description: Returns the newly-added pet
+          schema:
+            $ref: "#/definitions/pet"
+          headers:
+            Location:
+              type: string
+              description: The URL of the newly-added pet
+      security:
+        - api_key: []
+
+  /pets/{petName}:
+    parameters:
+      - $ref: "#/parameters/petName"
+
+    get:
+      description: Returns a pet by name
+      operationId: findPetByName
+      responses:
+        default:
+          description: Returns the pet data
+          schema:
+            $ref: "#/definitions/pet"
+          headers:
+            last-modified:
+              type: string
+              description: The date/time that the pet was last modified
+
+    delete:
+      description: Deletes a single pet based on the name supplied
+      operationId: deletePet
+      responses:
+        default:
+          description: Returns the pet that was deleted
+          schema:
+            $ref: "#/definitions/pet"
+
+    patch:
+      description: Updates a pet by name
+      parameters:
+        - name: pet
+          in: body
+          description: The updated pet info
+          required: true
+          schema:
+            $ref: "#/definitions/pet"
+      responses:
+        default:
+          description: Returns the updated pet data
+          schema:
+            $ref: "#/definitions/pet"
+
+  /pets/{petName}/photos:
+    parameters:
+      - $ref: "#/parameters/petName"
+
+    post:
+      description: Upload a new pet photo
+      operationId: addPetPhoto
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: id
+          in: formData
+          description: The photo ID (generated automatically)
+          type: integer
+          minimum: 1
+          required: false
+        - name: label
+          in: formData
+          description: A label for the photo
+          type: string
+          minLength: 1
+          required: true
+        - name: description
+          in: formData
+          description: An optional description of the photo
+          type: string
+          required: false
+        - name: photo
+          in: formData
+          description: The pet photo
+          type: file
+          minLength: 1
+          maxLength: 5000000  # ~5MB
+          required: true
+      responses:
+        default:
+          description: Returns the photo information
+          schema:
+            properties:
+              id:
+                type: integer
+                format: int32
+                description: The auto-generated photo ID
+              label:
+                type: string
+              description:
+                type: string
+              photo:
+                description: Information about the photo (size, file name, etc.)
+          headers:
+            Location:
+              type: string
+              description: The URL of the newly-added photo
+
+    get:
+      description: Get a list of the photos for a pet
+      responses:
+        200:
+          description: Returns the list of photos
+          schema:
+            type: array
+            items:
               properties:
-                cropLeft:
-                  type: "integer"
-                cropTop:
-                  type: "integer"
-                cropBottom:
-                  type: "integer"
-                createTime:
-                  type: "integer"
-                imageUrl:
-                  type: "string"
-                width:
-                  type: "integer"
-                  minimum: 0.0
-                cropRight:
-                  type: "integer"
-                updateTime:
-                  type: "integer"
-                thumbUrl:
-                  type: "string"
-                contentType:
-                  type: "string"
-                objectId:
-                  type: "integer"
-                  minimum: 0.0
-                height:
-                  type: "integer"
-                  minimum: 0.0
-            public:
-              type: "boolean"
-            createTime:
-              type: "integer"
-            premiumProfile:
-              type: "array"
-              items:
-                type: "integer"
-            companyName:
-              type: "string"
-            domains:
-              type: "array"
-              items:
-                type: "object"
-                properties:
-                  headerImageUrl:
-                    type: "string"
-                  colorLinkHover:
-                    type: "string"
-                  colorLineAside:
-                    type: "string"
-                  language:
-                    type: "string"
-                  updateTime:
-                    type: "integer"
-                  colorHighlightEnd:
-                    type: "string"
-                  abbreviation:
-                    type: "string"
-                  colorHighlightBorder:
-                    type: "string"
-                  colorTextBody:
-                    type: "string"
-                  logoImageUrl:
-                    type: "string"
-                  colorLinkVisited:
-                    type: "string"
-                  hostname: null
-                  colorLink:
-                    type: "string"
-                  createTime:
-                    type: "integer"
-                  domainName:
-                    type: "string"
-                  colorTextHeadline:
-                    type: "string"
-                  colorLine:
-                    type: "string"
-                  colorHighlightStart:
-                    type: "string"
-                  colorLinkActive:
-                    type: "string"
-                  objectId:
-                    type: "integer"
-                    minimum: 0.0
-                  colorTextAside:
-                    type: "string"
-            updateTime:
-              type: "integer"
-            viewCount:
-              type: "integer"
-              minimum: 0.0
-            objectId:
-              type: "integer"
-              minimum: 0.0
-  AccountDomains:
-    type: "object"
-    required:
-    - "password"
-    - "username"
-    properties:
-      username:
-        type: "string"
-        format: "email"
-      password:
-        type: "string"
-  EmployerCompanyPremiumProfileHeaderResponse:
-    type: "object"
-    properties:
-      file:
-        type: "object"
-        properties:
-          cropLeft:
-            type: "integer"
-          cropTop:
-            type: "integer"
-          cropBottom:
-            type: "integer"
-          createTime:
-            type: "integer"
-          imageUrl:
-            type: "string"
-          width:
-            type: "integer"
-            minimum: 0.0
-          cropRight:
-            type: "integer"
-          updateTime:
-            type: "integer"
-          thumbUrl:
-            type: "string"
-          contentType:
-            type: "string"
-          objectId:
-            type: "integer"
-            minimum: 0.0
-          height:
-            type: "integer"
-            minimum: 0.0
-  EmployerCompanyPremiumProfilePicturesResponse:
-    type: "object"
-    properties:
-      pictures:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            file:
-              type: "object"
-              properties:
-                cropLeft:
-                  type: "integer"
-                cropTop:
-                  type: "integer"
-                cropBottom:
-                  type: "integer"
-                createTime:
-                  type: "integer"
-                imageUrl:
-                  type: "string"
-                width:
-                  type: "integer"
-                  minimum: 0.0
-                cropRight:
-                  type: "integer"
-                updateTime:
-                  type: "integer"
-                thumbUrl:
-                  type: "string"
-                contentType:
-                  type: "string"
-                objectId:
-                  type: "integer"
-                  minimum: 0.0
-                height:
-                  type: "integer"
-                  minimum: 0.0
-            createTime:
-              type: "integer"
-            updateTime:
-              type: "integer"
-            descriptionText:
-              type: "string"
-            sort:
-              type: "integer"
-              minimum: 0.0
-            title:
-              type: "string"
-            objectId:
-              type: "integer"
-              minimum: 0.0
+                id:
+                  type: integer
+                  format: int32
+                  description: The auto-generated photo ID
+                label:
+                  type: string
+                description:
+                  type: string
+                photo:
+                  description: Information about the photo (size, file name, etc.)
+
+  /pets/{petName}/photos/{id}:
+    parameters:
+      - $ref: "#/parameters/petName"
+      - name: id
+        in: path
+        description: The ID of the photo
+        required: true
+        type: integer
+        format: int32
+
+    get:
+      description: Gets a pet photo
+      operationId: getPetPhoto
+      produces:
+        - image/jpeg
+        - image/gif
+        - image/png
+        - image/bmp
+      responses:
+        default:
+          description: Returns the pet photo
+          schema:
+            type: file
+
+    delete:
+      description: Deletes a pet photo
+      operationId: deletePetPhoto
+      responses:
+        default:
+          description: The photo was deleted successfully
