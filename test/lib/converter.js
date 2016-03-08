@@ -2,7 +2,7 @@ var chai   = require('chai'),
     expect = chai.expect,
     specConverter = require('../../index'),
     fs = require('fs'),
-    YAML = require('yamljs');
+    YAML = require('js-yaml');
 
 chai.use(require('chai-string'));
 
@@ -171,7 +171,7 @@ describe('Converter', function() {
     //     try {
     //       newConverterInstance.convert('yaml', function(err, convertedData){
     //         if(err)return done(err);
-    //         expect(YAML.parse(originalData)).to.deep.equal(YAML.parse(convertedData));
+    //         expect(YAML.safeLoad(originalData)).to.deep.equal(YAML.safeLoad(convertedData));
     //         done();
     //       });
     //     }
@@ -196,7 +196,7 @@ describe('Converter', function() {
     //           try{
     //             converter2.convert('yaml', function(err, resultRAML){
     //               if(err)return done(err);
-    //               expect(YAML.parse(resultRAML)).to.deep.equal(YAML.parse(fs.readFileSync(ramlPath, 'utf8')));
+    //               expect(YAML.safeLoad(resultRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(ramlPath, 'utf8')));
     //               done();
     //             });
     //           }
