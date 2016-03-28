@@ -17,13 +17,12 @@
   },
   "homepage": "https://github.com/stoplightio/api-spec-converter#readme",
   "dependencies": {
-    "chai-fuzzy": "^1.6.0",
-    "js-yaml": "git://github.com/stoplightio/js-yaml.git#e2b249f9b5ca028e45736f8a2958be094a4a9e17",
-    "jsonschema": "^1.1.0",
-    "lodash": "^4.6.1",
-    "raml-parser": "^0.8.15",
-    "request": "^2.69.0",
-    "swagger-parser": "^3.4.0"
+    "chai-fuzzy": "1.x.x",
+    "js-yaml": "3.x.x",
+    "jsonschema": "1.x.x",
+    "raml-parser": "0.x.x",
+    "request": "2.x.x",
+    "swagger-parser": "3.x.x"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -35,5 +34,8 @@
     "jscover": "^1.0.0",
     "mocha": "^2.4.5",
     "mocha-lcov-reporter": "^1.2.0"
+  },
+  "peerDependencies": {
+    "lodash": "4.x.x"
   }
 }
