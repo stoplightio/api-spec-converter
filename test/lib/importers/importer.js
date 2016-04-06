@@ -21,7 +21,7 @@ describe('Importer', function(){
       }
       catch(err) {
         expect(err).to.be.instanceof(Error);
-        expect(err.message).to.equal('loadFIle method not implemented');
+        expect(err.message).to.equal('loadFile method not implemented');
       }
     });
   });

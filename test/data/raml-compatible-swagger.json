@@ -5,6 +5,7 @@
     "title": "Swagger petstore",
     "description": "A sample API"
   },
+  "parameters": {},
   "paths": {
     "/pets/{petName}": {
       "parameters": [
@@ -244,6 +245,7 @@
   },
   "basePath": "/",
   "host": "localhost:3000",
+  "responses": {},
   "schemes": [
     "http",
     "https"
