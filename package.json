@@ -19,6 +19,7 @@
   "dependencies": {
     "chai-fuzzy": "1.x.x",
     "js-yaml": "3.x.x",
+    "json-schema-compatibility": "1.x.x",
     "jsonschema": "1.x.x",
     "raml-parser": "0.x.x",
     "request": "2.x.x",
