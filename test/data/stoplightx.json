@@ -260,7 +260,6 @@
             "required": false,
             "in": "query",
             "description": "Filters pets by age",
-            "required": true,
             "type": "integer"
           },
           {
@@ -382,7 +381,6 @@
             "required": false,
             "in": "query",
             "description": "Filters pets by age",
-            "required": true,
             "type": "integer"
           },
           {
@@ -746,9 +744,9 @@
     }
   },
   "x-stoplight": {
+    "beforeScript": "function(){ return 'before stript'}",
+    "afterScript": "function(){ return 'after stript'}",
     "version": {
-      "beforeScript": "function(){ return 'before stript'}",
-      "afterScript": "function(){ return 'after stript'}",
       "groups": {
         "utilFuncs": [],
         "docs": [
