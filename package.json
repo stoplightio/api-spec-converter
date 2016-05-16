@@ -23,7 +23,7 @@
     "jsonschema": "1.x.x",
     "raml-parser": "0.x.x",
     "request": "2.x.x",
-    "swagger-parser": "3.x.x"
+    "swagger-parser": "4.0.0-beta.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
