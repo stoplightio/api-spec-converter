@@ -45,7 +45,7 @@ describe('Swagger Exporter', function(){
   });
 
   describe('_getRequestTypes', function(){
-    it('should set applicaiton/json as default request type', function(){
+    it('should be no content type for request', function(){
       var endpoint = new Endpoint('test'), requestType, parameters = [];
       endpoint.Body = {
         mimeType: ''
@@ -58,8 +58,8 @@ describe('Swagger Exporter', function(){
       requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
       //should assign string type for non valid types
       expect(requestType).to.be.an('array');
-      expect(requestType.length).to.gt(0);
-      expect(requestType[0]).to.equal('application/json');
+      expect(requestType.length).to.eq(0);
+      //expect(requestType[0]).to.equal('application/json');
     });
 
     it('should set form data for having file type param', function(){
