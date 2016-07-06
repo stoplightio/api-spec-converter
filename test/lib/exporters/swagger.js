@@ -116,15 +116,12 @@ describe('Swagger Exporter', function(){
 
   describe('_constructTags', function(){
     it('should return constructed tags from given data', function(){
-      var responses = [], endpoint, parameters = [], env, swaggerMethod;
+      var endpoint = new Endpoint('test');
+      var env = new Environment();
 
       swaggerExporter.project = new Project('test project');
+      endpoint.Id = 'POST_pet';
 
-      // endpoint
-      endpoint = new Endpoint('test');
-      endpoint.SetOperationId('POST_pet', 'POST', '/pet');
-
-      env = new Environment();
       env.GroupsOrder = {
         docs: [{
           name: 'Pet',
@@ -135,9 +132,7 @@ describe('Swagger Exporter', function(){
         }]
       };
 
-      tags = swaggerExporter._constructTags(endpoint, env);
-
-      expect(tags).to.deep.equal(['Pet']);
+      expect(swaggerExporter._constructTags(endpoint, env)).to.deep.equal(['Pet']);
     });
   });
 
@@ -354,9 +349,9 @@ describe('Swagger Exporter', function(){
         body: JSON.stringify(stoplightParams)
       };
 
-      var params = swaggerExporter._mapRequestBody(stoplightBody);
+      var params = swaggerExporter._mapRequestBody(stoplightBody, ['application/x-www-form-urlencoded']);
       expect(params).to.not.be.undefined;
-      expect(params.length).to.be.equal(1);
+      expect(params).to.have.lengthOf(2);
     });
 
     it('should map as formData param for file type prop existence', function(){
