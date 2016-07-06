@@ -4,11 +4,7 @@
 	"description": "",
 	"order": [
 		"297647c2-ecc4-67f5-ea69-8bb7531f57c2",
-		"c4da530c-2d50-6f39-6cf5-eddf4dcb30ab",
-		"19e2e232-56b3-644f-1550-97accce3796f",
-		"c52964c0-f8af-06c4-84da-064d55d47f85",
-		"db72f4e8-0eab-b0a8-887d-3044b9a3c347"
-
+		"c4da530c-2d50-6f39-6cf5-eddf4dcb30ab"
 	],
 	"folders": [
 		{
@@ -24,6 +20,17 @@
 			"collection_name": "StopLight",
 			"collection_owner": "",
 			"collection_id": "d83add10-985c-dc59-2e28-01cf6da53b65"
+		},
+		{
+			"id": "f66631de-d371-912e-3528-2e7195411bf8",
+			"name": "Petstore",
+			"description": "",
+			"order": [
+				"19e2e232-56b3-644f-1550-97accce3796f",
+				"db72f4e8-0eab-b0a8-887d-3044b9a3c347",
+				"c52964c0-f8af-06c4-84da-064d55d47f85"
+			],
+			"owner": 0
 		}
 	],
 	"timestamp": 1440649762884,
