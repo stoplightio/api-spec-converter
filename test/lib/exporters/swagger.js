@@ -383,6 +383,32 @@ describe('Swagger Exporter', function(){
     });
   });
 
+  describe('_mapResponseBody', function() {
+    it('should map responses and return successfully', function() {
+      var responses = [
+        {
+          mimeType: null,
+          codes: ['200'],
+          body: '{"type": "null"}',
+          example: '',
+          description: ''
+        },
+        {
+          mimeType: 'application/json',
+          codes: ['404'],
+          body: '{"$ref": "#/definitions/global:ErrorResponse"}',
+          example: '{"errors": [{"field": null, "message": "not found"}]}',
+          description: 'not found'
+        }
+      ];
+      var res = swaggerExporter._mapResponseBody(responses);
+
+      expect(res).to.have.keys('200', '404');
+      expect(res['200']).to.have.key('description');
+      expect(res).to.have.deep.property('404.schema.$ref', '#/definitions/global:ErrorResponse');
+    });
+  });
+
   describe('_mapRequestHeaders', function(){
     it('should map request headers successfully');
   });
