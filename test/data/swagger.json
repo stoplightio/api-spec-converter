@@ -34,13 +34,9 @@
         "summary": "",
         "description": "Returns a pet by name",
         "operationId": "findPetByName",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet data",
@@ -60,7 +56,6 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet that was deleted",
@@ -121,31 +116,30 @@
         ],
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "properties": {
-                "id": {
-                  "description": "The photo ID (generated automatically)",
-                  "type": "string"
-                },
-                "label": {
-                  "description": "A label for the photo",
-                  "type": "string"
-                },
-                "description": {
-                  "description": "An optional description of the photo",
-                  "type": "string"
-                },
-                "photo": {
-                  "description": "The pet photo",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "photo"
-              ]
-            }
+            "description": "The photo ID (generated automatically)",
+            "in": "formData",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "description": "A label for the photo",
+            "in": "formData",
+            "name": "label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "An optional description of the photo",
+            "in": "formData",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "description": "The pet photo",
+            "in": "formData",
+            "name": "photo",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

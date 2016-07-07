@@ -44,13 +44,15 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "The photo was deleted successfully"
           }
         },
         "summary": "",
+        "tags": [
+          "Group1"
+        ],
         "x-stoplight": {
           "id": "DELETE_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
@@ -65,13 +67,9 @@
       "get": {
         "description": "Gets a pet photo",
         "operationId": "getPetPhoto",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "image/jpeg"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet photo",
@@ -105,13 +103,9 @@
       ],
       "get": {
         "description": "Get a list of the photos for a pet",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "Returns the list of photos",
@@ -162,32 +156,30 @@
         ],
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "The photo ID (generated automatically)"
-                },
-                "label": {
-                  "type": "string",
-                  "description": "A label for the photo"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "An optional description of the photo"
-                },
-                "photo": {
-                  "type": "string",
-                  "description": "The pet photo"
-                }
-              },
-              "required": [
-                "label",
-                "photo"
-              ]
-            }
+            "description": "The photo ID (generated automatically)",
+            "in": "formData",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "description": "A label for the photo",
+            "in": "formData",
+            "name": "label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "An optional description of the photo",
+            "in": "formData",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "description": "The pet photo",
+            "in": "formData",
+            "name": "photo",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -227,7 +219,6 @@
       }
     },
     "/pets": {
-      "parameters": [],
       "delete": {
         "description": "Deletes all pets, optionally filtered by one or more criteria",
         "operationId": "deletePets",
@@ -352,9 +343,6 @@
       "get": {
         "description": "Returns all pets, optionally filtered by one or more criteria",
         "operationId": "findPets",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
@@ -459,6 +447,9 @@
           }
         },
         "summary": "",
+        "tags": [
+          "Group2"
+        ],
         "x-stoplight": {
           "id": "GET_pets",
           "beforeScript": "function(){return 'Hello World';}",
@@ -582,7 +573,6 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet that was deleted",
@@ -606,13 +596,9 @@
       "get": {
         "description": "Returns a pet by name",
         "operationId": "findPetByName",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "400": {
             "description": "Returns the pet data",

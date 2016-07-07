@@ -100,29 +100,29 @@ describe('Converter', function() {
       });
     });
 
-    it('converting from swagger to swagger format should be identical', function(done){
+    it('converting from swagger to swagger format should be identical', function(done) {
       /**
-      This test include swagger file that is fully compatible with sl spec.
-      Of course, for some specific properties, librart won't be able to import , these
-      will be documented/listed on library docs
-      */
+       This test include swagger file that is fully compatible with sl spec.
+       Of course, for some specific properties, library won't be able to import,
+       these will be documented/listed on library docs
+       */
       var path = __dirname + '/../data/swagger.json';
-      var originalData = JSON.stringify(require(path), null, 2);
+      var originalData = require(path);
       var newConverterInstance = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.SWAGGER);
-      newConverterInstance.loadData(originalData)
-      .then(function(){
-        try {
-          newConverterInstance.convert('json', function(err, convertedData){
-            if(err)return done(err);
-            expect(JSON.stringify(convertedData, null, 2)).to.equal(originalData);
-            done();
-          });
-        }
-        catch(err) {
-          done(err);
-        }
-      })
-      .catch(done);
+      newConverterInstance.loadData(JSON.stringify(originalData))
+        .then(function() {
+          try {
+            newConverterInstance.convert('json', function(err, convertedData) {
+              if (err)return done(err);
+              expect(convertedData).to.deep.equal(originalData);
+              done();
+            });
+          }
+          catch (err) {
+            done(err);
+          }
+        })
+        .catch(done);
     });
 
     it('should convert reversly from swagger to raml without loss', function(done){
