@@ -801,5 +801,525 @@
         "public": false
       }
     }
+  },
+  "x-tests": {
+    "KAkHnAYKtX7HyrEjh": {
+      "id": "KAkHnAYKtX7HyrEjh",
+      "name": "Customer Workflow",
+      "initialVariables": {},
+      "steps": [
+        {
+          "name": "Create a New Customer",
+          "capture": {
+            "body": [
+              {
+                "name": "id",
+                "value": "id"
+              }
+            ]
+          },
+          "request": {
+            "method": "post",
+            "url": "/v1/customers",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {
+              "params": [
+                {
+                  "name": "description",
+                  "value": "<<desc>>"
+                }
+              ],
+              "text": "",
+              "mimeType": "application/x-www-form-urlencoded"
+            },
+            "authentication": {
+              "authType": "basic",
+              "params": []
+            }
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "name": "Get New Customer",
+          "capture": {},
+          "request": {
+            "method": "get",
+            "url": "/customers/{id}",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {},
+            "authentication": {
+              "authType": "basic",
+              "params": []
+            }
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "name": "Get Customers",
+          "capture": {},
+          "request": {
+            "method": "get",
+            "url": "/customers",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [
+              {
+                "name": "limit",
+                "value": ""
+              }
+            ],
+            "postData": {},
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            },
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            }
+          ]
+        },
+        {
+          "name": "Delete New Customer",
+          "capture": {},
+          "request": {
+            "method": "delete",
+            "url": "/customers/{id}",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {},
+            "authentication": {
+              "authType": "basic",
+              "params": []
+            }
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        }
+      ]
+    },
+    "yj43EHTv8yhfs4i8A": {
+      "id": "yj43EHTv8yhfs4i8A",
+      "name": "Charges Workflow",
+      "initialVariables": {},
+      "steps": [
+        {
+          "id": "tcBeHtbJJYEFrmzR3",
+          "name": "Create Charge",
+          "beforeScript": null,
+          "afterScript": "function (ctx, request, response) {\n  // Your javascript code here.\n  // Code completion enabled.\n  // You have access to a global \"SL\" object.\n  var body = response.body.get();\n  SL.variables.description = body.description;\n  //console.log(\"variables are:\", JSON.stringify(SL, null, 2))\n}",
+          "capture": {
+            "body": [
+              {
+                "name": "id",
+                "value": "id"
+              },
+              {
+                "name": "foo",
+                "value": "description"
+              }
+            ]
+          },
+          "request": {
+            "method": "post",
+            "url": "/charges",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <<apiKey>>"
+              }
+            ],
+            "queryString": [],
+            "postData": {
+              "mimeType": "application/x-www-form-urlencoded",
+              "params": [
+                {
+                  "name": "currency",
+                  "value": "usd",
+                  "fileName": null,
+                  "contentType": null
+                },
+                {
+                  "name": "amount",
+                  "value": "1000",
+                  "fileName": null,
+                  "contentType": null
+                },
+                {
+                  "name": "customer",
+                  "value": "cus_8NK3osrQZvQarJ",
+                  "fileName": null,
+                  "contentType": null
+                },
+                {
+                  "name": "description",
+                  "value": "test",
+                  "fileName": null,
+                  "contentType": null
+                }
+              ],
+              "text": "{\n    \"amount\": \"integer (required)\",\n    \"currency\": \"string (required)\",\n    \"application_fee\": \"string (optional)\",\n    \"capture\": \"string (optional)\",\n    \"description\": \"string (optional)\",\n    \"destination\": \"string (optional)\",\n    \"metadata\": {},\n    \"receipt_email\": \"string (optional)\",\n    \"shipping\": {},\n    \"customer\": \"string (optional)\",\n    \"source\": \"string (optional)\"\n}"
+            },
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "id": "e8Wv6eKhNvyxLv3Hr",
+          "name": "Retrieve New Charge",
+          "beforeScript": null,
+          "afterScript": null,
+          "capture": {
+            "body": []
+          },
+          "request": {
+            "method": "get",
+            "url": "/charges/{id}",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {},
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "id": "geCFWmJeEoZxCyv8c",
+          "name": "Update Charge Description",
+          "beforeScript": null,
+          "afterScript": null,
+          "capture": {},
+          "request": {
+            "method": "post",
+            "url": "/charges/{id}",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {
+              "mimeType": "application/x-www-form-urlencoded",
+              "params": [
+                {
+                  "name": "description",
+                  "value": "smokey",
+                  "fileName": null,
+                  "contentType": null
+                }
+              ],
+              "text": ""
+            },
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "id": "7mivusdomDTtC7esi",
+          "name": "Verify Charge Update",
+          "beforeScript": null,
+          "afterScript": "function (ctx, request, response) {\n  //var body = response.body.get();\n  var body = response.body.get()\n  console.log(JSON.stringify(SL, null, 2))\n  assert.notEqual(SL.variables.description, body.description, \"[Assert From Runtime] Description should be updated!\")\n}",
+          "capture": {},
+          "request": {
+            "method": "get",
+            "url": "/charges/{id}",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer sk_test_EWBP4lLcfqRksqERLMAgtjVk"
+              }
+            ],
+            "queryString": [],
+            "postData": {},
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        }
+      ]
+    },
+    "SuDCFmBBcvmyA7dCh": {
+      "id": "SuDCFmBBcvmyA7dCh",
+      "name": "Capture a Charge",
+      "initialVariables": [
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "10014",
+          "currency": "usd",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "10015",
+          "currency": "eur",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "100027",
+          "currency": "jpy",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "1000004443",
+          "currency": "rub",
+          "capture": false
+        }
+      ],
+      "steps": [
+        {
+          "id": "iA4QqZSeNHnedM24E",
+          "name": "Capture Charge",
+          "beforeScript": null,
+          "afterScript": "function (ctx, request, response) {\n  // Your javascript code here.\n  // Code completion enabled.\n  // You have access to a global \"SL\" object.\n  var body = response.body.get();\n  assert.isTrue(body.captured, \"Charge is captured!\");\n}",
+          "capture": {},
+          "request": {
+            "method": "post",
+            "url": "/charges/{id}/capture",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <<apiKey>>"
+              }
+            ],
+            "queryString": [],
+            "postData": {},
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        }
+      ]
+    },
+    "6JQ389FtBw2AeM8KE": {
+      "id": "6JQ389FtBw2AeM8KE",
+      "name": "Circle",
+      "initialVariables": {},
+      "steps": [
+        {
+          "$ref": "#/x-tests/yj43EHTv8yhfs4i8A"
+        }
+      ]
+    },
+    "WuCyPM8JXTvGAGKHr": {
+      "id": "WuCyPM8JXTvGAGKHr",
+      "name": "Create uncaptured charge",
+      "initialVariables": [
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "1000",
+          "currency": "usd",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "1001",
+          "currency": "eur",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "10002",
+          "currency": "jpy",
+          "capture": false
+        },
+        {
+          "apiKey": "sk_test_EWBP4lLcfqRksqERLMAgtjVk",
+          "customer": "cus_8NK3osrQZvQarJ",
+          "amount": "1000003",
+          "currency": "rub",
+          "capture": false
+        }
+      ],
+      "steps": [
+        {
+          "id": "Hru75NzWk2kjqFrCg",
+          "name": "Create Uncaptured Charge",
+          "beforeScript": "function (ctx, request) {\n  // Your javascript code here.\n  // Code completion enabled.\n  \n}",
+          "afterScript": "function (ctx, request, response) {\n  // Your javascript code here.\n  // Code completion enabled.\n  // You have access to a global \"SL\" object.\n  var body = response.body.get();\n  assert.isFalse(body.captured, \"Charge should be uncaptured!\");\n}",
+          "capture": {
+            "body": [
+              {
+                "name": "id",
+                "value": "id"
+              }
+            ]
+          },
+          "request": {
+            "method": "post",
+            "url": "/charges",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer <<apiKey>>"
+              }
+            ],
+            "queryString": [],
+            "postData": {
+              "mimeType": "application/x-www-form-urlencoded",
+              "params": [
+                {
+                  "name": "customer",
+                  "value": "<<customer>>"
+                },
+                {
+                  "name": "currency",
+                  "value": "<<currency>>"
+                },
+                {
+                  "name": "amount",
+                  "value": "<<amount>>"
+                },
+                {
+                  "name": "capture",
+                  "value": "<<capture>>"
+                }
+              ],
+              "text": "{\n    \"amount\": \"integer (required)\",\n    \"currency\": \"string (required)\",\n    \"application_fee\": \"string (optional)\",\n    \"capture\": \"string (optional)\",\n    \"description\": \"string (optional)\",\n    \"destination\": \"string (optional)\",\n    \"metadata\": {},\n    \"receipt_email\": \"string (optional)\",\n    \"shipping\": {},\n    \"customer\": \"string (optional)\",\n    \"source\": \"string (optional)\"\n}"
+            },
+            "authentication": {}
+          },
+          "assertions": [
+            {
+              "key": "response.status",
+              "op": "eq",
+              "value": 200
+            },
+            {
+              "key": "response.body",
+              "op": "validate.pass",
+              "match": 200
+            }
+          ]
+        },
+        {
+          "$ref": "#/x-tests/SuDCFmBBcvmyA7dCh"
+        }
+      ]
+    }
   }
 }
