@@ -1,4 +1,5 @@
-var expect   = require('chai').expect,
+var expect = require('chai').expect,
+    fs = require('fs'),
     Auto = require('../../../lib/importers/auto'),
     Project = require('../../../lib/entities/project');
 
@@ -18,6 +19,106 @@ describe('Auto Importer', function(){
       expect(autoImporter).to.respondTo('import');
     });
   });
+
+  describe('detectFormat', function() {
+    it('should detect STOPLIGHTX', function() {
+      var fileContent = fs.readFileSync(__dirname + '/../../data/stoplightx.json', 'utf8'),
+        format = autoImporter.detectFormat(fileContent);
+
+      expect(format).to.be.equal('STOPLIGHTX');
+    });
+
+    it('should detect POSTMAN', function() {
+      var fileContent = fs.readFileSync(__dirname + '/../../data/postman.json', 'utf8'),
+        format = autoImporter.detectFormat(fileContent);
+
+      expect(format).to.be.equal('POSTMAN');
+    });
+
+    it('should detect RAML', function() {
+      var fileContent = fs.readFileSync(__dirname + '/../../data/raml.yaml', 'utf8'),
+          format = autoImporter.detectFormat(fileContent);
+
+      expect(format).to.be.equal('RAML');
+    });
+
+    it('should detect SWAGGER', function() {
+      var fileContent = fs.readFileSync(__dirname + '/../../data/swagger.yaml', 'utf8'),
+          format = autoImporter.detectFormat(fileContent);
+
+      expect(format).to.be.equal('SWAGGER');
+    });
+
+    it('should detect UNKNOWN', function() {
+      var fileContent = fs.readFileSync(__dirname + '/../../data/invalid/postman.json', 'utf8'),
+          format = autoImporter.detectFormat(fileContent);
+
+      expect(format).to.be.equal('UNKNOWN');
+    });
+  });
+
+  describe('_parse<format>', function() {
+    it('should be able to parse a valid StopLightX .json file', function(done) {
+      autoImporter.loadFile(__dirname + '/../../data/stoplightx.json', function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        autoImporter.import();
+        expect(autoImporter.project).to.be.instanceOf(Project);
+        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
+
+    it('should be able to parse a valid Postman .json file', function(done) {
+      autoImporter.loadFile(__dirname + '/../../data/postman.json', function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        autoImporter.import();
+        expect(autoImporter.project).to.be.instanceOf(Project);
+        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
+
+    it('should be able to parse a valid RAML .yaml file', function(done) {
+      autoImporter.loadFile(__dirname + '/../../data/raml.yaml', function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        autoImporter.import();
+        expect(autoImporter.project).to.be.instanceOf(Project);
+        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
+
+    it('should be able to parse a valid Swagger .yaml file', function(done) {
+      autoImporter.loadFile(__dirname + '/../../data/swagger.yaml', function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        autoImporter.import();
+        expect(autoImporter.project).to.be.instanceOf(Project);
+        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        done();
+      });
+    });
+
+    it('should not parse unknown data format', function(done) {
+      autoImporter.loadFile(__dirname + '/../../data/invalid/postman.json', function(err) {
+        expect(err).to.be.an('error').and.to.have
+          .property('message', 'No valid importer found for given input');
+        done();
+      });
+    });
+  });
+
   describe('loadFile', function(){
     it('should be able to load a valid postman json file', function(done){
       autoImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
