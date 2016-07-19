@@ -1,4 +1,5 @@
 var expect = require('chai').expect,
+    _ = require('lodash'),
     StoplightX = require('../../../lib/importers/stoplightx');
 
 describe('StoplightX Importer', function() {
@@ -61,7 +62,18 @@ describe('StoplightX Importer', function() {
   });
 
   describe('mapEndpoint', function() {
-    it('should map endpoints successfully');
+    it('should set proper tags for an endpoint', function(done) {
+      importer.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        var endpoint = _.find(importer.project.Endpoints, {operationId: 'deletePetPhoto'});
+        expect(endpoint.tags).to.have.lengthOf(1).and.to.include('Group1');
+        done();
+      });
+    });
   });
 
   describe('mapUtilityFunctions', function() {
