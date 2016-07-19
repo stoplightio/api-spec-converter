@@ -208,14 +208,33 @@ describe('Swagger Exporter', function(){
         mimeType: 'application/json'
       };
 
-      var env = new Environment();
-      env.DefaultRequestType = 'application/json';
-
-      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
+      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [],
+        endpoint.Responses, new Environment());
       expect(swaggerMethod).to.be.an('object');
 
       expect(swaggerMethod.consumes).to.have.lengthOf(1)
         .and.to.include('application/json');
+    });
+
+    it('should not set consumes mimeType is equals to default request type', function() {
+      swaggerExporter.project = new Project('test project');
+
+      var endpoint = new Endpoint('test');
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+      endpoint.Responses = [{
+        mimeType: 'application/json'
+      }];
+
+      var env = new Environment();
+      env.DefaultRequestType = 'application/json';
+      env.defaultResponseType = 'application/json';
+
+      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
+      expect(swaggerMethod).to.be.an('object');
+      expect(swaggerMethod.consumes).to.be.an('undefined');
+      expect(swaggerMethod.produces).to.be.an('undefined');
     });
   });
 
