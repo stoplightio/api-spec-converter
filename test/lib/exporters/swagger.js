@@ -173,6 +173,50 @@ describe('Swagger Exporter', function(){
       expect(swaggerMethod.responses.length).to.equal(1);
       expect(swaggerMethod.responses.length).to.equal(1);
     });
+
+    it('should set consumes and produce to an empty array for endpoints with mimeType = null', function() {
+      swaggerExporter.project = new Project('test project');
+
+      var endpoint = new Endpoint('test');
+      endpoint.Body = {
+        mimeType: null
+      };
+      endpoint.Responses = [{
+        mimeType: null
+      }];
+
+      var env = new Environment();
+      env.DefaultRequestType = 'application/json';
+
+      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
+      expect(swaggerMethod).to.be.an('object');
+      expect(swaggerMethod.consumes).to.be.an('array').and.to.be.an.empty;
+      expect(swaggerMethod.produces).to.be.an('array').and.to.be.an.empty;
+    });
+
+    it('should push only unique items to consumes', function() {
+      swaggerExporter.project = new Project('test project');
+
+      var endpoint = new Endpoint('test');
+      endpoint.Body = {
+        mimeType: null
+      };
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+      endpoint.Body = {
+        mimeType: 'application/json'
+      };
+
+      var env = new Environment();
+      env.DefaultRequestType = 'application/json';
+
+      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
+      expect(swaggerMethod).to.be.an('object');
+
+      expect(swaggerMethod.consumes).to.have.lengthOf(1)
+        .and.to.include('application/json');
+    });
   });
 
   describe('_mapSecurityDefinitions', function(){
