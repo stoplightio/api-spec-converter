@@ -100,31 +100,6 @@ describe('Converter', function() {
       });
     });
 
-    it('converting from swagger to swagger format should be identical', function(done) {
-      /**
-       This test include swagger file that is fully compatible with sl spec.
-       Of course, for some specific properties, library won't be able to import,
-       these will be documented/listed on library docs
-       */
-      var path = __dirname + '/../data/swagger.json';
-      var originalData = require(path);
-      var newConverterInstance = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.SWAGGER);
-      newConverterInstance.loadData(JSON.stringify(originalData))
-        .then(function() {
-          try {
-            newConverterInstance.convert('json', function(err, convertedData) {
-              if (err)return done(err);
-              expect(convertedData).to.deep.equal(originalData);
-              done();
-            });
-          }
-          catch (err) {
-            done(err);
-          }
-        })
-        .catch(done);
-    });
-
     it('should convert reversly from swagger to raml without loss', function(done){
       var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
