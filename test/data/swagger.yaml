@@ -229,6 +229,7 @@ paths:
     delete:
       description: Deletes a single pet based on the name supplied
       operationId: deletePet
+      consumes: []
       responses:
         default:
           description: Returns the pet that was deleted
@@ -345,6 +346,21 @@ paths:
       responses:
         default:
           description: Returns the pet photo
+          schema:
+            type: file
+    post:
+      description: Copies a photo
+      parameters:
+        - name: save
+          in: formData
+          type: boolean
+          required: false
+      operationId: copyPetPhoto
+      consumes: []
+      produces: []
+      responses:
+        default:
+          description: Returns copied pet photo
           schema:
             type: file
 

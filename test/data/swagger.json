@@ -50,9 +50,7 @@
         "summary": "",
         "description": "Deletes a single pet based on the name supplied",
         "operationId": "deletePet",
-        "consumes": [
-          "application/json"
-        ],
+        "consumes": [],
         "produces": [
           "application/json"
         ],

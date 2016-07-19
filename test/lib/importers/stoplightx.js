@@ -52,7 +52,7 @@ describe('StoplightX Importer', function() {
       importer.loadFile(__dirname + '/../../data/invalid/stoplightx.json', function(err) {
         expect(err).to.be.an('error');
         done();
-      })
+      });
     });
   });
 
