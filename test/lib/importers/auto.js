@@ -1,57 +1,63 @@
 var expect = require('chai').expect,
     fs = require('fs'),
+    path = require('path'),
     Auto = require('../../../lib/importers/auto'),
     Project = require('../../../lib/entities/project');
 
-describe('Auto Importer', function(){
-  var autoImporter;
-  beforeEach(function(){
-    autoImporter = new Auto();
+describe('Auto Importer', function() {
+  var importer,
+      dataPath = path.join(__dirname, '..', '..', 'data');
+
+  beforeEach(function() {
+    importer = new Auto();
   });
-  describe('constructor', function(){
-    it('should return new postman importer instance successfully', function(){
-      expect(autoImporter).to.be.instanceOf(Auto);
+
+  describe('constructor', function() {
+    it('should return new postman importer instance successfully', function() {
+      expect(importer).to.be.instanceOf(Auto);
     });
-    it('should possess generic importer prototype', function(){
-      expect(autoImporter).to.respondTo('loadFile');
-      expect(autoImporter).to.respondTo('loadData');
-      expect(autoImporter).to.respondTo('_import');
-      expect(autoImporter).to.respondTo('import');
+
+    it('should possess generic importer prototype', function() {
+      expect(importer).to.respondTo('loadFile');
+      expect(importer).to.respondTo('loadData');
+      expect(importer).to.respondTo('detectFormat');
+      expect(importer).to.respondTo('_import');
+      expect(importer).to.respondTo('import');
     });
   });
 
   describe('detectFormat', function() {
     it('should detect STOPLIGHTX', function() {
-      var fileContent = fs.readFileSync(__dirname + '/../../data/stoplightx.json', 'utf8'),
-        format = autoImporter.detectFormat(fileContent);
+      var fileContent = fs.readFileSync(path.join(dataPath, 'stoplightx.json'), 'utf8'),
+          format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('STOPLIGHTX');
     });
 
     it('should detect POSTMAN', function() {
-      var fileContent = fs.readFileSync(__dirname + '/../../data/postman.json', 'utf8'),
-        format = autoImporter.detectFormat(fileContent);
+      var fileContent = fs.readFileSync(path.join(dataPath, 'postman.json'), 'utf8'),
+          format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('POSTMAN');
     });
 
     it('should detect RAML', function() {
-      var fileContent = fs.readFileSync(__dirname + '/../../data/raml.yaml', 'utf8'),
-          format = autoImporter.detectFormat(fileContent);
+      var fileContent = fs.readFileSync(path.join(dataPath, 'raml.yaml'), 'utf8'),
+          format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('RAML');
     });
 
     it('should detect SWAGGER', function() {
-      var fileContent = fs.readFileSync(__dirname + '/../../data/swagger.yaml', 'utf8'),
-          format = autoImporter.detectFormat(fileContent);
+      var fileContent = fs.readFileSync(path.join(dataPath, 'swagger.yaml'), 'utf8'),
+          format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('SWAGGER');
     });
 
     it('should detect UNKNOWN', function() {
-      var fileContent = fs.readFileSync(__dirname + '/../../data/invalid/postman.json', 'utf8'),
-          format = autoImporter.detectFormat(fileContent);
+      var fileContent = fs.readFileSync(path.join(dataPath, 'invalid/postman.json'), 'utf8'),
+          format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('UNKNOWN');
     });
@@ -59,135 +65,112 @@ describe('Auto Importer', function(){
 
   describe('_parse<format>', function() {
     it('should be able to parse a valid StopLightX .json file', function(done) {
-      autoImporter.loadFile(__dirname + '/../../data/stoplightx.json', function(err) {
+      importer.loadFile(path.join(dataPath, 'stoplightx.json'), function(err) {
         if (err) {
           return done(err);
         }
 
-        autoImporter.import();
-        expect(autoImporter.project).to.be.instanceOf(Project);
-        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
 
     it('should be able to parse a valid Postman .json file', function(done) {
-      autoImporter.loadFile(__dirname + '/../../data/postman.json', function(err) {
+      importer.loadFile(path.join(dataPath, 'postman.json'), function(err) {
         if (err) {
           return done(err);
         }
 
-        autoImporter.import();
-        expect(autoImporter.project).to.be.instanceOf(Project);
-        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
 
     it('should be able to parse a valid RAML .yaml file', function(done) {
-      autoImporter.loadFile(__dirname + '/../../data/raml.yaml', function(err) {
+      importer.loadFile(path.join(dataPath, 'raml.yaml'), function(err) {
         if (err) {
           return done(err);
         }
 
-        autoImporter.import();
-        expect(autoImporter.project).to.be.instanceOf(Project);
-        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
 
     it('should be able to parse a valid Swagger .yaml file', function(done) {
-      autoImporter.loadFile(__dirname + '/../../data/swagger.yaml', function(err) {
+      importer.loadFile(path.join(dataPath, 'swagger.yaml'), function(err) {
         if (err) {
           return done(err);
         }
 
-        autoImporter.import();
-        expect(autoImporter.project).to.be.instanceOf(Project);
-        expect(autoImporter.project.Endpoints.length).to.gt(0);
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
 
-    it('should not parse unknown data format', function(done) {
-      autoImporter.loadFile(__dirname + '/../../data/invalid/postman.json', function(err) {
+    it('should throw an error for unknown data format', function(done) {
+      importer.loadFile(path.join(dataPath, 'invalid/postman.json'), function(err) {
         expect(err).to.be.an('error').and.to.have
           .property('message', 'No valid importer found for given input');
         done();
       });
     });
+
+    it('should throw an error for no data', function(done) {
+      importer.loadFile(path.join(dataPath, 'invalid/empty.json'), function(err) {
+        expect(err).to.be.an('error').and.to.have
+          .property('message', 'No data provided');
+        done();
+      });
+    });
   });
 
-  describe('loadFile', function(){
-    it('should be able to load a valid postman json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/postman.json', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
+  describe('loadFile', function() {
+    it('should be able to load a local file', function(done) {
+      importer.loadFile(path.join(dataPath, 'swagger.json'), function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
-    it('should return error for invalid json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/invalid/postman.json', function(err){
-        expect(err).to.not.equal(undefined);
-        done();
-      });
-    });
-    it('should be able to load a valid swagger json file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/swagger.json', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
-        done();
-      });
-    });
-    it('should be able to load a valid swagger yaml file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/swagger.yaml', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
-        done();
-      });
-    });
-    it('should be able to load a valid raml yaml file', function(done){
-      autoImporter.loadFile(__dirname+'/../../data/raml.yaml', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
-        done();
-      });
-    });
-    it('should be able to load a remote swagger url', function(done){
-      autoImporter.loadFile('http://petstore.swagger.io/v2/swagger.json', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
+
+    it('should be able to load a remote file', function(done) {
+      importer.loadFile('http://petstore.swagger.io/v2/swagger.json', function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        expect(importer.project).to.be.instanceOf(Project);
+        expect(importer.project.Endpoints.length).to.gt(0);
         done();
       });
     });
   });
-  describe('_import', function(){
-    it('should perform import operation on loaded data', function(){
-      autoImporter.loadFile(__dirname+'/../../data/stoplightx.json', function(err){
-        expect(err).to.be.equal(undefined);
-        var slProject = autoImporter.import();
-        expect(slProject).to.be.instanceOf(Project);
-        expect(slProject.Endpoints.length).to.gt(0);
-      });
-    });
-  });
-  describe('getDetectedFormat', function(){
-    it('should return detected format', function(){
-      autoImporter.loadFile(__dirname+'/../../data/stoplightx.json', function(err){
-        expect(err).to.be.equal(undefined);
-        expect(autoImporter.getDetectedFormat()).to.be.equal('STOPLIGHTX');
-        expect(autoImporter.detectedFormat).to.be.equal('STOPLIGHTX');
+
+  describe('getDetectedFormat', function() {
+    it('should return detected format', function(done) {
+      importer.loadFile(path.join(dataPath, 'stoplightx.json'), function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        expect(importer.getDetectedFormat()).to.be.equal('STOPLIGHTX');
+        expect(importer.detectedFormat).to.be.equal('STOPLIGHTX');
+        done();
       });
     });
   });
