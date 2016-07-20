@@ -38,12 +38,6 @@
       "delete": {
         "description": "Deletes a pet photo",
         "operationId": "deletePetPhoto",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "400": {
             "description": "The photo was deleted successfully"
@@ -103,9 +97,6 @@
       ],
       "get": {
         "description": "Get a list of the photos for a pet",
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "description": "Returns the list of photos",
@@ -150,9 +141,6 @@
         "operationId": "addPetPhoto",
         "consumes": [
           "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
         ],
         "parameters": [
           {
@@ -222,12 +210,6 @@
       "delete": {
         "description": "Deletes all pets, optionally filtered by one or more criteria",
         "operationId": "deletePets",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "tags",
@@ -343,9 +325,6 @@
       "get": {
         "description": "Returns all pets, optionally filtered by one or more criteria",
         "operationId": "findPets",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "tags",
@@ -464,12 +443,6 @@
       "post": {
         "description": "Creates a new pet in the store",
         "operationId": "addPet",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -521,12 +494,6 @@
       "patch": {
         "description": "Updates a pet by name",
         "operationId": "updatePetName",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -567,12 +534,6 @@
       "delete": {
         "description": "Deletes a single pet based on the name supplied",
         "operationId": "deletePet",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "400": {
             "description": "Returns the pet that was deleted",
@@ -596,9 +557,6 @@
       "get": {
         "description": "Returns a pet by name",
         "operationId": "findPetByName",
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "400": {
             "description": "Returns the pet data",
