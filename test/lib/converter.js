@@ -81,20 +81,26 @@ describe('Converter', function() {
         .catch(done);
       });
     });
-    it('converting from stoplightx to stoplightx format should be identical', function(done){
+    it('converting from stoplightx to stoplightx format should be identical', function(done) {
       var path = __dirname + '/../data/stoplightx.json';
       var originalData = require(path);
       var newConverterInstance = new specConverter.Converter(specConverter.Formats.STOPLIGHTX, specConverter.Formats.STOPLIGHTX);
-      newConverterInstance.loadFile(path, function(err){
+
+      newConverterInstance.loadFile(path, function(err) {
+        if (err) {
+          return done(err);
+        }
+
         try {
-          if(err)return done(err);
-          newConverterInstance.convert('json', function(err, convertedData){
-            if(err)done(err);
-            fs.writeFileSync( __dirname + '/../data/temp.json', JSON.stringify(convertedData, null, 2), 'utf8');
-            expect(convertedData).to.deep.equal(originalData);
+          newConverterInstance.convert('json', function(err, convertedData) {
+            if (err) {
+              return done(err);
+            }
+
+            expect(JSON.parse(JSON.stringify(convertedData))).to.deep.equal(originalData);
             done();
           });
-        } catch(err) {
+        } catch (err) {
           done(err);
         }
       });

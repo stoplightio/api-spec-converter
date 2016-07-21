@@ -922,7 +922,6 @@
         {
           "id": "tcBeHtbJJYEFrmzR3",
           "name": "Create Charge",
-          "beforeScript": null,
           "afterScript": "function (ctx, request, response) {\n  // Your javascript code here.\n  // Code completion enabled.\n  // You have access to a global \"SL\" object.\n  var body = response.body.get();\n  SL.variables.description = body.description;\n  //console.log(\"variables are:\", JSON.stringify(SL, null, 2))\n}",
           "capture": {
             "body": [
@@ -994,8 +993,6 @@
         {
           "id": "e8Wv6eKhNvyxLv3Hr",
           "name": "Retrieve New Charge",
-          "beforeScript": null,
-          "afterScript": null,
           "capture": {
             "body": []
           },
@@ -1028,8 +1025,6 @@
         {
           "id": "geCFWmJeEoZxCyv8c",
           "name": "Update Charge Description",
-          "beforeScript": null,
-          "afterScript": null,
           "capture": {},
           "request": {
             "method": "post",
@@ -1071,7 +1066,6 @@
         {
           "id": "7mivusdomDTtC7esi",
           "name": "Verify Charge Update",
-          "beforeScript": null,
           "afterScript": "function (ctx, request, response) {\n  //var body = response.body.get();\n  var body = response.body.get()\n  console.log(JSON.stringify(SL, null, 2))\n  assert.notEqual(SL.variables.description, body.description, \"[Assert From Runtime] Description should be updated!\")\n}",
           "capture": {},
           "request": {
@@ -1139,7 +1133,6 @@
         {
           "id": "iA4QqZSeNHnedM24E",
           "name": "Capture Charge",
-          "beforeScript": null,
           "afterScript": "function (ctx, request, response) {\n  // Your javascript code here.\n  // Code completion enabled.\n  // You have access to a global \"SL\" object.\n  var body = response.body.get();\n  assert.isTrue(body.captured, \"Charge is captured!\");\n}",
           "capture": {},
           "request": {
