@@ -35,7 +35,11 @@ describe('RAML Importer', function(){
   });
   describe('import', function(){
     it('should perform import operation on loaded data', function(done){
-      ramlImporter.loadFile(filePath, function(){
+      ramlImporter.loadFile(filePath, function(err){
+        if (err) {
+          done(err);
+        }
+
         try {
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);

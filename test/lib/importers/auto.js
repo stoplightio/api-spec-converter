@@ -56,7 +56,7 @@ describe('Auto Importer', function() {
     });
 
     it('should detect UNKNOWN', function() {
-      var fileContent = fs.readFileSync(path.join(dataPath, 'invalid/postman.json'), 'utf8'),
+      var fileContent = fs.readFileSync(path.join(dataPath, 'invalid', 'postman.json'), 'utf8'),
           format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('UNKNOWN');
@@ -117,15 +117,15 @@ describe('Auto Importer', function() {
     });
 
     it('should throw an error for unknown data format', function(done) {
-      importer.loadFile(path.join(dataPath, 'invalid/postman.json'), function(err) {
+      importer.loadFile(path.join(dataPath, 'invalid', 'missing-comma-swagger.json'), function(err) {
         expect(err).to.be.an('error').and.to.have
-          .property('message', 'No valid importer found for given input');
+          .property('message', 'Unable to parse file. Invalid or unsupported syntax.');
         done();
       });
     });
 
     it('should throw an error for no data', function(done) {
-      importer.loadFile(path.join(dataPath, 'invalid/empty.json'), function(err) {
+      importer.loadFile(path.join(dataPath, 'invalid', 'empty.json'), function(err) {
         expect(err).to.be.an('error').and.to.have
           .property('message', 'No data provided');
         done();

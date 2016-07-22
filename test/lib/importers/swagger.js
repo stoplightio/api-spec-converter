@@ -28,22 +28,39 @@ describe('Swagger Importer', function() {
 
   describe('loadFile', function() {
     it('should be able to load a valid json file', function(done) {
-      swaggerImporter.loadFile(__dirname + '/../../data/swagger.json', function() {
+      swaggerImporter.loadFile(__dirname + '/../../data/swagger.json', function(err) {
+        if (err) {
+          return done(err);
+        }
+
         done();
       });
     });
 
-    it('should be able to load a valid yaml file', function() {
-      swaggerImporter.loadFile(filePath, function() {
+    it('should be able to load a valid yaml file', function(done) {
+      swaggerImporter.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        done();
+      });
+    });
+
+    it('should return error for invalid Swagger syntax', function(done) {
+      var invalidPath = __dirname + '/../../data/invalid/swagger.json';
+      swaggerImporter.loadFile(invalidPath, function(err) {
+        expect(err).to.be.an('error').and.to.have
+          .property('message', invalidPath + ' is not a valid Swagger API definition');
         done();
       });
     });
 
     it('should return error for invalid file', function(done) {
-      var invalidPath = __dirname + '/../../data/invalid/swagger.json';
+      var invalidPath = __dirname + '/../../data/invalid/missing-comma-swagger.json';
       swaggerImporter.loadFile(invalidPath, function(err) {
-        expect(err).to.not.equal(undefined);
-        expect(err.message).to.equal(invalidPath + ' is not a valid Swagger API definition');
+        expect(err).to.be.an('error').and.to.have
+          .property('message', 'Unable to parse file. Invalid syntax.');
         done();
       });
     });
@@ -52,7 +69,10 @@ describe('Swagger Importer', function() {
   describe('import', function() {
     it('should perform import operation on loaded data', function(done) {
       swaggerImporter.loadFile(filePath, function(err) {
-        if (err)return done(err);
+        if (err) {
+          return done(err);
+        }
+
         try {
           var slProject = swaggerImporter.import();
           expect(slProject).to.be.instanceOf(Project);
