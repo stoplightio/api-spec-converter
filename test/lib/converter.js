@@ -135,6 +135,22 @@ describe('Converter', function() {
       });
     });
 
+    it('should convert from swagger to raml', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
+      converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
+        try{
+          converter.convert('yaml', function(err, covertedRAML){
+            if (err)return done(err);
+            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/raml-1.0-converted-from-swagger.yaml', 'utf8')));
+            done();
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
+
     // This test has an issue because RAML does not support operationIds
     //It performs importing from raml to stoplight and exporting from stoplight to raml
     //and thus verifies in both ways
