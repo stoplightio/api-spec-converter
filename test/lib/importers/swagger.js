@@ -185,7 +185,7 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'copyPetPhoto'});
 
-        expect(endpoint.request.bodies[0].mimeType).to.be.null;
+        expect(endpoint.request.bodies[0].mimeType).to.be.eq('multipart/form-data');
         done();
       });
     });
