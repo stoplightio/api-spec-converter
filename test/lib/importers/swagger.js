@@ -59,8 +59,9 @@ describe('Swagger Importer', function() {
     it('should return error for invalid file', function(done) {
       var invalidPath = __dirname + '/../../data/invalid/missing-comma-swagger.json';
       swaggerImporter.loadFile(invalidPath, function(err) {
-        expect(err).to.be.an('error').and.to.have
-          .property('message', 'Unable to parse file. Invalid syntax.');
+        expect(err).to.be.an('error');
+        expect(err).to.have.property('message');
+        expect(err.message).to.contains('missed comma between flow collection entries');
         done();
       });
     });

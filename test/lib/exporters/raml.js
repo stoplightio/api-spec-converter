@@ -1,7 +1,6 @@
 var expect   = require('chai').expect,
     RAML = require('../../../lib/exporters/raml'),
-    fs = require('fs'),
-    parser = require('raml-parser');
+    fs = require('fs');
 
 describe('RAML Exporter', function(){
 
@@ -44,7 +43,7 @@ describe('RAML Exporter', function(){
   describe('_getData', function(){
     it('should contain custom implementation as doesn\'t support json export', function(){
       ramlExporter.loadSLData(slData, function(err){
-        expect(err).to.be.undefined;
+        if (err)return done(err);
         try {
           var ramlData = ramlExporter.export('json');
           //force fail as not expected

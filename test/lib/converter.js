@@ -7,7 +7,7 @@ var chai   = require('chai'),
 chai.use(require('chai-string'));
 
 describe('Converter', function() {
-  var converterInstance, fullPath = __dirname + '/../data/raml.yaml';
+  var converterInstance, fullPath = __dirname + '/../data/raml-0.8.yaml';
   beforeEach(function(){
     converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
   });
@@ -55,7 +55,7 @@ describe('Converter', function() {
       converterInstance.loadFile(__dirname + '/../data/postman.json', function(err){
         expect(err).to.not.be.undefined;
         expect(err).to.be.instanceof(Error);
-        expect(err.message).to.equal('The first line must be: \'#%RAML 0.8\'');
+        expect(err.message).to.equal("Invalid first line. A RAML document is expected to start with '#%RAML <version> <?fragment type>'.");
         done();
       });
     });
@@ -111,7 +111,7 @@ describe('Converter', function() {
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
         try{
           converter.convert('yaml', function(err, covertedRAML){
-            expect(err).to.be.null;
+            if (err)return done(err);
             var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
             converter2.loadData(covertedRAML)
             .then(function(){
