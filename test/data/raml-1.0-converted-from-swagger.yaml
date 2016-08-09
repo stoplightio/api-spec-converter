@@ -46,7 +46,7 @@ documentation:
           '400':
             body:
               application/json:
-                schema: |-
+                type: |-
                   {
                       "properties": {
                           "id": {
@@ -79,7 +79,7 @@ documentation:
       body:
         application/json:
           example: ''
-          schema: |-
+          type: |-
             {
                 "$ref": "#/definitions/pet"
             }
@@ -88,7 +88,7 @@ documentation:
         '400':
           body:
             application/json:
-              schema: |-
+              type: |-
                 {
                     "$ref": "#/definitions/pet"
                 }
@@ -103,7 +103,7 @@ documentation:
         '400':
           body:
             application/json:
-              schema: |-
+              type: |-
                 {
                     "$ref": "#/definitions/pet"
                 }
@@ -118,7 +118,7 @@ documentation:
         '400':
           body:
             application/json:
-              schema: |-
+              type: |-
                 {
                     "$ref": "#/definitions/pet"
                 }
