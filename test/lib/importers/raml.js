@@ -136,6 +136,22 @@ describe('RAML 1.0 Importer', function(){
       });
     });
 
+    it ('should be able to load a valid yaml file including raml type definiton', function (done) {
+      ramlImporter.loadFile(__dirname+'/../../data/raml-1.0-with-raml-type.yaml', function(err){
+        expect(err).to.be.undefined;
+        try {
+          var slProject = ramlImporter.import();
+          expect(slProject).to.be.instanceOf(Project);
+          expect(slProject.Schemas.length).to.eq(2);
+          done();
+        }
+        catch(err){
+          done(err);
+        }
+      });
+    });
+
+
     it ('should return error importing yaml file including non exisiting type file', function (done) {
       ramlImporter.loadFile(__dirname+'/../../data/invalid/raml-1.0-with-include.yaml', function(err){
         expect(err).to.be.undefined;
