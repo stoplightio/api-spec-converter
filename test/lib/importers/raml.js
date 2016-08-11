@@ -1,6 +1,7 @@
 var expect   = require('chai').expect,
     RAML = require('../../../lib/importers/raml'),
-    Project = require('../../../lib/entities/project');
+    Project = require('../../../lib/entities/project'),
+    fs = require('fs');
 
 describe('RAML 0.8 Importer', function(){
   var ramlImporter, filePath = __dirname+'/../../data/raml-0.8.yaml';
@@ -128,6 +129,43 @@ describe('RAML 1.0 Importer', function(){
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);
           expect(slProject.Schemas.length).to.eq(2);
+          done();
+        }
+        catch(err){
+          done(err);
+        }
+      });
+    });
+
+    it ('should be able to load a valid yaml file including external type definiton using fsResolver', function (done) {
+      var myFsResolver = {
+        content: function (path) {},
+        contentAsync: function (path) {
+          return new Promise(function(resolve, reject){
+            try {
+              if (path.endsWith('Person.xyz')) {
+                path = path.replace('Person.xyz', '/types/Person.json')
+              }
+              resolve(fs.readFileSync(path, 'UTF8'));
+            }
+            catch (e) {
+              reject(e);
+            }
+          });
+        }
+      };
+
+      var myOptions = {
+        fsResolver : myFsResolver
+      };
+
+      ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml-1.0-with-include-fsresolver.yaml', myOptions, function(err){
+        expect(err).to.be.undefined;
+        try {
+          var slProject = ramlImporter.import();
+          expect(slProject).to.be.instanceOf(Project);
+          expect(slProject.Schemas[0].definition.description).to.eq("Person details");
+          expect(slProject.Schemas[1].definition.description).to.eq("Error details");
           done();
         }
         catch(err){
