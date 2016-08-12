@@ -124,7 +124,7 @@ describe('RAML 1.0 Importer', function(){
 
     it ('should be able to load a valid yaml file including external type definiton', function (done) {
       ramlImporter.loadFile(__dirname+'/../../data/raml-1.0-with-include.yaml', function(err){
-        expect(err).to.be.undefined;
+        if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);
@@ -143,7 +143,7 @@ describe('RAML 1.0 Importer', function(){
         contentAsync: function (path) {
           return new Promise(function(resolve, reject){
             try {
-              if (path.endsWith('Person.xyz')) {
+              if (path.indexOf('Person.xyz') > 0) {
                 path = path.replace('Person.xyz', '/types/Person.json');
               }
               resolve(fs.readFileSync(path, 'UTF8'));
@@ -160,7 +160,7 @@ describe('RAML 1.0 Importer', function(){
       };
 
       ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml-1.0-with-include-fsresolver.yaml', myOptions, function(err){
-        expect(err).to.be.undefined;
+        if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);
@@ -176,7 +176,7 @@ describe('RAML 1.0 Importer', function(){
 
     it ('should be able to load a valid yaml file including raml type definiton', function (done) {
       ramlImporter.loadFile(__dirname+'/../../data/raml-1.0-with-raml-type.yaml', function(err){
-        expect(err).to.be.undefined;
+        if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);
@@ -192,7 +192,7 @@ describe('RAML 1.0 Importer', function(){
 
     it ('should return error importing yaml file including non exisiting type file', function (done) {
       ramlImporter.loadFile(__dirname+'/../../data/invalid/raml-1.0-with-include.yaml', function(err){
-        expect(err).to.be.undefined;
+        if (err) return done(err);
         try {
           ramlImporter.import();
           done(err);
