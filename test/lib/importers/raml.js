@@ -144,7 +144,7 @@ describe('RAML 1.0 Importer', function(){
           return new Promise(function(resolve, reject){
             try {
               if (path.endsWith('Person.xyz')) {
-                path = path.replace('Person.xyz', '/types/Person.json')
+                path = path.replace('Person.xyz', '/types/Person.json');
               }
               resolve(fs.readFileSync(path, 'UTF8'));
             }
@@ -164,8 +164,8 @@ describe('RAML 1.0 Importer', function(){
         try {
           var slProject = ramlImporter.import();
           expect(slProject).to.be.instanceOf(Project);
-          expect(slProject.Schemas[0].definition.description).to.eq("Person details");
-          expect(slProject.Schemas[1].definition.description).to.eq("Error details");
+          expect(slProject.Schemas[0].definition.description).to.eq('Person details');
+          expect(slProject.Schemas[1].definition.description).to.eq('Error details');
           done();
         }
         catch(err){
