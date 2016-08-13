@@ -59,9 +59,8 @@ describe('Swagger Importer', function() {
     it('should return error for invalid file', function(done) {
       var invalidPath = __dirname + '/../../data/invalid/missing-comma-swagger.json';
       swaggerImporter.loadFile(invalidPath, function(err) {
-        expect(err).to.be.an('error');
-        expect(err).to.have.property('message');
-        expect(err.message).to.contains('missed comma between flow collection entries');
+        expect(err).to.be.an('error').and.to.have
+          .property('reason', 'missed comma between flow collection entries');
         done();
       });
     });
@@ -176,7 +175,7 @@ describe('Swagger Importer', function() {
       });
     });
 
-    it('should not set request mimeType for methods with empty consumes', function(done) {
+    it('should set request mimeType to default for methods with empty consumes', function(done) {
       swaggerImporter.loadFile(filePath, function(err) {
         if (err) {
           return done(err);
@@ -244,7 +243,21 @@ describe('Swagger Importer', function() {
   });
 
   describe('_mapSecurityDefinitions', function() {
-    it('should map apiKey security definitions to stoplight successfully');
+    it('should map apiKey security definitions to stoplight successfully', function(done) {
+      swaggerImporter.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        swaggerImporter.import();
+
+        var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'addPet'});
+
+        expect(endpoint.securedBy.apiKey).to.be.true;
+        done();
+      });
+    });
+
     it('should map oauth2 security definitions to stoplight successfully');
     it('should map basic security definitions to stoplight successfully');
   });
