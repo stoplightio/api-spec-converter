@@ -126,86 +126,63 @@ documentation:
           description: Returns the pet data
       queryParameters: {}
 types:
-  pet: |-
-    {
-        "required": [
-            "name",
-            "type"
-        ],
-        "properties": {
-            "name": {
-                "type": "string",
-                "minLength": 4,
-                "pattern": "^[a-zA-Z0-9- ]+$"
-            },
-            "age": {
-                "type": "integer"
-            },
-            "dob": {
-                "type": "string",
-                "format": "date"
-            },
-            "type": {
-                "type": "string",
-                "enum": [
-                    "cat",
-                    "dog",
-                    "bird"
-                ]
-            },
-            "address": {
-                "$ref": "#/definitions/address"
-            },
-            "vet": {
-                "$ref": "#/definitions/veterinarian"
-            },
-            "tags": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                    "type": "string",
-                    "minLength": 1
-                }
-            }
-        }
-    }
-  veterinarian: |-
-    {
-        "required": [
-            "name"
-        ],
-        "properties": {
-            "name": {
-                "type": "string",
-                "minLength": 1
-            },
-            "address": {
-                "$ref": "#/definitions/address"
-            }
-        }
-    }
-  address: |-
-    {
-        "properties": {
-            "street": {
-                "type": "string",
-                "minLength": 1
-            },
-            "city": {
-                "type": "string",
-                "minLength": 1
-            },
-            "state": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 2,
-                "pattern": "^[A-Z]+$"
-            },
-            "zipcode": {
-                "type": "integer",
-                "minimum": 10000,
-                "maximum": 99999
-            }
-        }
-    }
+  pet:
+    required:
+      - name
+      - type
+    properties:
+      name:
+        type: string
+        minLength: 4
+        pattern: '^[a-zA-Z0-9- ]+$'
+      age:
+        type: integer
+      dob:
+        type: string
+        format: date
+      type:
+        type: string
+        enum:
+          - cat
+          - dog
+          - bird
+      address: {
+        "$ref": "#/definitions/address"
+      }
+      vet: {
+        "$ref": "#/definitions/veterinarian"
+      }
+      tags:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+  veterinarian:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        minLength: 1
+      address: {
+        "$ref": "#/definitions/address"
+      }
+  address:
+    properties:
+      street:
+        type: string
+        minLength: 1
+      city:
+        type: string
+        minLength: 1
+      state:
+        type: string
+        minLength: 2
+        maxLength: 2
+        pattern: '^[A-Z]+$'
+      zipcode:
+        type: integer
+        minimum: 10000
+        maximum: 99999
 traits: []
