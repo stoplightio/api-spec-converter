@@ -141,7 +141,7 @@ describe('Converter', function() {
         try{
           converter.convert('yaml', function(err, covertedRAML){
             if (err)return done(err);
-            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/raml-1.0-converted-from-swagger.yaml', 'utf8')));
+            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/swagger-compatible-raml-1.0.yaml', 'utf8')));
             done();
           });
         }

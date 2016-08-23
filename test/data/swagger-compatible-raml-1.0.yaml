@@ -146,12 +146,10 @@ types:
           - cat
           - dog
           - bird
-      address: {
-        "$ref": "#/definitions/address"
-      }
-      vet: {
-        "$ref": "#/definitions/veterinarian"
-      }
+      address:
+        type: address
+      vet:
+        type: veterinarian
       tags:
         type: array
         uniqueItems: true
@@ -165,9 +163,8 @@ types:
       name:
         type: string
         minLength: 1
-      address: {
-        "$ref": "#/definitions/address"
-      }
+      address:
+        type: address
   address:
     properties:
       street:
