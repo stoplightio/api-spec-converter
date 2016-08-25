@@ -4,7 +4,7 @@ var expect   = require('chai').expect,
     fs = require('fs');
 
 describe('RAML 0.8 Importer', function(){
-  var ramlImporter, filePath = __dirname+'/../../data/raml-0.8.yaml';
+  var ramlImporter, filePath = __dirname+'/../../data/raml08.yaml';
   beforeEach(function(){
     ramlImporter = new RAML();
   });
@@ -27,7 +27,7 @@ describe('RAML 0.8 Importer', function(){
       });
     });
     it('should return error for invalid file', function(done){
-      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml-0.8.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml08.yaml', function(err){
         expect(err).not.to.be.undefined;
         expect(err.message).to.equal("Invalid first line. A RAML document is expected to start with '#%RAML <version> <?fragment type>'.");
         done();
@@ -92,7 +92,7 @@ describe('RAML 0.8 Importer', function(){
 
 
 describe('RAML 1.0 Importer', function(){
-  var ramlImporter, filePath = __dirname+'/../../data/raml-1.0.yaml';
+  var ramlImporter, filePath = __dirname+'/../../data/raml10.yaml';
   beforeEach(function(){
     ramlImporter = new RAML();
   });
@@ -115,7 +115,7 @@ describe('RAML 1.0 Importer', function(){
       });
     });
     it('should return error for invalid file', function(done){
-      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml-1.0.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml10.yaml', function(err){
         expect(err).not.to.be.undefined;
         expect(err.message).to.equal("Invalid first line. A RAML document is expected to start with '#%RAML <version> <?fragment type>'.");
         done();
@@ -123,7 +123,7 @@ describe('RAML 1.0 Importer', function(){
     });
 
     it ('should be able to load a valid yaml file including external type definiton', function (done) {
-      ramlImporter.loadFile(__dirname+'/../../data/raml-1.0-with-include.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/raml10-with-include.yaml', function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
@@ -159,7 +159,7 @@ describe('RAML 1.0 Importer', function(){
         fsResolver : myFsResolver
       };
 
-      ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml-1.0-with-include-fsresolver.yaml', myOptions, function(err){
+      ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml10-with-include-fsresolver.yaml', myOptions, function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
@@ -175,7 +175,7 @@ describe('RAML 1.0 Importer', function(){
     });
 
     it ('should be able to load a valid yaml file including raml type definiton', function (done) {
-      ramlImporter.loadFile(__dirname+'/../../data/raml-1.0-with-raml-type.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/raml10-with-raml-type.yaml', function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
@@ -191,7 +191,7 @@ describe('RAML 1.0 Importer', function(){
 
 
     it ('should return error importing yaml file including non exisiting type file', function (done) {
-      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml-1.0-with-include.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/invalid/raml10-with-include.yaml', function(err){
         if (err) return done(err);
         try {
           ramlImporter.import();

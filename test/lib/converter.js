@@ -7,7 +7,7 @@ var chai   = require('chai'),
 chai.use(require('chai-string'));
 
 describe('Converter', function() {
-  var converterInstance, fullPath = __dirname + '/../data/raml-0.8.yaml';
+  var converterInstance, fullPath = __dirname + '/../data/raml08.yaml';
   beforeEach(function(){
     converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
   });
@@ -141,7 +141,7 @@ describe('Converter', function() {
         try{
           converter.convert('yaml', function(err, covertedRAML){
             if (err)return done(err);
-            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/swagger-compatible-raml-1.0.yaml', 'utf8')));
+            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/swagger-compatible-raml10.yaml', 'utf8')));
             done();
           });
         }

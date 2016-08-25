@@ -42,7 +42,7 @@ describe('Auto Importer', function() {
     });
 
     it('should detect RAML', function() {
-      var fileContent = fs.readFileSync(path.join(dataPath, 'raml-0.8.yaml'), 'utf8'),
+      var fileContent = fs.readFileSync(path.join(dataPath, 'raml08.yaml'), 'utf8'),
           format = importer.detectFormat(fileContent);
 
       expect(format).to.be.equal('RAML');
@@ -91,7 +91,7 @@ describe('Auto Importer', function() {
     });
 
     it('should be able to parse a valid RAML .yaml file', function(done) {
-      importer.loadFile(path.join(dataPath, 'raml-0.8.yaml'), function(err) {
+      importer.loadFile(path.join(dataPath, 'raml08.yaml'), function(err) {
         if (err) {
           return done(err);
         }
@@ -133,7 +133,7 @@ describe('Auto Importer', function() {
     });
 
     it('should be able to load a valid raml 0.8 yaml file', function(done){
-      importer.loadFile(__dirname+'/../../data/raml-0.8.yaml', function(err){
+      importer.loadFile(__dirname+'/../../data/raml08.yaml', function(err){
         if (err) return done(err);
         importer.import();
         expect(importer.project).to.be.instanceOf(Project);
@@ -143,7 +143,7 @@ describe('Auto Importer', function() {
     });
     
     it('should be able to load a valid raml 1.0 yaml file', function(done){
-      importer.loadFile(__dirname+'/../../data/raml-1.0.yaml', function(err){
+      importer.loadFile(__dirname+'/../../data/raml10.yaml', function(err){
         if (err) return done(err);
         importer.import();
         expect(importer.project).to.be.instanceOf(Project);
