@@ -143,7 +143,7 @@ describe('Auto Importer', function() {
     });
     
     it('should be able to load a valid raml 1.0 yaml file', function(done){
-      importer.loadFile(__dirname+'/../../data/raml10.yaml', function(err){
+      importer.loadFile(__dirname+'/../../data/raml10-json-type.yaml', function(err){
         if (err) return done(err);
         importer.import();
         expect(importer.project).to.be.instanceOf(Project);
