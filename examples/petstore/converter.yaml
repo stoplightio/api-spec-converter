@@ -1,0 +1,272 @@
+---
+info:
+  description: "This is a sample server Petstore server."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  externalDocs:
+    description: "Find out more about Swagger"
+    url: "http://swagger.io"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "pet"
+  description: "Everything about your Pets"
+  extra:
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+- name: "store"
+  description: "Access to Petstore orders"
+- name: "user"
+  description: "Operations about user"
+  extra:
+    externalDocs:
+      description: "Find out more about our store"
+      url: "http://swagger.io"
+protocols:
+- "http"
+resources:
+- path: "/pet"
+  operations:
+  - method: "post"
+    tags:
+    - name: "pet"
+    summary: "Add a new pet to the store"
+    description: ""
+    parameters:
+    - name: "content-type"
+      for: "requestHeader"
+      default: "application/json"
+    - name: "content-type"
+      for: "requestHeader"
+      default: "application/xml"
+    - name: "content-type"
+      for: "responseHeader"
+      default: "application/json"
+    - name: "content-type"
+      for: "responseHeader"
+      default: "application/xml"
+    - for: "requestBody"
+      description: "Pet object that needs to be added to the store"
+      required: true
+      definition:
+        $ref: "#/definitions/Pet"
+    # TODO how can we set header for particular response?
+    responses:
+    - codes:
+      - "405"
+      description: "Invalid input"
+    securedBy:
+    - name: "petstore_auth"
+      scopes:
+      - "write:pets"
+      - "read:pets"
+    extra:
+      operationId: "addPet"
+  resources:
+  - path: "/findByStatus" # TODO renamed from name
+    operations:
+    - method: "get"
+    tags:
+    - name: "pet"
+    summary: "Finds Pets by status"
+    description: "Multiple status values can be provided with comma separated strings"
+    parameters:
+    - name: "content-type"
+      for: "header"
+      default: "application/json"
+    - name: "content-type"
+      for: "header"
+      default: "application/xml"
+    - name: "status"
+      for: "query"
+      description: "Status values that need to be considered for filter"
+      required: true
+      type: "array"
+      definition:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "available"
+          - "pending"
+          - "sold"
+          default: "available"
+      extra:
+        collectionFormat: "multi"
+    responses:
+    - codes:
+      - "200"
+      description: "Invalid status value"
+      parameters:
+      - for: "responseBody"
+        definition:
+          type: "array"
+          items:
+            $ref: "#/definitions/Pet"
+    - codes:
+      - "400"
+      description: "successful operation"
+    securedBy:
+    - name: "petstore_auth"
+      scopes:
+      - "write:pets"
+      - "read:pets"
+    extra: # TODO lets rename extra to extensions
+      operationId: "findPetsByStatus" # TODO why it is here? Maybe it should be in operation?
+securitySchemes:
+- name: "petstore_auth"
+  type: "oauth2"
+  scopes:
+  - name: "write:pets"
+    description: "modify pets in your account"
+  - name: "read:pets"
+    description: "read your pets"
+  settings:
+    flow: "implicit"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+- name: "apiKey"
+  parameters:
+  - name: "api_key"
+    for: "requestHeader"
+    # TODO parameter type is required
+parameters:
+- name: "Order"
+  for: "definition"
+  definition:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      petId:
+        type: "integer"
+        format: "int64"
+      quantity:
+        type: "integer"
+        format: "int32"
+      shipDate:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "placed"
+        - "approved"
+        - "delivered"
+      complete:
+        type: "boolean"
+        default: false
+  extra:
+    xml:
+      name: "Order"
+- name: "Category"
+  for: "definition"
+  definition:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+  xml:
+    name: "Category"
+- name: "User"
+  for: "definition"
+  definition:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+  xml:
+    name: "User"
+- name: "Tag"
+  for: "definition"
+  definition:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+  xml:
+    name: "Tag"
+- name: "Pet"
+  for: "definition"
+  definition:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      category:
+        $ref: "#/definitions/Category"
+      name:
+        type: "string"
+        example: "doggie"
+      photoUrls:
+        type: "array"
+        xml:
+          name: "photoUrl"
+          wrapped: true
+        items:
+          type: "string"
+      tags:
+        type: "array"
+        xml:
+          name: "tag"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Tag"
+      status:
+        type: "string"
+        description: "pet status in the store"
+        enum:
+        - "available"
+        - "pending"
+        - "sold"
+  xml:
+    name: "Pet"
+- name: "ApiResponse"
+  for: "definition"
+  definition:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+  xml:
+    name: "ApiResponse"

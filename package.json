@@ -1,40 +1,51 @@
 {
   "name": "api-spec-converter",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "The module is designed to convert from one API format to another with the least number of losses.",
+  "main": "lib/node/api-spec-conveter.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec"
+    "test": "npm test",
+    "build-node": "TARGET=node ./node_modules/webpack/bin/webpack.js",
+    "build-browser": "TARGET=browser ./node_modules/webpack/bin/webpack.js",
+    "validate": "eslint ./src --ext .js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stoplightio/api-spec-converter.git"
   },
-  "author": "Rana <rana@stoplight.io> (http://stoplight.io)",
-  "license": "ISC",
+  "keywords": [
+    "api",
+    "converter",
+    "schema",
+    "specification",
+    "spec",
+    "parser",
+    "parse",
+    "yaml",
+    "json"
+  ],
+  "author": {
+    "name": "Vazha Omanashvili",
+    "email": "vazha@stoplight.io",
+    "url": "http://stoplight.io"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/stoplightio/api-spec-converter/issues"
   },
   "homepage": "https://github.com/stoplightio/api-spec-converter#readme",
-  "dependencies": {
-    "chai-fuzzy": "1.x.x",
-    "js-yaml": "3.x.x",
-    "json-schema-compatibility": "1.x.x",
-    "jsonschema": "1.x.x",
-    "lodash": "4.x.x",
-    "raml-parser": "0.x.x",
-    "request": "2.x.x",
-    "swagger-parser": "4.0.0-beta.2"
-  },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-string": "^1.2.0",
-    "coveralls": "^2.11.8",
-    "gulp": "^3.9.1",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-eslint": "^2.0.0",
-    "jscover": "^1.0.0",
-    "mocha": "^2.4.5",
-    "mocha-lcov-reporter": "^1.2.0"
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.13.2",
+    "eslint": "^3.3.1",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-plugin-import": "^1.14.0",
+    "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.13.0",
+    "babel-runtime": "^6.11.6"
   }
 }
