@@ -4,11 +4,11 @@ import SwaggerExporter from './exporters/swagger/Exporter';
 export default class Converter {
   constructor() {
     this.importers = {
-      swagger: SwaggerImporter
+      swagger: SwaggerImporter,
     };
 
     this.exporters = {
-      swagger: SwaggerExporter
+      swagger: SwaggerExporter,
     };
   }
 
@@ -18,10 +18,10 @@ export default class Converter {
     const importer = this._initImporter(importerOpts);
     const exporter = this._initExporter(exporterOpts);
 
-    let importPromise = this._getPromise(importer.parse(data, importerOpts.options));
+    const importPromise = this._getPromise(importer.parse(data, importerOpts.options));
 
     return importPromise.then(context => {
-      let exportPromise = this._getPromise(exporter.serialize(context, exporterOpts.options));
+      const exportPromise = this._getPromise(exporter.serialize(context, exporterOpts.options));
     }).catch(err => {
       console.error('caught error', err, err.stack);
     });

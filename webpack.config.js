@@ -1,16 +1,16 @@
-var name = 'api-spec-conveter';
-var target = process.env.TARGET;
+const name = 'api-spec-conveter';
+const target = process.env.TARGET;
 
 module.exports = {
-  target: target,
+  target,
   entry: [
     'babel-polyfill',
-    './src/environments/' + target + '.js'
+    `./src/environments/${target}.js`,
   ],
   output: {
-    path: './lib/' + target + '/',
+    path: `./lib/${target}/`,
     pathInfo: true,
-    filename: name + '.js'
+    filename: `${name}.js`,
   },
   loaders: [
     {
@@ -19,8 +19,8 @@ module.exports = {
       test: /\.js?$/,
       query: {
         plugins: ['transform-runtime'],
-        presets: ['es2015']
-      }
-    }
-  ]
+        presets: ['es2015'],
+      },
+    },
+  ],
 };

@@ -4,9 +4,8 @@
   "description": "The module is designed to convert from one API format to another with the least number of losses.",
   "main": "lib/node/api-spec-conveter.js",
   "scripts": {
-    "test": "npm test",
-    "build-node": "TARGET=node ./node_modules/webpack/bin/webpack.js",
-    "build-browser": "TARGET=browser ./node_modules/webpack/bin/webpack.js",
+    "build:node": "TARGET=node ./node_modules/webpack/bin/webpack.js",
+    "build:web": "TARGET=web ./node_modules/webpack/bin/webpack.js",
     "validate": "eslint ./src --ext .js"
   },
   "repository": {
@@ -35,17 +34,17 @@
   },
   "homepage": "https://github.com/stoplightio/api-spec-converter#readme",
   "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-transform-runtime": "^6.12.0",
-    "babel-preset-es2015": "^6.13.2",
-    "eslint": "^3.3.1",
-    "eslint-config-airbnb-base": "^5.0.3",
-    "eslint-plugin-import": "^1.14.0",
-    "webpack": "^1.13.2"
+    "babel-core": "6.13.x",
+    "babel-loader": "6.2.x",
+    "babel-plugin-transform-runtime": "6.12.x",
+    "babel-preset-es2015": "6.13.x",
+    "eslint": "3.3.x",
+    "eslint-config-airbnb-base": "5.0.x",
+    "eslint-plugin-import": "1.14.x",
+    "webpack": "1.13.x"
   },
   "dependencies": {
-    "babel-polyfill": "^6.13.0",
-    "babel-runtime": "^6.11.6"
+    "babel-polyfill": "6.13.x",
+    "babel-runtime": "6.11.x"
   }
 }
