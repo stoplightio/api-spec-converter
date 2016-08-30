@@ -161,7 +161,7 @@ describe('Swagger Importer', function() {
       });
     });
 
-    it('should set request mimeType to default for methods with no consumes', function(done) {
+    it('should set request mimeType to undefined for methods with no consumes', function(done) {
       swaggerImporter.loadFile(filePath, function(err) {
         if (err) {
           return done(err);
@@ -176,7 +176,7 @@ describe('Swagger Importer', function() {
       });
     });
 
-    it('should set request mimeType to default for methods with empty consumes', function(done) {
+    it('should set request mimeType to undefined for methods with empty consumes', function(done) {
       swaggerImporter.loadFile(filePath, function(err) {
         if (err) {
           return done(err);
@@ -185,7 +185,8 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'copyPetPhoto'});
 
-        expect(endpoint.request.consumes[0]).to.be.eq('multipart/form-data');
+        expect(swaggerImporter.project.Environment.Consumes[0]).to.be.eq('application/json');
+        expect(endpoint.Consumes[0]).to.be.eq('multipart/form-data');
         done();
       });
     });
@@ -213,7 +214,7 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'copyPetPhoto'});
 
-        expect(endpoint.produces).to.be.empty;
+        expect(endpoint.Produces).to.be.empty;
         done();
       });
     });

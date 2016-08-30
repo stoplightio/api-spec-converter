@@ -357,7 +357,6 @@ paths:
           required: false
       operationId: copyPetPhoto
       consumes: []
-      produces: []
       responses:
         default:
           description: Returns copied pet photo
