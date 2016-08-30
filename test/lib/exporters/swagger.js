@@ -29,14 +29,10 @@ describe('Swagger Exporter', function(){
 
   describe('_getResponseTypes', function(){
     it('should include all response mime types from all responses', function(){
-      var responses = [], respTypes;
-      responses.push({
-        mimeType: 'application/json'
-      });
-      responses.push({
-        mimeType: 'multipart/form-data'
-      });
-      respTypes = swaggerExporter._getResponseTypes(responses);
+      var endpoint = new Endpoint('test'),
+          produces = ['application/json', 'multipart/form-data'];
+      endpoint.Produces = produces;
+      respTypes = swaggerExporter._getResponseTypes(endpoint);
       expect(respTypes).to.be.an('array');
       expect(respTypes.length).to.equal(2);
       expect(respTypes[0]).to.equal('application/json');
@@ -141,14 +137,12 @@ describe('Swagger Exporter', function(){
 
       // endpoint
       endpoint = new Endpoint('test');
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
+      endpoint.Consumes = ['application/json'];
+      endpoint.Produces = ['application/json'];
+      endpoint.Body = {};
 
       //responses
-      responses.push({
-        mimeType: 'application/json'
-      });
+      responses.push({});
 
       //parameters
       parameters.push({
@@ -175,13 +169,8 @@ describe('Swagger Exporter', function(){
       swaggerExporter.project = new Project('test project');
 
       var endpoint = new Endpoint('test');
-      endpoint.Body = {
-        mimeType: null
-      };
-      endpoint.Responses = [{
-        mimeType: null
-      }];
-
+      endpoint.Consumes = [];
+      endpoint.Produces = [];
       var env = new Environment();
       env.Consumes = ['application/json'];
 
@@ -218,8 +207,8 @@ describe('Swagger Exporter', function(){
 
       var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
       expect(swaggerMethod).to.be.an('object');
-      expect(swaggerMethod.consumes).to.be.an('undefined');
-      expect(swaggerMethod.produces).to.be.an('undefined');
+      expect(swaggerMethod.consumes).to.be.an('array').and.to.be.an.empty;
+      expect(swaggerMethod.produces).to.be.an('array').and.to.be.an.empty;
     });
   });
 
@@ -433,24 +422,22 @@ describe('Swagger Exporter', function(){
 
   describe('_mapResponseBody', function() {
     it('should map responses and return successfully', function() {
-      var responses = [
+      var endpoint = new Endpoint('test');
+      endpoint.Produces = ['application/json'];
+      endpoint.Responses = [
         {
-          mimeType: null,
           codes: ['200'],
-          body: '{"type": "null"}',
           example: '',
           description: ''
         },
         {
-          mimeType: 'application/json',
           codes: ['404'],
           body: '{"$ref": "#/definitions/global:ErrorResponse"}',
           example: '{"errors": [{"field": null, "message": "not found"}]}',
           description: 'not found'
         }
       ];
-      var res = swaggerExporter._mapResponseBody(responses);
-
+      var res = swaggerExporter._mapResponseBody(endpoint);
       expect(res).to.have.keys('200', '404');
       expect(res['200']).to.have.key('description');
       expect(res).to.have.deep.property('404.schema.$ref', '#/definitions/global:ErrorResponse');

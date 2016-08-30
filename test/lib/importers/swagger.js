@@ -170,7 +170,8 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {description: 'Updates a pet by name'});
 
-        expect(endpoint.request.bodies[0].mimeType).to.be.eq('application/json');
+        expect(swaggerImporter.project.Environment.Consumes[0]).to.be.eq('application/json');
+        expect(endpoint.Consumes).to.be.undefined;
         done();
       });
     });
@@ -184,7 +185,7 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'copyPetPhoto'});
 
-        expect(endpoint.request.bodies[0].mimeType).to.be.eq('multipart/form-data');
+        expect(endpoint.request.consumes[0]).to.be.eq('multipart/form-data');
         done();
       });
     });
@@ -198,7 +199,7 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'deletePet'});
 
-        expect(endpoint.responses[0].mimeType).to.be.eq('application/json');
+        expect(endpoint.produces[0]).to.be.eq('application/json');
         done();
       });
     });
@@ -212,7 +213,7 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'copyPetPhoto'});
 
-        expect(endpoint.responses[0].mimeType).to.be.null;
+        expect(endpoint.produces).to.be.empty;
         done();
       });
     });
