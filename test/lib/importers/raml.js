@@ -1,17 +1,18 @@
 var expect   = require('chai').expect,
-    RAML = require('../../../lib/importers/raml'),
+    RAML08 = require('../../../lib/importers/raml08'),
+    RAML10 = require('../../../lib/importers/raml10'),
     Project = require('../../../lib/entities/project'),
     fs = require('fs');
 
 describe('RAML 0.8 Importer', function(){
   var ramlImporter, filePath = __dirname+'/../../data/raml08.yaml';
   beforeEach(function(){
-    ramlImporter = new RAML();
+    ramlImporter = new RAML08();
   });
 
   describe('constructor', function(){
     it('should return new RAML importer instance successfully', function(){
-      expect(ramlImporter).to.be.instanceOf(RAML);
+      expect(ramlImporter).to.be.instanceOf(RAML08);
     });
     it('should possess generic importer prototype', function(){
       expect(ramlImporter).to.respondTo('loadFile');
@@ -53,7 +54,7 @@ describe('RAML 0.8 Importer', function(){
   //TODO write test for internal functions
   describe('_mapHost', function(){
     it('should map empty host as null', function(){
-      var importer = new RAML();
+      var importer = new RAML08();
       importer.project = new Project('test');
       importer.data = {
         baseUri: undefined
@@ -94,12 +95,12 @@ describe('RAML 0.8 Importer', function(){
 describe('RAML 1.0 Importer', function(){
   var ramlImporter, filePath = __dirname+'/../../data/raml10-json-type.yaml';
   beforeEach(function(){
-    ramlImporter = new RAML();
+    ramlImporter = new RAML10();
   });
 
   describe('constructor', function(){
     it('should return new RAML importer instance successfully', function(){
-      expect(ramlImporter).to.be.instanceOf(RAML);
+      expect(ramlImporter).to.be.instanceOf(RAML10);
     });
     it('should possess generic importer prototype', function(){
       expect(ramlImporter).to.respondTo('loadFile');
@@ -228,7 +229,7 @@ describe('RAML 1.0 Importer', function(){
   //TODO write test for internal functions
   describe('_mapHost', function(){
     it('should map empty host as null', function(){
-      var importer = new RAML();
+      var importer = new RAML10();
       importer.project = new Project('test');
       importer.data = {
         baseUri: undefined

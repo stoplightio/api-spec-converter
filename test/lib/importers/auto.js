@@ -45,7 +45,7 @@ describe('Auto Importer', function() {
       var fileContent = fs.readFileSync(path.join(dataPath, 'raml08.yaml'), 'utf8'),
           format = importer.detectFormat(fileContent);
 
-      expect(format).to.be.equal('RAML');
+      expect(format).to.be.equal('RAML08');
     });
 
     it('should detect SWAGGER', function() {
@@ -141,7 +141,7 @@ describe('Auto Importer', function() {
         done();
       });
     });
-    
+
     it('should be able to load a valid raml 1.0 yaml file', function(done){
       importer.loadFile(__dirname+'/../../data/raml10-json-type.yaml', function(err){
         if (err) return done(err);

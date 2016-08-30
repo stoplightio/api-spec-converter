@@ -9,7 +9,7 @@ chai.use(require('chai-string'));
 describe('Converter', function() {
   var converterInstance, fullPath = __dirname + '/../data/raml08.yaml';
   beforeEach(function(){
-    converterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
+    converterInstance = new specConverter.Converter(specConverter.Formats.RAML08, specConverter.Formats.SWAGGER);
   });
   afterEach(function(){
     converterInstance = null;
@@ -37,7 +37,7 @@ describe('Converter', function() {
     it('should validate to format, throw error otherwise', function(done){
       try{
         //doesn't support export/convert to postman format
-        var newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.POSTMAN);
+        var newConverterInstance = new specConverter.Converter(specConverter.Formats.RAML08, specConverter.Formats.POSTMAN);
         expect(newConverterInstance).to.be.an.instanceof(specConverter.Converter);
       } catch(e) {
         expect(e.message).to.equal('to format Postman not supported');
@@ -106,19 +106,19 @@ describe('Converter', function() {
       });
     });
 
-    it('should convert reversly from swagger to raml without loss', function(done){
-      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
-      converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
+    it('should convert reversly from swagger to raml 10 without loss', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+      converter.loadFile(__dirname + '/../data/raml10-compatible-swagger.json', function(){
         try{
           converter.convert('yaml', function(err, covertedRAML){
             if (err)return done(err);
-            var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
+            var converter2 = new specConverter.Converter(specConverter.Formats.RAML10, specConverter.Formats.SWAGGER);
             converter2.loadData(covertedRAML)
             .then(function(){
               try{
                 converter2.convert('json', function(err, resultSwagger){
                   if(err)return done(err);
-                  expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml-compatible-swagger.json'));
+                  expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml10-compatible-swagger.json'));
                   done();
                 });
               }
@@ -135,9 +135,38 @@ describe('Converter', function() {
       });
     });
 
-    it('should convert from swagger to raml', function(done){
-      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML);
-      converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
+    it('should convert reversly from swagger to raml 08 without loss', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML08);
+      converter.loadFile(__dirname + '/../data/raml08-compatible-swagger.json', function(){
+        try{
+          converter.convert('yaml', function(err, covertedRAML){
+            if (err)return done(err);
+            var converter2 = new specConverter.Converter(specConverter.Formats.RAML08, specConverter.Formats.SWAGGER);
+            converter2.loadData(covertedRAML)
+                .then(function(){
+                  try{
+                    converter2.convert('json', function(err, resultSwagger){
+                      if(err)return done(err);
+                      expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml08-compatible-swagger.json'));
+                      done();
+                    });
+                  }
+                  catch(err) {
+                    done(err);
+                  }
+                })
+                .catch(done);
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
+
+    it('should convert from swagger to raml 1.0', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+      converter.loadFile(__dirname + '/../data/raml10-compatible-swagger.json', function(){
         try{
           converter.convert('yaml', function(err, covertedRAML){
             if (err)return done(err);

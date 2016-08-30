@@ -1,18 +1,18 @@
 var expect   = require('chai').expect,
-    RAML = require('../../../lib/exporters/raml'),
+    RAML10 = require('../../../lib/exporters/raml10'),
     fs = require('fs');
 
 describe('RAML Exporter', function(){
 
   var ramlExporter, slData;
   beforeEach(function(){
-    ramlExporter = new RAML();
+    ramlExporter = new RAML10();
     slData = require(__dirname+'/../../data/stoplight.json');
   });
 
   describe('constructor', function(){
     it('should return valid raml instance', function(){
-      expect(ramlExporter).to.be.instanceOf(RAML);
+      expect(ramlExporter).to.be.instanceOf(RAML10);
     });
     it('should posess generic exporter prototype', function(){
       expect(ramlExporter).to.respondTo('loadSLData');
