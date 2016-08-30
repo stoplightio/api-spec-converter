@@ -48,14 +48,13 @@ describe('Swagger Exporter', function(){
     it('should be no content type for request', function(){
       var endpoint = new Endpoint('test'), requestType, parameters = [];
       endpoint.Body = {
-        mimeType: ''
       };
       parameters.push({
         name : 'myparam',
         in: 'header',
         type: 'string'
       });
-      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, []);
       //should assign string type for non valid types
       expect(requestType).to.be.an('array');
       expect(requestType.length).to.eq(0);
@@ -64,15 +63,15 @@ describe('Swagger Exporter', function(){
 
     it('should set form data for having file type param', function(){
       var endpoint = new Endpoint('test'), requestType, parameters = [];
+      endpoint.Consumes = ['application/json'];
       endpoint.Body = {
-        mimeType: 'application/json'
       };
       parameters.push({
         name : 'myparam',
         in: 'body',
         type: 'file'
       });
-      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, []);
       //should assign string type for non valid types
       expect(requestType).to.be.an('array');
       expect(requestType.length).to.gt(0);
@@ -81,15 +80,13 @@ describe('Swagger Exporter', function(){
 
     it('should include endpoint body type if match for file type', function(){
       var endpoint = new Endpoint('test'), requestType, parameters = [];
-      endpoint.Body = {
-        mimeType: 'application/x-www-form-urlencoded'
-      };
+      endpoint.Consumes = ['application/x-www-form-urlencoded'];
       parameters.push({
         name : 'myparam',
         in: 'body',
         type: 'file'
       });
-      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, '');
+      requestType = swaggerExporter._getRequestTypes(endpoint, parameters, []);
       //should assign string type for non valid types
       expect(requestType).to.be.an('array');
       expect(requestType.length).to.gt(0);
@@ -163,7 +160,7 @@ describe('Swagger Exporter', function(){
       endpoint.SetOperationId(null, 'GET', '/foo/bar/');
 
       env = new Environment();
-      env.DefaultRequestType = 'application/json';
+      env.Consumes = ['application/json'];
 
       swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, parameters, responses, env);
 
@@ -186,7 +183,7 @@ describe('Swagger Exporter', function(){
       }];
 
       var env = new Environment();
-      env.DefaultRequestType = 'application/json';
+      env.Consumes = ['application/json'];
 
       var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
       expect(swaggerMethod).to.be.an('object');
@@ -198,15 +195,7 @@ describe('Swagger Exporter', function(){
       swaggerExporter.project = new Project('test project');
 
       var endpoint = new Endpoint('test');
-      endpoint.Body = {
-        mimeType: null
-      };
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
+      endpoint.Consumes = ['application/json'];
 
       var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [],
         endpoint.Responses, new Environment());
@@ -220,16 +209,12 @@ describe('Swagger Exporter', function(){
       swaggerExporter.project = new Project('test project');
 
       var endpoint = new Endpoint('test');
-      endpoint.Body = {
-        mimeType: 'application/json'
-      };
-      endpoint.Responses = [{
-        mimeType: 'application/json'
-      }];
+      endpoint.Produces = ['application/json'];
+      endpoint.Consumes = ['application/json'];
 
       var env = new Environment();
-      env.DefaultRequestType = 'application/json';
-      env.defaultResponseType = 'application/json';
+      env.Consumes = ['application/json'];
+      env.Produces = ['application/json'];
 
       var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
       expect(swaggerMethod).to.be.an('object');

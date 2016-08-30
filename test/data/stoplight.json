@@ -5,8 +5,8 @@
     "environment": {
       "forwardHost": "http://localhost:3000",
       "basePath": "",
-      "defaultResponseType": "application/json",
-      "defaultRequestType": "application/json",
+      "produces": ["application/json"],
+      "consumes": ["application/json"],
       "protocols": [
         "http",
         "https",
