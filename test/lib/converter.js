@@ -94,7 +94,7 @@ describe('Converter', function() {
         try {
           newConverterInstance.convert('json', function(err, convertedData) {
             if (err) {
-              return done(err);
+              done(err);
             }
 
             expect(JSON.parse(JSON.stringify(convertedData))).to.deep.equal(originalData);
@@ -111,25 +111,27 @@ describe('Converter', function() {
       converter.loadFile(__dirname + '/../data/raml-compatible-swagger.json', function(){
         try{
           converter.convert('yaml', function(err, covertedRAML){
-            expect(err).to.be.null;
+            if (err) {
+              done(err);
+            }
             var converter2 = new specConverter.Converter(specConverter.Formats.RAML, specConverter.Formats.SWAGGER);
             converter2.loadData(covertedRAML)
             .then(function(){
               try{
                 converter2.convert('json', function(err, resultSwagger){
-                  if(err)return done(err);
+                  if(err) {
+                    done(err);
+                  }
                   expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml-compatible-swagger.json'));
                   done();
                 });
-              }
-              catch(err) {
+              } catch(err) {
                 done(err);
               }
             })
             .catch(done);
           });
-        }
-        catch(err) {
+        } catch(err) {
           done(err);
         }
       });
