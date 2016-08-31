@@ -200,7 +200,8 @@ describe('Swagger Importer', function() {
         swaggerImporter.import();
         var endpoint = _.find(swaggerImporter.project.Endpoints, {operationId: 'deletePet'});
 
-        expect(endpoint.produces[0]).to.be.eq('application/json');
+        expect(swaggerImporter.project.Environment.Produces[0]).to.be.eq('application/json');
+        expect(endpoint.produces).to.be.undefined;
         done();
       });
     });
