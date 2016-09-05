@@ -32,7 +32,7 @@ describe('Swagger Exporter', function(){
       var endpoint = new Endpoint('test'),
           produces = ['application/json', 'multipart/form-data'];
       endpoint.Produces = produces;
-      respTypes = swaggerExporter._getResponseTypes(endpoint);
+      var respTypes = swaggerExporter._getResponseTypes(endpoint);
       expect(respTypes).to.be.an('array');
       expect(respTypes.length).to.equal(2);
       expect(respTypes[0]).to.equal('application/json');

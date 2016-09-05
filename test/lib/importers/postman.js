@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
   Postman = require('../../../lib/importers/postman'),
-  Project = require('../../../lib/entities/project');
-_ = require('lodash');
+  Project = require('../../../lib/entities/project'),
+  _ = require('lodash');
 
 describe('Postman Importer', function() {
   var postmanImporter;
