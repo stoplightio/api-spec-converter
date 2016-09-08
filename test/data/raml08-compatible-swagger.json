@@ -17,6 +17,9 @@
         }
       ],
       "get": {
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "400": {
             "description": "Returns the pet data",
@@ -30,6 +33,9 @@
         "description": "Returns a pet by name"
       },
       "delete": {
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "400": {
             "description": "Returns the pet that was deleted",
@@ -43,6 +49,9 @@
         "description": "Deletes a single pet based on the name supplied"
       },
       "patch": {
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "400": {
             "description": "Returns the updated pet data",
@@ -62,7 +71,10 @@
         ],
         "operationId": "PATCH_pets-petName",
         "summary": "",
-        "description": "Updates a pet by name"
+        "description": "Updates a pet by name",
+        "consumes": [
+          "application/json"
+        ]
       }
     },
     "/pets/{petName}/photos": {
@@ -76,6 +88,9 @@
         }
       ],
       "post": {
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "400": {
             "description": "Returns the photo information",
@@ -222,11 +237,5 @@
   "schemes": [
     "http",
     "https"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "consumes": [
-    "application/json"
   ]
 }

@@ -180,6 +180,38 @@ describe('Converter', function() {
       });
     });
 
+    it('should convert from swagger ref to raml 1.0', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+      converter.loadFile(__dirname + '/../data/swagger-ref.json', function(){
+        try{
+          converter.convert('yaml', function(err, covertedRAML){
+            if (err)return done(err);
+            expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(__dirname + '/../data/raml10-ref.yaml', 'utf8')));
+            done();
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
+
+    it('should convert from raml 1.0 to swagger ref', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.RAML10, specConverter.Formats.SWAGGER);
+      converter.loadFile(__dirname + '/../data/raml10-ref.yaml', function(){
+        try{
+          converter.convert('json', function(err, resultSwagger){
+            if (err)return done(err);
+            expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/swagger-ref.json'));
+            done();
+          });
+        }
+        catch(err) {
+          done(err);
+        }
+      });
+    });
+
     // This test has an issue because RAML does not support operationIds
     //It performs importing from raml to stoplight and exporting from stoplight to raml
     //and thus verifies in both ways
