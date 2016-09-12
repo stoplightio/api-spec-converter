@@ -1,0 +1,57 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "contact": {
+      "name": "apiteam@swagger.io"
+    },
+    "termsOfService": "http://helloreverb.com/terms/",
+    "description": "This is a sample server Petstore.",
+    "license" : {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "externalDocs": {
+      "description" : "Find more information here",
+      "url": "http://swagger.io"
+    }
+  },
+  "produces": ["application/json"],
+  "schemes": ["http"],
+  "basePath": "/api",
+  "host": "localhost:3000",
+  "paths": {
+    "/users": {
+      "get": {
+        "description": "Get basic information about a user.",
+        "responses": {
+          "200": {
+            "description": "The user object",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+#%RAML 1.0
+title: Swagger Petstore
+version: 1.0.0
+documentation:
+  - title: Swagger Petstore
+    content: This is a sample server Petstore.
+  - title: Contact
+    content: apiteam@swagger.io
+  - title: Terms Of Service
+    content: http://helloreverb.com/terms/
+  - title: License
+    content:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+  - title: External Docs
+    content:
+      description: Find more information here
+      url: http://swagger.io
+protocols:
+  - HTTP
+mediaType: application/json
+baseUri: http://localhost:3000/api
+/users:
+  displayName: users
+  description: ''
+  get:
+    displayName: GET_users
+    description: Get basic information about a user.
+    headers: {}
+    responses:
+      '200':
+        body:
+          application/json:
+            properties:
+              data:
+                type: User
+            type: object
+        description: The user object
+    queryParameters: {}
+  uriParameters: {}
+types:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+traits: []
