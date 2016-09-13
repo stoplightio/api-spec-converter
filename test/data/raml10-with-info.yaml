@@ -18,15 +18,37 @@ documentation:
       url: http://swagger.io
 protocols:
   - HTTP
+annotationTypes:
+  tags: string[]
+  deprecated: boolean
+  externalDocs:
+    description: string
+    url: string
+securitySchemes:
+  internalApiKey:
+    type: Pass Through
+    description: Api Key Authentication
+    describedBy:
+      headers:
+        api_key:
+          type: string
 mediaType: application/json
 baseUri: http://localhost:3000/api
 /users:
   displayName: users
   description: ''
   get:
+    (tags):
+      - get_method
+    (deprecated): true
+    (externalDocs):
+      description: Find more information here
+      url: http://swagger.io
     displayName: GET_users
-    description: Get basic information about a user.
+    description: my method summary. Get basic information about a user.
     headers: {}
+    securedBy:
+      - internalApiKey
     responses:
       '200':
         body:

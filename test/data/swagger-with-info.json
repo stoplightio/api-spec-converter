@@ -24,7 +24,19 @@
   "paths": {
     "/users": {
       "get": {
+        "externalDocs": {
+          "description" : "Find more information here",
+          "url": "http://swagger.io"
+        },
+        "tags": ["get_method"],
+        "deprecated": true,
         "description": "Get basic information about a user.",
+        "summary": "my method summary",
+        "security": [
+          {
+            "internalApiKey": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "The user object",
@@ -39,6 +51,14 @@
           }
         }
       }
+    }
+  },
+  "securityDefinitions": {
+    "internalApiKey": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "api_key",
+      "description": "Api Key Authentication"
     }
   },
   "definitions": {
