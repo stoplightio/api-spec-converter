@@ -65,11 +65,47 @@
     "User": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer"
+        "id_int": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id_long": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id_float": {
+          "type": "number",
+          "format": "float"
+        },
+        "id_double": {
+          "type": "number",
+          "format": "double"
         },
         "username": {
           "type": "string"
+        },
+        "username_byte": {
+          "type": "string",
+          "format": "byte"
+        },
+        "username_binary": {
+          "type": "string",
+          "format": "binary"
+        },
+        "username_boolean": {
+          "type": "boolean"
+        },
+        "username_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "username_datetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user_password": {
+          "type": "string",
+          "format": "password"
         }
       }
     }

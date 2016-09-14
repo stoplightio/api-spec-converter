@@ -64,8 +64,31 @@ types:
   User:
     type: object
     properties:
-      id:
+      id_int:
         type: integer
+        format: int32
+      id_long:
+        type: integer
+        format: int64
+      id_float:
+        type: number
+        format: float
+      id_double:
+        type: number
+        format: double
       username:
+        type: string
+      username_byte:
+        type: string
+      username_binary:
+        type: string
+      username_boolean:
+        type: boolean
+      username_date:
+        type: date-only
+      username_datetime:
+        type: datetime
+        format: rfc3339
+      user_password:
         type: string
 traits: []

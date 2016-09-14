@@ -114,8 +114,7 @@ types:
       age:
         type: integer
       dob:
-        type: string
-        format: date
+        type: date-only
       type:
         type: string
         enum:
