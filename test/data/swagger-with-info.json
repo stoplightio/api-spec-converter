@@ -11,11 +11,11 @@
     "license" : {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "externalDocs": {
-      "description" : "Find more information here",
-      "url": "http://swagger.io"
     }
+  },
+  "externalDocs": {
+    "description" : "Find more information here",
+    "url": "http://swagger.io"
   },
   "produces": ["application/json"],
   "schemes": ["http"],

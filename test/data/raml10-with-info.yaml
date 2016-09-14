@@ -12,10 +12,9 @@ documentation:
     content:
       name: Apache 2.0
       url: http://www.apache.org/licenses/LICENSE-2.0.html
-  - title: External Docs
-    content:
-      description: Find more information here
-      url: http://swagger.io
+(externalDocs):
+  description: Find more information here
+  url: http://swagger.io
 protocols:
   - HTTP
 annotationTypes:
