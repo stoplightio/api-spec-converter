@@ -35,6 +35,11 @@
         "security": [
           {
             "internalApiKey": []
+          },
+          {
+            "petstore_auth": [
+              "read:users"
+            ]
           }
         ],
         "responses": {
@@ -59,6 +64,15 @@
       "in": "header",
       "name": "api_key",
       "description": "Api Key Authentication"
+    },
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:users": "modify users",
+        "read:users": "read users"
+      }
     }
   },
   "definitions": {

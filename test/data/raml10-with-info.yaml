@@ -32,6 +32,14 @@ securitySchemes:
       headers:
         api_key:
           type: string
+  petstore_auth:
+    type: OAuth 2.0
+    settings:
+      accessTokenUri: ""
+      authorizationUri: http://swagger.io/api/oauth/dialog
+      authorizationGrants:
+        - implicit
+      scopes: [write:users, read:users]
 mediaType: application/json
 baseUri: http://localhost:3000/api
 /users:
@@ -48,6 +56,7 @@ baseUri: http://localhost:3000/api
     description: my method summary. Get basic information about a user.
     headers: {}
     securedBy:
+      - petstore_auth: {scopes:[read:users]}
       - internalApiKey
     responses:
       '200':
