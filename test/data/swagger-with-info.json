@@ -121,7 +121,10 @@
           "type": "string",
           "format": "password"
         }
-      }
+      },
+      "required": [
+        "username"
+      ]
     }
   }
 }

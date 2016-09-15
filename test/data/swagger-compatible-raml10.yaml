@@ -91,9 +91,6 @@ documentation:
           description: Returns the pet data
 types:
   pet:
-    required:
-      - name
-      - type
     properties:
       name:
         type: string
@@ -101,8 +98,10 @@ types:
         pattern: '^[a-zA-Z0-9- ]+$'
       age:
         type: integer
+        required: false
       dob:
         type: date-only
+        required: false
       type:
         type: string
         enum:
@@ -111,37 +110,43 @@ types:
           - bird
       address:
         type: address
+        required: false
       vet:
         type: veterinarian
+        required: false
       tags:
         type: array
         uniqueItems: true
         items:
           type: string
           minLength: 1
+        required: false
   veterinarian:
-    required:
-      - name
     properties:
       name:
         type: string
         minLength: 1
       address:
         type: address
+        required: false
   address:
     properties:
       street:
         type: string
         minLength: 1
+        required: false
       city:
         type: string
         minLength: 1
+        required: false
       state:
         type: string
         minLength: 2
         maxLength: 2
         pattern: '^[A-Z]+$'
+        required: false
       zipcode:
         type: integer
         minimum: 10000
         maximum: 99999
+        required: false

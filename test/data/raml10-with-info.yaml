@@ -65,32 +65,41 @@ baseUri: http://localhost:3000/api
         description: The user object
 types:
   User:
-    type: object
     properties:
       id_int:
         type: integer
         format: int32
+        required: false
       id_long:
         type: integer
         format: int64
+        required: false
       id_float:
         type: number
         format: float
+        required: false
       id_double:
         type: number
         format: double
+        required: false
       username:
         type: string
       username_byte:
         type: string
+        required: false
       username_binary:
         type: string
+        required: false
       username_boolean:
         type: boolean
+        required: false
       username_date:
         type: date-only
+        required: false
       username_datetime:
         type: datetime
         format: rfc3339
+        required: false
       user_password:
         type: string
+        required: false
