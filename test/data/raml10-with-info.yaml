@@ -103,3 +103,5 @@ types:
       user_password:
         type: string
         required: false
+      //:
+        type: string

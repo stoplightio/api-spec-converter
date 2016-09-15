@@ -124,7 +124,10 @@
       },
       "required": [
         "username"
-      ]
+      ],
+      "additionalProperties": {
+        "type": "string"
+      }
     }
   }
 }
