@@ -5,8 +5,8 @@
     "environment": {
       "forwardHost": "http://localhost:3000",
       "basePath": "",
-      "defaultResponseType": "application/json",
-      "defaultRequestType": "application/json",
+      "produces": ["application/json"],
+      "consumes": ["application/json"],
       "protocols": [
         "http",
         "https",
@@ -44,6 +44,8 @@
         "name": "addPetPhoto",
         "description": "Upload a new pet photo",
         "summary": "",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
         "request": {
           "method": "post",
           "path": "/pets/{petName}/photos",
@@ -52,7 +54,6 @@
           "queryString": "{\"type\":\"object\",\"properties\":{},\"required\":[]}",
           "bodies": [
             {
-              "mimeType": "multipart/form-data",
               "body": "{\"properties\":{\"id\":{\"description\":\"The photo ID (generated automatically)\",\"type\":\"integer\"},\"label\":{\"description\":\"A label for the photo\",\"type\":\"string\"},\"description\":{\"description\":\"An optional description of the photo\",\"type\":\"string\"},\"photo\":{\"description\":\"The pet photo\",\"type\":\"file\"}},\"required\":[\"label\",\"photo\"]}",
               "example": ""
             }
@@ -60,7 +61,6 @@
         },
         "responses": [
           {
-            "mimeType": "application/json",
             "codes": [
               400
             ],
@@ -85,6 +85,8 @@
         "name": "deletePets",
         "description": "Deletes all pets, optionally filtered by one or more criteria",
         "summary": "",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
         "request": {
           "method": "delete",
           "path": "/pets",
@@ -93,7 +95,6 @@
           "queryString": "{\"type\":\"object\",\"properties\":{\"tags\":{\"type\":\"array\",\"description\":\"Filters pets by one or more tags\",\"items\":{\"type\":\"string\"}},\"type\":{\"type\":\"string\",\"description\":\"Filters pets by type (dog, cat, or bird)\"},\"age\":{\"type\":\"integer\",\"description\":\"Filters pets by age\"},\"dob\":{\"type\":\"string\",\"description\":\"Filters pets by date of birth\"},\"address.city\":{\"type\":\"string\",\"description\":\"Filters pets by city\"},\"address.state\":{\"type\":\"string\",\"description\":\"Filters pets by state\"},\"address.zipcode\":{\"type\":\"integer\",\"description\":\"Filters pets by zip code\"},\"vet.name\":{\"type\":\"string\",\"description\":\"Filters pets by veterinarian name\"},\"vet.address.city\":{\"type\":\"string\",\"description\":\"Filters pets by veterinarian city\"},\"vet.address.state\":{\"type\":\"string\",\"description\":\"Filters pets by veterinarian state\"},\"vet.address.zipcode\":{\"type\":\"integer\",\"description\":\"Filters pets by veterinarian zip code\"}},\"required\":[\"age\"]}",
           "bodies": [
             {
-              "mimeType": "application/json",
               "body": "{\"properties\":{}}",
               "example": ""
             }
@@ -101,7 +102,6 @@
         },
         "responses": [
           {
-            "mimeType": "application/json",
             "codes": [
               400
             ],

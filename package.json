@@ -4,7 +4,7 @@
   "description": "This package helps to convert between different API specifications (Postman, Swagger, RAML, StopLight).",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec"
+    "test": "mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,10 @@
     "swagger-parser": "4.0.0-beta.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "babel-register": "^6.14.0",
     "chai": "^3.5.0",
     "chai-string": "^1.2.0",
     "coveralls": "^2.11.8",
@@ -35,7 +39,8 @@
     "gulp-eslint": "^2.0.0",
     "jscover": "^1.0.0",
     "mocha": "^2.4.5",
-    "mocha-lcov-reporter": "^1.2.0"
+    "mocha-lcov-reporter": "^1.2.0",
+    "nodemon": "^1.10.2"
   },
   "directories": {
     "example": "example",
