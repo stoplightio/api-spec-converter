@@ -78,6 +78,7 @@
   "definitions": {
     "User": {
       "type": "object",
+      "discriminator": "username",
       "properties": {
         "id_int": {
           "type": "integer",

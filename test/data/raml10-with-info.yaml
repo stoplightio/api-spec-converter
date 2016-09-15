@@ -105,6 +105,7 @@ types:
         required: false
       //:
         type: string
+    discriminator: username
     example:
       username: xyz
       user_password: zyx
