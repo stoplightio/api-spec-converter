@@ -105,3 +105,6 @@ types:
         required: false
       //:
         type: string
+    example:
+      username: xyz
+      user_password: zyx

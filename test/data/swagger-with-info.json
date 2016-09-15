@@ -127,6 +127,10 @@
       ],
       "additionalProperties": {
         "type": "string"
+      },
+      "example": {
+        "username": "xyz",
+        "user_password": "zyx"
       }
     }
   }
