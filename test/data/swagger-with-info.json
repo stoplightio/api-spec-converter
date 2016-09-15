@@ -132,6 +132,20 @@
         "username": "xyz",
         "user_password": "zyx"
       }
+    },
+    "SuperUser": {
+      "allOf": {
+        "$ref": "#/definitions/User",
+        "type": "object",
+        "required": [
+          "superuser"
+        ],
+        "properties" : {
+          "superuser": {
+            "type": "boolean"
+          }
+        }
+      }
     }
   }
 }
