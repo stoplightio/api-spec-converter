@@ -8,14 +8,15 @@ protocols:
 documentation:
   - title: Swagger Petstore
     content: A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
-  - title: Contact
-    content: Wordnik API Team
-  - title: Terms Of Service
-    content: 'http://helloreverb.com/terms/'
-  - title: License
-    content:
-      name: MIT
-      url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
+(info):
+  contact:
+    name: Wordnik API Team
+    url: 'http://madskristensen.net'
+    email: foo@example.com
+  termsOfService: 'http://helloreverb.com/terms/'
+  license:
+    name: MIT
+    url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
 /pets:
   displayName: pets
   '/{id}':

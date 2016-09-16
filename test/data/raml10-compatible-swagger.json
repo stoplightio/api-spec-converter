@@ -173,7 +173,8 @@
             "minLength": 1
           }
         }
-      }
+      },
+      "type": "object"
     },
     "veterinarian": {
       "required": [
@@ -187,7 +188,8 @@
         "address": {
           "$ref": "#/definitions/address"
         }
-      }
+      },
+      "type": "object"
     },
     "address": {
       "properties": {
@@ -210,7 +212,8 @@
           "minimum": 10000,
           "maximum": 99999
         }
-      }
+      },
+      "type": "object"
     }
   },
   "basePath": "/",

@@ -48,18 +48,18 @@ types:
     properties:
       id:
         type: string
+        required: false
       name:
         type: string
-    type: object
+        required: false
   Pet:
     properties:
       category:
         type: Category
+        required: false
       id:
         type: string
+        required: false
       name:
         example: doggie
         type: string
-    required:
-      - name
-    type: object

@@ -78,6 +78,7 @@
   "definitions": {
     "User": {
       "type": "object",
+      "discriminator": "username",
       "properties": {
         "id_int": {
           "type": "integer",
@@ -120,6 +121,30 @@
         "user_password": {
           "type": "string",
           "format": "password"
+        }
+      },
+      "required": [
+        "username"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "username": "xyz",
+        "user_password": "zyx"
+      }
+    },
+    "SuperUser": {
+      "allOf": {
+        "$ref": "#/definitions/User",
+        "type": "object",
+        "required": [
+          "superuser"
+        ],
+        "properties" : {
+          "superuser": {
+            "type": "boolean"
+          }
         }
       }
     }
