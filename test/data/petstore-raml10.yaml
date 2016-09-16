@@ -1,0 +1,597 @@
+#%RAML 1.0
+title: Swagger Petstore
+version: 1.0.0
+baseUri: 'http://petstore.swagger.io/v2'
+protocols:
+  - HTTP
+documentation:
+  - title: Swagger Petstore
+    content: 'This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.'
+  - title: Terms Of Service
+    content: 'http://swagger.io/terms/'
+  - title: License
+    content:
+      name: Apache 2.0
+      url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+(externalDocs):
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+securitySchemes:
+  petstore_auth:
+    type: OAuth 2.0
+    settings:
+      authorizationUri: 'http://petstore.swagger.io/oauth/dialog'
+      authorizationGrants:
+        - implicit
+      scopes:
+        - 'write:pets'
+        - 'read:pets'
+  api_key:
+    type: Pass Through
+    describedBy:
+      headers:
+        api_key:
+          type: string
+/store:
+  displayName: store
+  /order:
+    displayName: order
+    '/{orderId}':
+      displayName: '{orderId}'
+      uriParameters:
+        orderId:
+          description: ID of the order that needs to be deleted
+          type: integer
+          maximum: 10
+          minimum: 1
+          displayName: ID of the order that needs to be deleted
+      get:
+        displayName: getOrderById
+        description: Find purchase order by ID. For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+        responses:
+          '200':
+            body:
+              application/json:
+                type: Order
+            description: successful operation
+          '400':
+            body:
+              application/json: {}
+            description: Invalid ID supplied
+          '404':
+            body:
+              application/json: {}
+            description: Order not found
+        (tags):
+          - store
+      delete:
+        displayName: deleteOrder
+        description: Delete purchase order by ID. For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+        responses:
+          '400':
+            body:
+              application/json: {}
+            description: Invalid ID supplied
+          '404':
+            body:
+              application/json: {}
+            description: Order not found
+        (tags):
+          - store
+    post:
+      displayName: placeOrder
+      description: Place an order for a pet. Place an order for a pet
+      body:
+        application/json:
+          type: Order
+          description: order placed for purchasing the pet
+      responses:
+        '200':
+          body:
+            application/json:
+              type: Order
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid Order
+      (tags):
+        - store
+  /inventory:
+    displayName: inventory
+    get:
+      displayName: getInventory
+      description: Returns pet inventories by status. Returns a map of status codes to quantities
+      responses:
+        '200':
+          body:
+            application/json:
+              type: object
+              additionalProperties:
+                type: integer
+                format: int32
+          description: successful operation
+      securedBy:
+        - api_key
+      (tags):
+        - store
+/user:
+  displayName: user
+  '/{username}':
+    displayName: '{username}'
+    uriParameters:
+      username:
+        description: 'The name that needs to be fetched. Use user1 for testing. '
+        type: string
+        displayName: 'The name that needs to be fetched. Use user1 for testing. '
+    delete:
+      displayName: deleteUser
+      description: Delete user. This can only be done by the logged in user.
+      responses:
+        '400':
+          body:
+            application/json: {}
+          description: Invalid username supplied
+        '404':
+          body:
+            application/json: {}
+          description: User not found
+      (tags):
+        - user
+    put:
+      displayName: updateUser
+      description: Updated user. This can only be done by the logged in user.
+      body:
+        application/json:
+          type: User
+          description: Updated user object
+      responses:
+        '400':
+          body:
+            application/json: {}
+          description: Invalid user supplied
+        '404':
+          body:
+            application/json: {}
+          description: User not found
+      (tags):
+        - user
+    get:
+      displayName: getUserByName
+      description: Get user by user name. Get user by user name
+      responses:
+        '200':
+          body:
+            application/json:
+              type: User
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid username supplied
+        '404':
+          body:
+            application/json: {}
+          description: User not found
+      (tags):
+        - user
+  post:
+    displayName: createUser
+    description: Create user. This can only be done by the logged in user.
+    body:
+      application/json:
+        type: User
+        description: Created user object
+    responses: {}
+    (tags):
+      - user
+  /createWithArray:
+    displayName: createWithArray
+    post:
+      displayName: createUsersWithArrayInput
+      description: Creates list of users with given input array. Creates list of users with given input array
+      body:
+        application/json:
+          type: array
+          items:
+            type: User
+          description: List of user object
+      responses: {}
+      (tags):
+        - user
+  /createWithList:
+    displayName: createWithList
+    post:
+      displayName: createUsersWithListInput
+      description: Creates list of users with given input array. Creates list of users with given input array
+      body:
+        application/json:
+          type: array
+          items:
+            type: User
+          description: List of user object
+      responses: {}
+      (tags):
+        - user
+  /logout:
+    displayName: logout
+    get:
+      displayName: logoutUser
+      description: Logs out current logged in user session. Logs out current logged in user session
+      responses: {}
+      (tags):
+        - user
+  /login:
+    displayName: login
+    get:
+      displayName: loginUser
+      description: Logs user into the system. Logs user into the system
+      responses:
+        '200':
+          body:
+            application/json:
+              type: string
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid username/password supplied
+      queryParameters:
+        username:
+          description: The user name for login
+          type: string
+          displayName: The user name for login
+        password:
+          description: The password for login in clear text
+          type: string
+          displayName: The password for login in clear text
+      (tags):
+        - user
+/pet:
+  displayName: pet
+  post:
+    displayName: addPet
+    description: Add a new pet to the store. Add a new pet to the store
+    body:
+      application/json:
+        type: Pet
+        description: Pet object that needs to be added to the store
+    responses:
+      '405':
+        body:
+          application/json: {}
+        description: Invalid input
+    securedBy:
+      - petstore_auth:
+          scopes:
+            - 'write:pets'
+            - 'read:pets'
+    (tags):
+      - pet
+  /findByStatus:
+    displayName: findByStatus
+    get:
+      displayName: findPetsByStatus
+      description: Finds Pets by status. Multiple status values can be provided with comma separated strings
+      responses:
+        '200':
+          body:
+            application/json:
+              type: array
+              items:
+                type: Pet
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid status value
+      queryParameters:
+        status:
+          description: Status values that need to be considered for filter
+          type: array
+          displayName: Status values that need to be considered for filter
+          items:
+            type: string
+            enum:
+              - available
+              - pending
+              - sold
+            default: available
+      securedBy:
+        - petstore_auth:
+            scopes:
+              - 'write:pets'
+              - 'read:pets'
+      (tags):
+        - pet
+  '/{petId}':
+    displayName: '{petId}'
+    uriParameters:
+      petId:
+        description: ID of pet that needs to be updated
+        type: integer
+        displayName: ID of pet that needs to be updated
+    get:
+      displayName: getPetById
+      description: Find pet by ID. Returns a single pet
+      responses:
+        '200':
+          body:
+            application/json:
+              type: Pet
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid ID supplied
+        '404':
+          body:
+            application/json: {}
+          description: Pet not found
+      securedBy:
+        - api_key
+      (tags):
+        - pet
+    delete:
+      displayName: deletePet
+      description: Deletes a pet. Deletes a pet
+      headers:
+        api_key:
+          type: string
+      responses:
+        '400':
+          body:
+            application/json: {}
+          description: Invalid ID supplied
+        '404':
+          body:
+            application/json: {}
+          description: Pet not found
+      securedBy:
+        - petstore_auth:
+            scopes:
+              - 'write:pets'
+              - 'read:pets'
+      (tags):
+        - pet
+    /uploadImage:
+      displayName: uploadImage
+      post:
+        displayName: uploadFile
+        description: uploads an image. uploads an image
+        body:
+          multipart/form-data:
+            properties:
+              additionalMetadata:
+                description: Additional data to pass to server
+                type: string
+                required: false
+              file:
+                description: file to upload
+                type: file
+                required: false
+            description: file to upload
+        responses:
+          '200':
+            body:
+              application/json:
+                type: ApiResponse
+            description: successful operation
+        securedBy:
+          - petstore_auth:
+              scopes:
+                - 'write:pets'
+                - 'read:pets'
+        (tags):
+          - pet
+    post:
+      displayName: updatePetWithForm
+      description: Updates a pet in the store with form data. Updates a pet in the store with form data
+      body:
+        multipart/form-data:
+          properties:
+            name:
+              description: Updated name of the pet
+              type: string
+              required: false
+            status:
+              description: Updated status of the pet
+              type: string
+              required: false
+          description: Updated status of the pet
+      responses:
+        '405':
+          body:
+            application/json: {}
+          description: Invalid input
+      securedBy:
+        - petstore_auth:
+            scopes:
+              - 'write:pets'
+              - 'read:pets'
+      (tags):
+        - pet
+  /findByTags:
+    displayName: findByTags
+    get:
+      displayName: findPetsByTags
+      description: 'Finds Pets by tags. Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.'
+      responses:
+        '200':
+          body:
+            application/json:
+              type: array
+              items:
+                type: Pet
+          description: successful operation
+        '400':
+          body:
+            application/json: {}
+          description: Invalid tag value
+      queryParameters:
+        tags:
+          description: Tags to filter by
+          type: array
+          displayName: Tags to filter by
+          items:
+            type: string
+      securedBy:
+        - petstore_auth:
+            scopes:
+              - 'write:pets'
+              - 'read:pets'
+      (tags):
+        - pet
+      (deprecated): true
+  put:
+    displayName: updatePet
+    description: Update an existing pet. Update an existing pet
+    body:
+      application/json:
+        type: Pet
+        description: Pet object that needs to be added to the store
+    responses:
+      '400':
+        body:
+          application/json: {}
+        description: Invalid ID supplied
+      '404':
+        body:
+          application/json: {}
+        description: Pet not found
+      '405':
+        body:
+          application/json: {}
+        description: Validation exception
+    securedBy:
+      - petstore_auth:
+          scopes:
+            - 'write:pets'
+            - 'read:pets'
+    (tags):
+      - pet
+annotationTypes:
+  tags: 'string[]'
+  deprecated: boolean
+  externalDocs:
+    description: string
+    url: string
+types:
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      petId:
+        type: integer
+        format: int64
+      quantity:
+        type: integer
+        format: int32
+      shipDate:
+        type: datetime
+        format: rfc3339
+      status:
+        type: string
+        description: Order Status
+        enum:
+          - placed
+          - approved
+          - delivered
+      complete:
+        type: boolean
+        default: false
+    xml:
+      name: Order
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+    xml:
+      name: Category
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      userStatus:
+        type: integer
+        format: int32
+        description: User Status
+    xml:
+      name: User
+  Tag:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+    xml:
+      name: Tag
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+  Pet:
+    type: object
+    required:
+      - name
+      - photoUrls
+    properties:
+      id:
+        type: integer
+        format: int64
+      category:
+        type: Category
+      name:
+        type: string
+        example: doggie
+      photoUrls:
+        type: array
+        xml:
+          name: photoUrl
+          wrapped: true
+        items:
+          type: string
+      tags:
+        type: array
+        xml:
+          name: tag
+          wrapped: true
+        items:
+          type: Tag
+      status:
+        type: string
+        description: pet status in the store
+        enum:
+          - available
+          - pending
+          - sold
+    xml:
+      name: Pet
