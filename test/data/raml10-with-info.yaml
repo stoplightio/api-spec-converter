@@ -34,7 +34,6 @@ securitySchemes:
   petstore_auth:
     type: OAuth 2.0
     settings:
-      accessTokenUri: ""
       authorizationUri: http://swagger.io/api/oauth/dialog
       authorizationGrants:
         - implicit
@@ -43,7 +42,6 @@ mediaType: application/json
 baseUri: http://localhost:3000/api
 /users:
   displayName: users
-  description: ''
   get:
     (tags):
       - get_method
@@ -53,7 +51,6 @@ baseUri: http://localhost:3000/api
       url: http://swagger.io
     displayName: GET_users
     description: my method summary. Get basic information about a user.
-    headers: {}
     securedBy:
       - petstore_auth: {scopes:[read:users]}
       - internalApiKey
@@ -66,8 +63,6 @@ baseUri: http://localhost:3000/api
                 type: User
             type: object
         description: The user object
-    queryParameters: {}
-  uriParameters: {}
 types:
   User:
     type: object
@@ -99,4 +94,3 @@ types:
         format: rfc3339
       user_password:
         type: string
-traits: []

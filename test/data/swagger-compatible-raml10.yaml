@@ -11,14 +11,10 @@ documentation:
     content: A sample API
 /pets:
   displayName: pets
-  description: ''
   '/{petName}':
     displayName: '{petName}'
-    description: ''
     /photos:
       displayName: photos
-      description: ''
-      uriParameters: {}
       post:
         displayName: addPetPhoto
         description: Upload a new pet photo
@@ -42,7 +38,6 @@ documentation:
                 description: The pet photo
                 type: string
                 required: true
-        headers: {}
         responses:
           '400':
             body:
@@ -59,7 +54,6 @@ documentation:
                   photo:
                     description: Information about the photo (size, file name, etc.)
             description: Returns the photo information
-        queryParameters: {}
     uriParameters:
       petName:
         description: name for the pet
@@ -71,36 +65,30 @@ documentation:
       body:
         application/json:
           type: pet
-      headers: {}
       responses:
         '400':
           body:
             application/json:
               type: pet
           description: Returns the updated pet data
-      queryParameters: {}
     delete:
       displayName: deletePet
       description: Deletes a single pet based on the name supplied
-      headers: {}
       responses:
         '400':
           body:
             application/json:
               type: pet
           description: Returns the pet that was deleted
-      queryParameters: {}
     get:
       displayName: findPetByName
       description: Returns a pet by name
-      headers: {}
       responses:
         '400':
           body:
             application/json:
               type: pet
           description: Returns the pet data
-      queryParameters: {}
 types:
   pet:
     required:
@@ -157,4 +145,3 @@ types:
         type: integer
         minimum: 10000
         maximum: 99999
-traits: []

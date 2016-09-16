@@ -165,21 +165,6 @@ describe('Swagger Exporter', function(){
       expect(swaggerMethod.responses.length).to.equal(1);
     });
 
-    it('should set consumes and produce to an empty array for endpoints with mimeType = null', function() {
-      swaggerExporter.project = new Project('test project');
-
-      var endpoint = new Endpoint('test');
-      endpoint.Consumes = [];
-      endpoint.Produces = [];
-      var env = new Environment();
-      env.Consumes = ['application/json'];
-
-      var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
-      expect(swaggerMethod).to.be.an('object');
-      expect(swaggerMethod.consumes).to.be.an('array').and.to.be.an.empty;
-      expect(swaggerMethod.produces).to.be.an('array').and.to.be.an.empty;
-    });
-
     it('should push only unique items to consumes', function() {
       swaggerExporter.project = new Project('test project');
 
@@ -194,21 +179,21 @@ describe('Swagger Exporter', function(){
         .and.to.include('application/json');
     });
 
-    it('should not set consumes mimeType is equals to default request type', function() {
+    it('should not set consumes mimeType if equals default request type', function() {
       swaggerExporter.project = new Project('test project');
-
-      var endpoint = new Endpoint('test');
-      endpoint.Produces = ['application/json'];
-      endpoint.Consumes = ['application/json'];
 
       var env = new Environment();
       env.Consumes = ['application/json'];
       env.Produces = ['application/json'];
 
+      var endpoint = new Endpoint('test');
+      endpoint.Produces = ['application/json'];
+      endpoint.Consumes = ['application/json'];
+
       var swaggerMethod = swaggerExporter._constructSwaggerMethod(endpoint, [], endpoint.Responses, env);
       expect(swaggerMethod).to.be.an('object');
-      expect(swaggerMethod.consumes).to.be.an('array').and.to.be.an.empty;
-      expect(swaggerMethod.produces).to.be.an('array').and.to.be.an.empty;
+      expect(swaggerMethod.consumes).to.be.undefined;
+      expect(swaggerMethod.produces).to.be.undefined;
     });
   });
 
@@ -439,7 +424,6 @@ describe('Swagger Exporter', function(){
       ];
       var res = swaggerExporter._mapResponseBody(endpoint);
       expect(res).to.have.keys('200', '404');
-      expect(res['200']).to.have.key('description');
       expect(res).to.have.deep.property('404.schema.$ref', '#/definitions/global:ErrorResponse');
     });
   });
