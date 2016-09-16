@@ -54,8 +54,8 @@
           "application/xml"
         ],
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -94,8 +94,8 @@
           "application/xml"
         ],
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -138,8 +138,8 @@
         "description": "Multiple status values can be provided with comma separated strings",
         "operationId": "findPetsByStatus",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -193,8 +193,8 @@
         "description": "Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
         "operationId": "findPetsByTags",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -243,8 +243,8 @@
         "description": "Returns a single pet",
         "operationId": "getPetById",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -287,8 +287,8 @@
           "application/x-www-form-urlencoded"
         ],
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -336,8 +336,8 @@
         "description": "",
         "operationId": "deletePet",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -469,8 +469,8 @@
         "description": "",
         "operationId": "placeOrder",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -505,8 +505,8 @@
         "description": "For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions",
         "operationId": "getOrderById",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -543,8 +543,8 @@
         "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
         "operationId": "deleteOrder",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -576,8 +576,8 @@
         "description": "This can only be done by the logged in user.",
         "operationId": "createUser",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -606,8 +606,8 @@
         "description": "",
         "operationId": "createUsersWithArrayInput",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -639,8 +639,8 @@
         "description": "",
         "operationId": "createUsersWithListInput",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -672,8 +672,8 @@
         "description": "",
         "operationId": "loginUser",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -725,8 +725,8 @@
         "description": "",
         "operationId": "logoutUser",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [],
         "responses": {
@@ -745,8 +745,8 @@
         "description": "",
         "operationId": "getUserByName",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -780,8 +780,8 @@
         "description": "This can only be done by the logged in user.",
         "operationId": "updateUser",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
@@ -818,8 +818,8 @@
         "description": "This can only be done by the logged in user.",
         "operationId": "deleteUser",
         "produces": [
-          "application/xml",
-          "application/json"
+          "application/json",
+          "application/xml"
         ],
         "parameters": [
           {
