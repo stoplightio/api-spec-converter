@@ -29,7 +29,6 @@
           }
         },
         "operationId": "GET_pets-petName",
-        "summary": "",
         "description": "Returns a pet by name"
       },
       "delete": {
@@ -45,7 +44,6 @@
           }
         },
         "operationId": "DELETE_pets-petName",
-        "summary": "",
         "description": "Deletes a single pet based on the name supplied"
       },
       "patch": {
@@ -70,7 +68,6 @@
           }
         ],
         "operationId": "PATCH_pets-petName",
-        "summary": "",
         "description": "Updates a pet by name",
         "consumes": [
           "application/json"
@@ -146,7 +143,6 @@
           "multipart/form-data"
         ],
         "operationId": "POST_pets-petName-photos",
-        "summary": "",
         "description": "Upload a new pet photo"
       }
     }
