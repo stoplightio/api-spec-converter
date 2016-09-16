@@ -12,7 +12,6 @@ securitySchemes:
     type: OAuth 2.0
     settings:
       authorizationUri: 'http://swagger.io/api/oauth/dialog'
-      accessTokenUri: ''
       authorizationGrants:
         - implicit
       scopes:
@@ -30,11 +29,8 @@ securitySchemes:
           type: string
 /getApiKey:
   displayName: getApiKey
-  description: ''
-  uriParameters: {}
   get:
     displayName: GET_getApiKey
-    headers: {}
     responses:
       '200':
         description: 'InternalApiKey. Will send `Authenticated` if authentication is succesful, otherwise it will send `Unauthorized`'
@@ -55,11 +51,8 @@ securitySchemes:
       - internalApiKey
 /getBasicAuth:
   displayName: getBasicAuth
-  description: ''
-  uriParameters: {}
   get:
     displayName: GET_getBasicAuth
-    headers: {}
     responses:
       '200':
         description: 'Basic Auth. Will send `Authenticated` if authentication is succesful, otherwise it will send `Unauthorized`'
@@ -80,11 +73,8 @@ securitySchemes:
       - basicAuth
 /getOauth2Auth:
   displayName: getOauth2Auth
-  description: ''
-  uriParameters: {}
   get:
     displayName: GET_getOauth2Auth
-    headers: {}
     responses:
       '200':
         description: 'Oauth2 Authorization. Will send `Authenticated` if authentication is succesful, otherwise it will send `Unauthorized`'
@@ -104,5 +94,3 @@ securitySchemes:
     securedBy:
       - oauth2:
           scopes: [ read:pets ]
-types: {}
-traits: []

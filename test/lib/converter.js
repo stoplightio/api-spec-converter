@@ -244,6 +244,27 @@ describe('Converter', function() {
 			});
 		});
 
+    it('should convert from swagger petstore with external refs to raml 1.0', function(done){
+      var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+
+      try {
+        converter.loadFile(__dirname + '/../data/petstore-separate/spec/swagger.json', function () {
+          try {
+            converter.convert('yaml', function (err, covertedRAML) {
+              if (err)return done(err);
+              expect(covertedRAML).to.deep.equal(fs.readFileSync(__dirname + '/../data/petstore-separate/raml10.yaml', 'utf8'));
+              done();
+            });
+          }
+          catch (err) {
+            done(err);
+          }
+        });
+      } catch(err) {
+        done(err);
+      }
+    });
+
     // This test has an issue because RAML does not support operationIds
     //It performs importing from raml to stoplight and exporting from stoplight to raml
     //and thus verifies in both ways

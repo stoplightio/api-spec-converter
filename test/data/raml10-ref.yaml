@@ -9,10 +9,8 @@ documentation:
     content: This is a sample server Petstore server.
 /pet:
   displayName: pet
-  description: ''
   '/{petId}':
     displayName: '{petId}'
-    description: ''
     uriParameters:
       petId:
         description: ID of pet to return
@@ -21,7 +19,6 @@ documentation:
     get:
       displayName: getPetById
       description: Returns a single pet
-      headers: {}
       responses:
         '200':
           body:
@@ -36,8 +33,6 @@ documentation:
           body:
             application/json: {}
           description: Pet not found
-      queryParameters: {}
-  uriParameters: {}
   post:
     displayName: addPet
     description: Add a new pet to the store
@@ -45,11 +40,9 @@ documentation:
       application/json:
         description: Pet object that needs to be added to the store
         type: Pet
-    headers: {}
     responses:
       '405':
         description: Invalid input
-    queryParameters: {}
 types:
   Category:
     properties:
@@ -70,4 +63,3 @@ types:
     required:
       - name
     type: object
-traits: []
