@@ -141,16 +141,11 @@ describe('Converter', function() {
             converter2 = new specConverter.Converter(specConverter.Formats.RAML08, specConverter.Formats.SWAGGER);
             return converter2.loadData(convertedRAML);
           }).then(function(){
-            try{
-              converter2.convert('json', function(err, resultSwagger){
-                if(err) return done(err);
-                expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml08-compatible-swagger.json'));
-                done();
-              });
-            }
-            catch(err) {
-              done(err);
-            }
+            return converter2.convert('json', function(err, resultSwagger){
+              if(err) return done(err);
+              expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/raml08-compatible-swagger.json'));
+              done();
+            });
           })
           .catch(done);
       });
