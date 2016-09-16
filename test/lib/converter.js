@@ -294,6 +294,26 @@ describe('Converter', function() {
       });
     });
 
+    it('should convert import traits from raml 0.8 to swagger', function(done) {
+      var converter = new specConverter.Converter(specConverter.Formats.RAML08, specConverter.Formats.SWAGGER);
+
+      var inputStr = fs.readFileSync(__dirname + '/../data/raml08-with-trait.yaml', 'utf8');
+      converter.loadData(inputStr)
+        .then(function() {
+          return converter.convert('json');
+        })
+        .then(function(err, resultSwagger) {
+          return converter.convert('yaml', function (err, covertedRAML) {
+            if (err)return done(err);
+            expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/swagger-with-trait.json'));
+            done();
+          });
+        })
+        .catch(function (err) {
+          done(err);
+        });
+    });
+
     // This test has an issue because RAML does not support operationIds
     // It performs importing from raml to stoplight and exporting from stoplight to raml
     // and thus verifies in both ways

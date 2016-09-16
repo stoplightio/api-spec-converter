@@ -1,0 +1,89 @@
+{
+    "swagger": "2.0",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/foo",
+    "host": "example.com",
+    "info": {
+        "version": "",
+        "title": "Simple API",
+        "description": ""
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Users",
+                "description": "",
+                "operationId": "GET_users",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                },
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/trait:myTrait:page"
+                    },
+                    {
+                        "$ref": "#/parameters/trait:myTrait:limit"
+                    },
+                    {
+                        "$ref": "#/parameters/trait:myTrait:authorization"
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        }
+    },
+    "produces": [
+        "application/EDIFACT"
+    ],
+    "consumes": [
+        "application/json",
+        "application/xop+xml"
+    ],
+    "parameters": {
+        "trait:myTrait:page": {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+        },
+        "trait:myTrait:limit": {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+        },
+        "trait:myTrait:authorization": {
+            "name": "authorization",
+            "in": "header",
+            "description": "",
+            "type": "string"
+        }
+    },
+    "securityDefinitions": {
+        "apikey": {
+            "name": "apikey",
+            "type": "apiKey",
+            "in": "query"
+        }
+    }
+}
