@@ -7,15 +7,16 @@ protocols:
 documentation:
   - title: Swagger Petstore
     content: 'This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.'
-  - title: Terms Of Service
-    content: 'http://swagger.io/terms/'
-  - title: License
-    content:
-      name: Apache 2.0
-      url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 (externalDocs):
   description: Find out more about Swagger
   url: 'http://swagger.io'
+(info):
+  contact:
+    email: apiteam@swagger.io
+  termsOfService: 'http://swagger.io/terms/'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 securitySchemes:
   petstore_auth:
     type: OAuth 2.0
@@ -476,6 +477,15 @@ annotationTypes:
   externalDocs:
     description: string
     url: string
+  info:
+    termsOfService?: string
+    contact?:
+      name?: string
+      url?: string
+      email?: string
+    license?:
+      name?: string
+      url?: string
 types:
   Order:
     properties:

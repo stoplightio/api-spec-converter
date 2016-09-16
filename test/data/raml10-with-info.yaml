@@ -4,17 +4,16 @@ version: 1.0.0
 documentation:
   - title: Swagger Petstore
     content: This is a sample server Petstore.
-  - title: Contact
-    content: apiteam@swagger.io
-  - title: Terms Of Service
-    content: http://helloreverb.com/terms/
-  - title: License
-    content:
-      name: Apache 2.0
-      url: http://www.apache.org/licenses/LICENSE-2.0.html
 (externalDocs):
   description: Find more information here
   url: http://swagger.io
+(info):
+  contact:
+    name: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://helloreverb.com/terms/
 protocols:
   - HTTP
 annotationTypes:
@@ -23,6 +22,15 @@ annotationTypes:
   externalDocs:
     description: string
     url: string
+  info:
+    contact?:
+      email?: string
+      name?: string
+      url?: string
+    license?:
+      name?: string
+      url?: string
+    termsOfService?: string
 securitySchemes:
   internalApiKey:
     type: Pass Through
