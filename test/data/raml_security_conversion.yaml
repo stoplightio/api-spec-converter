@@ -4,9 +4,7 @@ version: 1.0.0
 baseUri: 'http://mazimi-prod.apigee.net/security'
 protocols:
   - HTTP
-documentation:
-  - title: Security tryout
-    content: '#### Tries out different security configurations'
+description: '#### Tries out different security configurations'
 securitySchemes:
   oauth2:
     type: OAuth 2.0

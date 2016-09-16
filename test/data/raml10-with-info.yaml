@@ -1,9 +1,7 @@
 #%RAML 1.0
 title: Swagger Petstore
 version: 1.0.0
-documentation:
-  - title: Swagger Petstore
-    content: This is a sample server Petstore.
+description: This is a sample server Petstore.
 (externalDocs):
   description: Find more information here
   url: http://swagger.io

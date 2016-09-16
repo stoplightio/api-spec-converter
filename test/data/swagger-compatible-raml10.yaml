@@ -6,9 +6,7 @@ mediaType: application/json
 protocols:
   - HTTP
   - HTTPS
-documentation:
-  - title: Swagger petstore
-    content: A sample API
+description: A sample API
 /pets:
   displayName: pets
   '/{petName}':
