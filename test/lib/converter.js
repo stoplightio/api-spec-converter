@@ -300,10 +300,7 @@ describe('Converter', function() {
       var inputStr = fs.readFileSync(__dirname + '/../data/raml08-with-trait.yaml', 'utf8');
       converter.loadData(inputStr)
         .then(function() {
-          return converter.convert('json');
-        })
-        .then(function(err, resultSwagger) {
-          return converter.convert('yaml', function (err, covertedRAML) {
+          return converter.convert('json', function (err, resultSwagger) {
             if (err)return done(err);
             expect(resultSwagger).to.deep.equal(require(__dirname + '/../data/swagger-with-trait.json'));
             done();
