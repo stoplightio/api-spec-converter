@@ -5,9 +5,7 @@ baseUri: 'http://petstore.swagger.wordnik.com/api'
 mediaType: application/json
 protocols:
   - HTTP
-documentation:
-  - title: Swagger Petstore
-    content: A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
+description: A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
 (info):
   contact:
     name: Wordnik API Team

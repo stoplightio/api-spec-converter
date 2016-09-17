@@ -4,9 +4,7 @@ version: 1.0.0
 baseUri: 'http://petstore.swagger.io/v2'
 protocols:
   - HTTP
-documentation:
-  - title: Swagger Petstore
-    content: This is a sample server Petstore server.
+description: This is a sample server Petstore server.
 /pet:
   displayName: pet
   '/{petId}':
