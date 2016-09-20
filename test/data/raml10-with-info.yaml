@@ -45,6 +45,7 @@ securitySchemes:
     type: OAuth 2.0
     settings:
       authorizationUri: http://swagger.io/api/oauth/dialog
+      accessTokenUri: ''
       authorizationGrants:
         - implicit
       scopes: [write:users, read:users]

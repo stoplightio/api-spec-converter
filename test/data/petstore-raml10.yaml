@@ -20,6 +20,7 @@ securitySchemes:
     type: OAuth 2.0
     settings:
       authorizationUri: 'http://petstore.swagger.io/oauth/dialog'
+      accessTokenUri: ''
       authorizationGrants:
         - implicit
       scopes:
