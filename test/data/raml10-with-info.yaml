@@ -18,17 +18,21 @@ annotationTypes:
   tags: string[]
   deprecated: boolean
   externalDocs:
-    description: string
-    url: string
+    properties:
+      description: string
+      url: string
   info:
-    contact?:
-      email?: string
-      name?: string
-      url?: string
-    license?:
-      name?: string
-      url?: string
-    termsOfService?: string
+    properties:
+      contact?:
+        properties:
+          email?: string
+          name?: string
+          url?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
+      termsOfService?: string
 securitySchemes:
   internalApiKey:
     type: Pass Through
