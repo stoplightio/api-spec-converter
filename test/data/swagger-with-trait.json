@@ -14,19 +14,14 @@
     "paths": {
         "/users": {
             "get": {
-                "summary": "Users",
-                "description": "",
                 "operationId": "GET_users",
                 "responses": {
                     "200": {
-                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/user"
                         }
                     }
                 },
-                "consumes": [],
-                "produces": [],
                 "parameters": [
                     {
                         "$ref": "#/parameters/trait:myTrait:page"
@@ -55,35 +50,29 @@
         }
     },
     "produces": [
-        "application/EDIFACT"
+        "application/json"
     ],
     "consumes": [
-        "application/json",
-        "application/xop+xml"
+        "application/json"
     ],
     "parameters": {
         "trait:myTrait:page": {
             "name": "page",
             "in": "query",
+            "required": false,
             "type": "string"
         },
         "trait:myTrait:limit": {
             "name": "limit",
             "in": "query",
+            "required": false,
             "type": "string"
         },
         "trait:myTrait:authorization": {
             "name": "authorization",
             "in": "header",
-            "description": "",
+            "required": false,
             "type": "string"
-        }
-    },
-    "securityDefinitions": {
-        "apikey": {
-            "name": "apikey",
-            "type": "apiKey",
-            "in": "query"
         }
     }
 }
