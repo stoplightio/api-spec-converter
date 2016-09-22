@@ -473,17 +473,21 @@ annotationTypes:
   tags: 'string[]'
   deprecated: boolean
   externalDocs:
-    description: string
-    url: string
+    properties:
+      description: string
+      url: string
   info:
-    termsOfService?: string
-    contact?:
-      name?: string
-      url?: string
-      email?: string
-    license?:
-      name?: string
-      url?: string
+    properties:
+      termsOfService?: string
+      contact?:
+        properties:
+          name?: string
+          url?: string
+          email?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
 types:
   Order:
     properties:
