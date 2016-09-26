@@ -1,5 +1,5 @@
 {
-  "name": "api-spec-converter",
+  "name": "api-spec-transformer",
   "version": "0.1.0",
   "description": "This package helps to convert between different API specifications (Postman, Swagger, RAML, Stoplight).",
   "main": "index.js",
