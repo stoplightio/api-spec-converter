@@ -1,4 +1,4 @@
-# API Spec Converter [![Build Status](https://travis-ci.org/stoplightio/api-spec-converter.svg)](https://travis-ci.org/stoplightio/api-spec-converter) [![Coverage Status](https://coveralls.io/repos/stoplightio/api-spec-converter/badge.svg?branch=master&service=github)](https://coveralls.io/github/stoplightio/api-spec-converter?branch=master)
+# API Spec Transformer [![Build Status](https://travis-ci.org/stoplightio/api-spec-converter.svg)](https://travis-ci.org/stoplightio/api-spec-converter) [![Coverage Status](https://coveralls.io/repos/stoplightio/api-spec-converter/badge.svg?branch=master&service=github)](https://coveralls.io/github/stoplightio/api-spec-converter?branch=master)
 
 This package helps to convert between different API specifications. It currently supports OAS (Swagger 2), RAML 0.8, RAML 1.0, and Postman collections.
 
@@ -94,6 +94,15 @@ swaggerToRaml.loadData(mySwaggerString)
   });
 ```
 
+## Supported Conversions
+
+- OAS (Swagger 2) -> RAML 0.8
+- OAS (Swagger 2) -> RAML 1.0
+- RAML 1.0 -> OAS (Swagger 2)
+- RAML 0.8 -> OAS (Swagger 2)
+- Postman -> OAS (Swagger 2) * Experimental
+- Postman -> RAML 0.8 * Experimental
+- Postman -> RAML 1.0 * Experimental
 
 ## Development
 
