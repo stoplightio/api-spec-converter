@@ -17,6 +17,7 @@
                 "operationId": "GET_users",
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/user"
                         }
