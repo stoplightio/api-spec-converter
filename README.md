@@ -2,6 +2,8 @@
 
 This package helps to convert between different API specifications. It currently supports OAS (Swagger 2), RAML 0.8, RAML 1.0, and Postman collections.
 
+This package is used in production @ [https://stoplight.io](https://stoplight.io). If you are using this package in production, please let us know and we will link you.
+
 ## Note
 
 A prior version of this library was available, but not published on NPM. If you are directly referencing the git URL in your package.json files, please update them to use the `api-spec-transformer` package name, instead of `https://github.com/stoplightio/api-spec-converter`. We will be re-naming the git repository to `https://github.com/stoplightio/api-spec-transformer` in the near future.
