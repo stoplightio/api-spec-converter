@@ -120,6 +120,12 @@ types:
     example:
       username: xyz
       user_password: zyx
+  Manager:
+    properties:
+      managerId:
+        type: string
+  Employee:
+    type: [User, Manager]
   SuperUser:
     type: User
     properties:
