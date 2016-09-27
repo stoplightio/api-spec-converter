@@ -45,7 +45,6 @@ describe('index', function() {
         expect(importer08Instance).to.be.an.instanceof(require('../lib/importers/raml08'));
         var importer10Instance = new specConverter.Importer.factory(specConverter.Formats.RAML10);
         expect(importer10Instance).to.be.an.instanceof(require('../lib/importers/raml10'));
-
       });
       it('should expose swagger importer api', function(){
         var importerInstance = new specConverter.Importer.factory(specConverter.Formats.SWAGGER);

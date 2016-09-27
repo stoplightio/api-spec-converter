@@ -1,6 +1,7 @@
 var slConverter = require('../index'),
     fs = require('fs'),
-    ramlConverter = new slConverter.Converter(slConverter.Formats.RAML, slConverter.Formats.RAML);
+    // ramlConverter = new slConverter.Converter(slConverter.Formats.RAML08, slConverter.Formats.RAML10);
+    ramlConverter = new slConverter.Converter(slConverter.Formats.RAML08, slConverter.Formats.RAML08);
 
 try {
   //./source/raml.yaml

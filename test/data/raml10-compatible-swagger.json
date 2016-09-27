@@ -26,7 +26,6 @@
           }
         },
         "operationId": "findPetByName",
-        "summary": "",
         "description": "Returns a pet by name"
       },
       "delete": {
@@ -39,7 +38,6 @@
           }
         },
         "operationId": "deletePet",
-        "summary": "",
         "description": "Deletes a single pet based on the name supplied"
       },
       "patch": {
@@ -61,7 +59,6 @@
           }
         ],
         "operationId": "updatePet",
-        "summary": "",
         "description": "Updates a pet by name"
       }
     },
@@ -131,7 +128,6 @@
           "multipart/form-data"
         ],
         "operationId": "addPetPhoto",
-        "summary": "",
         "description": "Upload a new pet photo"
       }
     }

@@ -43,7 +43,6 @@
             "description": "The photo was deleted successfully"
           }
         },
-        "summary": "",
         "tags": [
           "Group1"
         ],
@@ -72,7 +71,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "GET_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
@@ -123,7 +121,6 @@
             }
           }
         },
-        "summary": "",
         "operationId": "getPetPhotos",
         "x-stoplight": {
           "id": "GET_pets-petName-photos",
@@ -193,7 +190,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "POST_pets-petName-photos",
           "beforeScript": "function(){return 'Hello World';}",
@@ -294,7 +290,6 @@
           {
             "name": "token",
             "in": "header",
-            "description": "",
             "required": true,
             "type": "string"
           }
@@ -310,7 +305,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "DELETE_pets",
           "beforeScript": "function(){return 'Hello World';}",
@@ -409,7 +403,6 @@
           {
             "name": "token",
             "in": "header",
-            "description": "",
             "required": true,
             "type": "string"
           }
@@ -425,7 +418,6 @@
             }
           }
         },
-        "summary": "",
         "tags": [
           "Group2"
         ],
@@ -468,7 +460,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "POST_pets",
           "beforeScript": "function(){return 'Hello World';}",
@@ -519,7 +510,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "PATCH_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
@@ -542,7 +532,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "DELETE_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
@@ -565,7 +554,6 @@
             }
           }
         },
-        "summary": "",
         "x-stoplight": {
           "id": "GET_pets-petName",
           "beforeScript": "function(){return 'Hello World';}",
@@ -605,8 +593,6 @@
       "x-stoplight": {
         "id": "address",
         "name": "address",
-        "summary": "",
-        "description": "",
         "public": true
       }
     },
@@ -626,8 +612,6 @@
       "x-stoplight": {
         "id": "veterinarian",
         "name": "veterinarian",
-        "summary": "",
-        "description": "",
         "public": true
       }
     },
@@ -675,16 +659,13 @@
       "x-stoplight": {
         "id": "pet",
         "name": "pet",
-        "summary": "",
-        "description": "",
         "public": true
       }
     }
   },
   "securityDefinitions": {
     "basic": {
-      "type": "basic",
-      "description": ""
+      "type": "basic"
     }
   },
   "x-stoplight": {
@@ -793,7 +774,6 @@
                   "value": "<<desc>>"
                 }
               ],
-              "text": "",
               "mimeType": "application/x-www-form-urlencoded"
             },
             "authentication": {

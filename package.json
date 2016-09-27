@@ -1,33 +1,37 @@
 {
-  "name": "api-spec-converter",
-  "version": "0.1.0",
-  "description": "This package helps to convert between different API specifications (Postman, Swagger, RAML, StopLight).",
+  "name": "api-spec-transformer",
+  "version": "0.1.2",
+  "description": "This package helps to convert between different API specifications. Supports OAS (Swagger 2), RAML 0.8, RAML 1.0, and Postman collections.",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec"
+    "test": "mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stoplightio/api-spec-converter.git"
   },
-  "author": "Rana <rana@stoplight.io> (http://stoplight.io)",
-  "license": "ISC",
+  "author": "Marc <marc@stoplight.io>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/stoplightio/api-spec-converter/issues"
   },
   "homepage": "https://github.com/stoplightio/api-spec-converter#readme",
   "dependencies": {
-    "chai-fuzzy": "1.x.x",
     "js-yaml": "3.x.x",
     "json-schema-compatibility": "1.x.x",
     "jsonschema": "1.x.x",
     "lodash": "4.x.x",
-    "raml-1-parser": "^1.1.2",
+    "raml-1-parser": "1.1.x",
     "request": "2.x.x",
     "swagger-parser": "4.0.0-beta.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "babel-register": "^6.14.0",
     "chai": "^3.5.0",
+    "chai-fuzzy": "1.x.x",
     "chai-string": "^1.2.0",
     "coveralls": "^2.11.8",
     "gulp": "^3.9.1",

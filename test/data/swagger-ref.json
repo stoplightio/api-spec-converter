@@ -58,8 +58,7 @@
           "405": {
             "description": "Invalid input"
           }
-        },
-        "summary": ""
+        }
       }
     },
     "/pet/{petId}": {
@@ -82,8 +81,7 @@
           "404": {
             "description": "Pet not found"
           }
-        },
-        "summary": ""
+        }
       },
       "parameters": [
         {
