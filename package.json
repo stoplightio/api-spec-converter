@@ -4,7 +4,8 @@
   "description": "This package helps to convert between different API specifications. Supports OAS (Swagger 2), RAML 0.8, RAML 1.0, and Postman collections.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register",
+    "lint": "eslint lib/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,9 @@
     "chai-fuzzy": "1.x.x",
     "chai-string": "^1.2.0",
     "coveralls": "^2.11.8",
+    "eslint": "3.x.x",
+    "eslint-config-airbnb": "12.x.x",
+    "eslint-config-stoplight": "1.x.x",
     "gulp": "^3.9.1",
     "gulp-coveralls": "^0.1.4",
     "gulp-eslint": "^2.0.0",
