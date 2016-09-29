@@ -133,45 +133,6 @@
         "username": "xyz",
         "user_password": "zyx"
       }
-    },
-    "Manager": {
-      "type": "object",
-      "required": [
-        "managerId"
-      ],
-      "properties": {
-        "managerId": {
-          "type": "string"
-        }
-      }
-    },
-    "Employee": {
-      "allOf" : [
-        {
-          "$ref": "#/definitions/User"
-        },
-        {
-          "$ref": "#/definitions/Manager"
-        }
-      ]
-    },
-    "SuperUser": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/User"
-        },
-        {
-          "type": "object",
-          "required": [
-            "superuser"
-          ],
-          "properties": {
-            "superuser": {
-              "type": "boolean"
-            }
-          }
-        }
-      ]
     }
   }
 }
