@@ -31,7 +31,6 @@
     "no-loop-func":0,
     "space-infix-ops":0,
     "space-in-parens":0,
-    "quote-props":0,
     "key-spacing":0,
     "no-trailing-spaces":0,
     "no-useless-escape":0,
