@@ -35,7 +35,6 @@
     "no-shadow":0,
     "one-var-declaration-per-line":0,
     "space-before-function-paren":0,
-    "no-unused-vars":0,
     "key-spacing":0,
     "no-trailing-spaces":0,
     "no-useless-escape":0,
