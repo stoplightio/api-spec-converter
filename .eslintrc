@@ -21,7 +21,6 @@
     "no-prototype-builtins":0,
     "spaced-comment":0,
     "no-redeclare":0,
-    "space-before-blocks":0,
     "no-tabs": 0,
     "keyword-spacing":0,
     "no-continue":0,
