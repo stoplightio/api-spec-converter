@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Swagger Petstore"
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "schemes": ["http"],
+  "basePath": "/api",
+  "host": "localhost:3000",
+  "paths": {
+    "/users": {
+      "get": {
+        "operationId": "GET_users",
+        "responses": {
+          "200": {
+            "description": "The user object",
+            "schema": {
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username"
+      ]
+    },
+    "Manager": {
+      "type": "object",
+      "required": [
+        "managerId"
+      ],
+      "properties": {
+        "managerId": {
+          "type": "string"
+        }
+      }
+    },
+    "Employee": {
+      "allOf" : [
+        {
+          "$ref": "#/definitions/User"
+        },
+        {
+          "$ref": "#/definitions/Manager"
+        }
+      ]
+    },
+    "SuperUser": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/User"
+        },
+        {
+          "type": "object",
+          "required": [
+            "superuser"
+          ],
+          "properties": {
+            "superuser": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
