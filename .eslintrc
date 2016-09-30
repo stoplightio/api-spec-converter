@@ -49,7 +49,6 @@
     "no-plusplus":0,
     "no-undef":0,
     "no-fallthrough":0,
-    "no-else-return":0,
     "no-useless-escape":0,
     "no-multi-spaces":0,
     "no-mixed-spaces-and-tabs":0
