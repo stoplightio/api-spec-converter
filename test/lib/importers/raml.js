@@ -5,7 +5,7 @@ var expect   = require('chai').expect,
     fs = require('fs');
 
 describe('RAML 0.8 Importer', function(){
-  var ramlImporter, filePath = __dirname+'/../../data/raml08.yaml';
+  var ramlImporter, filePath = __dirname+'/../../data/raml-import/raml/raml08.yaml';
   beforeEach(function(){
     ramlImporter = new RAML08();
   });
@@ -93,7 +93,7 @@ describe('RAML 0.8 Importer', function(){
 
 
 describe('RAML 1.0 Importer', function(){
-  var ramlImporter, filePath = __dirname+'/../../data/raml10-json-type.yaml';
+  var ramlImporter, filePath = __dirname+'/../../data/raml-import/raml/raml10-json-type.yaml';
   beforeEach(function(){
     ramlImporter = new RAML10();
   });
@@ -124,7 +124,7 @@ describe('RAML 1.0 Importer', function(){
     });
 
     it ('should be able to load a valid yaml file including external type definiton', function (done) {
-      ramlImporter.loadFile(__dirname+'/../../data/raml10-include-type.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/raml-import/raml/raml10-include-type.yaml', function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
@@ -145,7 +145,7 @@ describe('RAML 1.0 Importer', function(){
           return new Promise(function(resolve, reject){
             try {
               if (path.indexOf('Person.xyz') > 0) {
-                path = path.replace('Person.xyz', '/types/Person.json');
+                path = path.replace('Person.xyz', '../../types/Person.json');
               }
               resolve(fs.readFileSync(path, 'UTF8'));
             }
@@ -160,7 +160,7 @@ describe('RAML 1.0 Importer', function(){
         fsResolver : myFsResolver
       };
 
-      ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml10-include-fsresolver-type.yaml', myOptions, function(err){
+      ramlImporter.loadFileWithOptions(__dirname+'/../../data/raml-import/raml/raml10-include-fsresolver-type.yaml', myOptions, function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
@@ -176,7 +176,7 @@ describe('RAML 1.0 Importer', function(){
     });
 
     it ('should be able to load a valid yaml file including raml type definiton', function (done) {
-      ramlImporter.loadFile(__dirname+'/../../data/raml10-yaml-type.yaml', function(err){
+      ramlImporter.loadFile(__dirname+'/../../data/raml-import/raml/raml10-y-type.yaml', function(err){
         if (err) return done(err);
         try {
           var slProject = ramlImporter.import();
