@@ -46,7 +46,6 @@
     "no-extra-semi":0,
     "global-require":0,
     "no-console":0,
-    "no-plusplus":0,
     "no-useless-escape":0,
     "no-multi-spaces":0,
     "no-mixed-spaces-and-tabs":0
