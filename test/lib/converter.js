@@ -265,6 +265,17 @@ describe('from swagger to raml', function () {
 					converter.convert('yaml', function(err, covertedRAML){
 						if (err)return done(err);
 						
+						var existsTarget = fs.existsSync(targetFile);
+						
+						if (!existsTarget) {
+							console.log('Content for non existing target file ' + targetFile + '\n.');
+							console.log('********** Begin file **********\n');
+							console.log(covertedRAML);
+							console.log('********** Finish file **********\n');
+							
+							done(err);
+						}
+						
 						if (stringCompare == true) {
 							expect(covertedRAML).to.deep.equal(fs.readFileSync(targetFile, 'utf8'));
 						} else {
