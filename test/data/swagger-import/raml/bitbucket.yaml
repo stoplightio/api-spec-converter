@@ -1,0 +1,5406 @@
+#%RAML 1.0
+title: Bitbucket
+version: '2.0'
+baseUri: 'https://api.bitbucket.org/2.0'
+mediaType: application/json
+protocols:
+  - HTTPS
+description: 'Code against the Bitbucket API to automate simple tasks, embed Bitbucket data into your own site, build mobile or desktop apps, or even add custom UI add-ons into Bitbucket itself using the Connect framework.'
+(externalDocs):
+  url: 'https://bitbucket.org/api'
+(info):
+  contact:
+    name: Bitbucket Support
+    url: 'https://bitbucket.org/support'
+    email: support@bitbucket.org
+  termsOfService: 'https://www.atlassian.com/legal/customer-agreement'
+securitySchemes:
+  oauth2:
+    type: OAuth 2.0
+    settings:
+      authorizationUri: 'https://bitbucket.org/site/oauth2/authorize'
+      accessTokenUri: 'https://bitbucket.org/site/oauth2/access_token'
+      authorizationGrants:
+        - authorization_code
+      scopes:
+        - account
+        - 'account:write'
+        - email
+        - issue
+        - 'issue:write'
+        - pipeline
+        - 'pipeline:variable'
+        - 'pipeline:write'
+        - project
+        - 'project:write'
+        - pullrequest
+        - 'pullrequest:write'
+        - repository
+        - 'repository:admin'
+        - 'repository:delete'
+        - 'repository:write'
+        - snippet
+        - 'snippet:write'
+        - team
+        - 'team:write'
+        - webhook
+        - wiki
+  basic:
+    type: Basic Authentication
+    description: 'Basic HTTP Authentication as per [RFC-2617](https://tools.ietf.org/html/rfc2617) (Digest not supported). Note that Basic Auth with username and password as credentials is only available on accounts that have 2-factor-auth / 2-step-verification disabled. If you use 2fa, you should authenticate using OAuth2 instead.'
+  api_key:
+    type: Pass Through
+    describedBy:
+      headers:
+        Authorization:
+          type: string
+    description: API Keys can be used as Basic HTTP Authentication credentials and provide a substitute for the account's actual username and password. API Keys are only available to team accounts and there is only 1 key per account. API Keys do not support scopes and have therefore access to all contents of the account.
+/repositories:
+  displayName: repositories
+  '/{username}':
+    displayName: '{username}'
+    '/{repo_slug}':
+      displayName: '{repo_slug}'
+      /patch:
+        displayName: patch
+        '/{spec}':
+          displayName: '{spec}'
+          uriParameters:
+            spec:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-patch-spec
+            responses:
+              '200':
+                body:
+                  application/json: {}
+                description: The raw patches
+              '555':
+                body:
+                  application/json:
+                    type: error
+                description: |-
+                  If the diff was too large and timed out.
+
+                  Since this endpoint does not employ any form of pagination, but
+                  instead returns the diff as a single document, it can run into
+                  trouble on very large diffs. If Bitbucket times out in cases
+                  like these, a 555 status code is returned.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - commits
+      /pullrequests:
+        displayName: pullrequests
+        get:
+          displayName: GET_repositories-username-repo_slug-pullrequests
+          responses: {}
+          queryParameters:
+            state:
+              description: Only return pull requests that in this state. This parameter can be repeated.
+              enum:
+                - MERGED
+                - SUPERSEDED
+                - OPEN
+                - DECLINED
+              type: string
+              displayName: Only return pull requests that in this state. This parameter can be repeated.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - pullrequest
+            - basic
+            - api_key
+          (tags):
+            - pullrequests
+        post:
+          displayName: POST_repositories-username-repo_slug-pullrequests
+          body:
+            application/json:
+              type: pullrequest
+              description: |-
+                The new pull request.
+
+                The request URL you POST to becomes the destination repository URL. For this reason, you must specify an explicit source repository in the request object if you want to pull from a different repository (fork).
+
+                Since not all elements are required or even mutable, you only need to include the elements you want to initialize, such as the source branch and the title.
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: pullrequest
+              description: The newly created pull request.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'pullrequest:write'
+            - basic
+            - api_key
+          (tags):
+            - pullrequests
+        /activity:
+          displayName: activity
+          get:
+            displayName: GET_repositories-username-repo_slug-pullrequests-activity
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - pullrequest
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+        '/{pull_request_id}':
+          displayName: '{pull_request_id}'
+          uriParameters:
+            pull_request_id:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: pullrequest
+                description: The pull request object
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - pullrequest
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+          put:
+            displayName: PUT_repositories-username-repo_slug-pullrequests-pull_request_id
+            body: {}
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'pullrequest:write'
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+          /activity:
+            displayName: activity
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-activity
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /approve:
+            displayName: approve
+            delete:
+              displayName: DELETE_repositories-username-repo_slug-pullrequests-pull_request_id-approve
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'pullrequest:write'
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+            post:
+              displayName: POST_repositories-username-repo_slug-pullrequests-pull_request_id-approve
+              body: {}
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'pullrequest:write'
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /comments:
+            displayName: comments
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-comments
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+            '/{comment_id}':
+              displayName: '{comment_id}'
+              uriParameters:
+                comment_id:
+                  type: string
+              get:
+                displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-comments-comment_id
+                responses: {}
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - pullrequest
+                  - basic
+                  - api_key
+                (tags):
+                  - pullrequests
+          /commits:
+            displayName: commits
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-commits
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /decline:
+            displayName: decline
+            post:
+              displayName: POST_repositories-username-repo_slug-pullrequests-pull_request_id-decline
+              body: {}
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: pullrequest
+                  description: The pull request object.
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'pullrequest:write'
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /diff:
+            displayName: diff
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-diff
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /merge:
+            displayName: merge
+            post:
+              displayName: POST_repositories-username-repo_slug-pullrequests-pull_request_id-merge
+              body: {}
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: pullrequest
+                  description: The pull request object.
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'pullrequest:write'
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /patch:
+            displayName: patch
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-patch
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - pullrequests
+          /statuses:
+            displayName: statuses
+            get:
+              displayName: GET_repositories-username-repo_slug-pullrequests-pull_request_id-statuses
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: paginated_commitstatuses
+                  description: A paginated list of all commit statuses for this pull request.
+                '401':
+                  body:
+                    application/json: {}
+                  description: If the repository is private and the request was not authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the specified repository or pull request does not exist.
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - pullrequest
+                - basic
+                - api_key
+              (tags):
+                - repositories
+                - pullrequests
+                - commitstatuses
+      uriParameters:
+        repo_slug:
+          type: string
+      delete:
+        displayName: DELETE_repositories-username-repo_slug
+        responses:
+          '204':
+            body:
+              application/json: {}
+            description: Indicates successful deletion.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: 'If the caller either does not have admin access to the repository, or the repository is set to read-only.'
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the repository does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'repository:delete'
+          - basic
+          - api_key
+        (tags):
+          - repositories
+      post:
+        displayName: POST_repositories-username-repo_slug
+        body:
+          application/json:
+            type: repository
+            description: The repository that is to be created. Note that most object elements are optional. Elements "owner" and "full_name" are ignored as the URL implies them.
+        responses:
+          '200':
+            body:
+              application/json:
+                type: repository
+            description: The newly created repository.
+          '400':
+            body:
+              application/json:
+                type: error
+            description: 'If the input document was invalid, or if the caller lacks the privilege to create repositories under the targeted account.'
+          '401':
+            body:
+              application/json:
+                type: error
+            description: If the request was not authenticated.
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'repository:admin'
+          - basic
+          - api_key
+        (tags):
+          - repositories
+      /branch-restrictions:
+        displayName: branch-restrictions
+        get:
+          displayName: GET_repositories-username-repo_slug-branch-restrictions
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_branchrestrictions
+              description: A paginated list of branch restrictions
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: If the request was not authenticated
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have admin access to the repository
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the repository does not exist
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'repository:admin'
+            - basic
+            - api_key
+          (tags):
+            - branchrestrictions
+        '/{id}':
+          displayName: '{id}'
+          uriParameters:
+            id:
+              type: string
+              description: The restriction rule's id
+              displayName: The restriction rule's id
+          delete:
+            displayName: DELETE_repositories-username-repo_slug-branch-restrictions-id
+            responses:
+              '204':
+                body:
+                  application/json: {}
+              '401':
+                body:
+                  application/json:
+                    type: error
+                description: If the request was not authenticated
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have admin access to the repository
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the repository or branch restriction id does not exist
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - branchrestrictions
+          put:
+            displayName: PUT_repositories-username-repo_slug-branch-restrictions-id
+            body:
+              application/json:
+                type: branchrestriction
+                description: The new version of the existing rule
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: branchrestriction
+                description: The updated branch restriction rule
+              '401':
+                body:
+                  application/json:
+                    type: error
+                description: If the request was not authenticated
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have admin access to the repository
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the repository or branch restriction id does not exist
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - branchrestrictions
+          get:
+            displayName: GET_repositories-username-repo_slug-branch-restrictions-id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: branchrestriction
+                description: The branch restriction rule
+              '401':
+                body:
+                  application/json:
+                    type: error
+                description: If the request was not authenticated
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have admin access to the repository
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the repository or branch restriction id does not exist
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - branchrestrictions
+        post:
+          displayName: POST_repositories-username-repo_slug-branch-restrictions
+          body:
+            application/json:
+              type: branchrestriction
+              description: The new rule
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: branchrestriction
+              description: A paginated list of branch restrictions
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: If the request was not authenticated
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have admin access to the repository
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the repository does not exist
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'repository:admin'
+            - basic
+            - api_key
+          (tags):
+            - branchrestrictions
+      /commit:
+        displayName: commit
+        '/{node}':
+          displayName: '{node}'
+          /approve:
+            displayName: approve
+            post:
+              displayName: POST_repositories-username-repo_slug-commit-node-approve
+              body: {}
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: participant
+                  description: The `participant` object recording that the authenticated user approved the commit.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the specified commit, or the repository does not exist.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'repository:write'
+                - basic
+                - api_key
+              (tags):
+                - commits
+            delete:
+              displayName: DELETE_repositories-username-repo_slug-commit-node-approve
+              responses:
+                '204':
+                  body:
+                    application/json: {}
+                  description: An empty response indicating the authenticated user's approval has been withdrawn.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the specified commit, or the repository does not exist.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'repository:write'
+                - basic
+                - api_key
+              (tags):
+                - commits
+          /statuses:
+            displayName: statuses
+            /build:
+              displayName: build
+              post:
+                displayName: POST_repositories-username-repo_slug-commit-node-statuses-build
+                body:
+                  application/json:
+                    type: commitstatus
+                    description: The new commit status object.
+                responses:
+                  '201':
+                    body:
+                      application/json:
+                        type: commitstatus
+                    description: The newly created build status object.
+                  '401':
+                    body:
+                      application/json: {}
+                    description: If the repository is private and the request was not authenticated.
+                  '404':
+                    body:
+                      application/json:
+                        type: error
+                    description: 'If the repository, commit, or build status key does not exist'
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - repository
+                  - basic
+                  - api_key
+                (tags):
+                  - repositories
+                  - commitstatuses
+              '/{key}':
+                displayName: '{key}'
+                uriParameters:
+                  key:
+                    type: string
+                    description: The build status' unique key
+                    displayName: The build status' unique key
+                put:
+                  displayName: PUT_repositories-username-repo_slug-commit-node-statuses-build-key
+                  body:
+                    application/json:
+                      type: commitstatus
+                      description: The updated build status object
+                  responses:
+                    '200':
+                      body:
+                        application/json:
+                          type: commitstatus
+                      description: The updated build status object.
+                    '401':
+                      body:
+                        application/json: {}
+                      description: If the repository is private and the request was not authenticated.
+                    '404':
+                      body:
+                        application/json:
+                          type: error
+                      description: If the repository or build does not exist
+                  securedBy:
+                    - oauth2:
+                        scopes:
+                          - repository
+                    - basic
+                    - api_key
+                  (tags):
+                    - repositories
+                    - commitstatuses
+                get:
+                  displayName: GET_repositories-username-repo_slug-commit-node-statuses-build-key
+                  responses:
+                    '200':
+                      body:
+                        application/json:
+                          type: commitstatus
+                      description: The build status object with the specified key.
+                    '401':
+                      body:
+                        application/json: {}
+                      description: If the repository is private and the request was not authenticated.
+                    '404':
+                      body:
+                        application/json:
+                          type: error
+                      description: 'If the repository, commit, or build status key does not exist'
+                  securedBy:
+                    - oauth2:
+                        scopes:
+                          - repository
+                    - basic
+                    - api_key
+                  (tags):
+                    - repositories
+                    - commitstatuses
+            get:
+              displayName: GET_repositories-username-repo_slug-commit-node-statuses
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: paginated_commitstatuses
+                  description: A paginated list of all commit statuses for this commit.
+                '401':
+                  body:
+                    application/json: {}
+                  description: If the repository is private and the request was not authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the repository or commit does not exist
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - repository
+                - basic
+                - api_key
+              (tags):
+                - repositories
+                - commitstatuses
+        '/{sha}':
+          displayName: '{sha}'
+          /comments:
+            displayName: comments
+            get:
+              displayName: GET_repositories-username-repo_slug-commit-sha-comments
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - repository
+                - basic
+                - api_key
+              (tags):
+                - commits
+            '/{comment_id}':
+              displayName: '{comment_id}'
+              uriParameters:
+                comment_id:
+                  type: string
+              get:
+                displayName: GET_repositories-username-repo_slug-commit-sha-comments-comment_id
+                responses: {}
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - repository
+                  - basic
+                  - api_key
+                (tags):
+                  - commits
+        '/{revision}':
+          displayName: '{revision}'
+          uriParameters:
+            revision:
+              type: string
+              description: The commit's SHA1.
+              displayName: The commit's SHA1.
+          get:
+            displayName: GET_repositories-username-repo_slug-commit-revision
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: commit
+                description: The commit object
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the specified commit or repository does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - commits
+      /refs:
+        displayName: refs
+        get:
+          displayName: GET_repositories-username-repo_slug-refs
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - refs
+        /branches:
+          displayName: branches
+          get:
+            displayName: GET_repositories-username-repo_slug-refs-branches
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - refs
+          '/{name}':
+            displayName: '{name}'
+            uriParameters:
+              name:
+                type: string
+            get:
+              displayName: GET_repositories-username-repo_slug-refs-branches-name
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - repository
+                - basic
+                - api_key
+              (tags):
+                - refs
+        /tags:
+          displayName: tags
+          get:
+            displayName: GET_repositories-username-repo_slug-refs-tags
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - refs
+          '/{name}':
+            displayName: '{name}'
+            uriParameters:
+              name:
+                type: string
+            get:
+              displayName: GET_repositories-username-repo_slug-refs-tags-name
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - repository
+                - basic
+                - api_key
+              (tags):
+                - refs
+      /commits:
+        displayName: commits
+        get:
+          displayName: GET_repositories-username-repo_slug-commits
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - commits
+        '/{revision}':
+          displayName: '{revision}'
+          uriParameters:
+            revision:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-commits-revision
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - commits
+          post:
+            displayName: POST_repositories-username-repo_slug-commits-revision
+            body: {}
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - commits
+        post:
+          displayName: POST_repositories-username-repo_slug-commits
+          body: {}
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - commits
+      /versions:
+        displayName: versions
+        get:
+          displayName: GET_repositories-username-repo_slug-versions
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_versions
+              description: The versions that have been defined in the issue tracker.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the specified repository does not exist, or if the repository doesn''t have the issue tracker enabled.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - issue
+            - basic
+            - api_key
+          (tags):
+            - issue_tracker
+        '/{version_id}':
+          displayName: '{version_id}'
+          uriParameters:
+            version_id:
+              type: integer
+              description: The version's id
+              displayName: The version's id
+          get:
+            displayName: GET_repositories-username-repo_slug-versions-version_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: version
+                description: The specified version object.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: 'If the specified repository or version does not exist, or if the repository doesn''t have the issue tracker enabled.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - issue
+              - basic
+              - api_key
+            (tags):
+              - issue_tracker
+      /components:
+        displayName: components
+        get:
+          displayName: GET_repositories-username-repo_slug-components
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_components
+              description: The components that have been defined in the issue tracker.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the specified repository does not exist, or if the repository doesn''t have the issue tracker enabled.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - issue
+            - basic
+            - api_key
+          (tags):
+            - issue_tracker
+        '/{component_id}':
+          displayName: '{component_id}'
+          uriParameters:
+            component_id:
+              type: integer
+              description: The component's id
+              displayName: The component's id
+          get:
+            displayName: GET_repositories-username-repo_slug-components-component_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: component
+                description: The specified component object.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: 'If the specified repository or component does not exist, or if the repository doesn''t have the issue tracker enabled.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - issue
+              - basic
+              - api_key
+            (tags):
+              - issue_tracker
+      /default-reviewers:
+        displayName: default-reviewers
+        get:
+          displayName: GET_repositories-username-repo_slug-default-reviewers
+          responses:
+            '200':
+              body:
+                application/json: {}
+              description: The paginated list of default reviewers
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'repository:admin'
+            - basic
+            - api_key
+          (tags):
+            - pullrequests
+        '/{target_username}':
+          displayName: '{target_username}'
+          uriParameters:
+            username:
+              type: string
+            target_username:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-default-reviewers-target_username
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+          put:
+            displayName: PUT_repositories-username-repo_slug-default-reviewers-target_username
+            body: {}
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+          delete:
+            displayName: DELETE_repositories-username-repo_slug-default-reviewers-target_username
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:admin'
+              - basic
+              - api_key
+            (tags):
+              - pullrequests
+      /watchers:
+        displayName: watchers
+        get:
+          displayName: GET_repositories-username-repo_slug-watchers
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - repositories
+      /diff:
+        displayName: diff
+        '/{spec}':
+          displayName: '{spec}'
+          uriParameters:
+            spec:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-diff-spec
+            responses:
+              '200':
+                body:
+                  application/json: {}
+                description: The raw diff
+              '555':
+                body:
+                  application/json:
+                    type: error
+                description: |-
+                  If the diff was too large and timed out.
+
+                  Since this endpoint does not employ any form of pagination, but
+                  instead returns the diff as a single document, it can run into
+                  trouble on very large diffs. If Bitbucket times out in cases
+                  like these, a 555 status code is returned.
+            queryParameters:
+              context:
+                description: Generate diffs with <n> lines of context instead of the usual three
+                type: integer
+                displayName: Generate diffs with <n> lines of context instead of the usual three
+              path:
+                description: Limit the diff to a single file
+                type: string
+                displayName: Limit the diff to a single file
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - commits
+      /downloads:
+        displayName: downloads
+        post:
+          displayName: POST_repositories-username-repo_slug-downloads
+          body: {}
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'repository:write'
+            - basic
+            - api_key
+          (tags):
+            - downloads
+        '/{filename}':
+          displayName: '{filename}'
+          uriParameters:
+            filename:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-downloads-filename
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - repository
+              - basic
+              - api_key
+            (tags):
+              - downloads
+          delete:
+            displayName: DELETE_repositories-username-repo_slug-downloads-filename
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'repository:write'
+              - basic
+              - api_key
+            (tags):
+              - downloads
+        get:
+          displayName: GET_repositories-username-repo_slug-downloads
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - downloads
+      /hooks:
+        displayName: hooks
+        get:
+          displayName: GET_repositories-username-repo_slug-hooks
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_webhook_subscriptions
+              description: The paginated list of installed webhooks.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to access the webhooks.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the repository does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - repositories
+            - webhooks
+        '/{uid}':
+          displayName: '{uid}'
+          uriParameters:
+            uid:
+              type: string
+              description: The installed webhook's id.
+              displayName: The installed webhook's id.
+          delete:
+            displayName: DELETE_repositories-username-repo_slug-hooks-uid
+            responses:
+              '204':
+                body:
+                  application/json: {}
+                description: When the webhook was deleted successfully
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have permission to delete the webhook.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the webhook or repository does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - webhook
+              - basic
+              - api_key
+            (tags):
+              - repositories
+              - webhooks
+          put:
+            displayName: PUT_repositories-username-repo_slug-hooks-uid
+            body: {}
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: webhook_subscription
+                description: The webhook subscription object.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have permission to update the webhook.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the webhook or repository does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - webhook
+              - basic
+              - api_key
+            (tags):
+              - repositories
+              - webhooks
+          get:
+            displayName: GET_repositories-username-repo_slug-hooks-uid
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: webhook_subscription
+                description: The webhook subscription object.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the webhook or repository does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - webhook
+              - basic
+              - api_key
+            (tags):
+              - repositories
+              - webhooks
+        post:
+          displayName: POST_repositories-username-repo_slug-hooks
+          body: {}
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: webhook_subscription
+              description: If the webhook was registered successfully.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to install webhooks on the specified repository.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the repository does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - repositories
+            - webhooks
+      /issues:
+        displayName: issues
+        post:
+          displayName: POST_repositories-username-repo_slug-issues
+          body:
+            application/json:
+              type: issue
+              description: The new issue. Note that the only required element is `title`. All other elements can be omitted from the body.
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: issue
+              description: The newly created issue.
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: When the request wasn't authenticated.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: When the authenticated user lacks the privilege to create issues in the issue tracker.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the specified repository or version does not exist, or if the repository doesn''t have the issue tracker enabled.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'issue:write'
+            - basic
+            - api_key
+          (tags):
+            - issue_tracker
+        '/{issue_id}':
+          displayName: '{issue_id}'
+          uriParameters:
+            issue_id:
+              type: string
+          get:
+            displayName: GET_repositories-username-repo_slug-issues-issue_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: issue
+                description: The issue object.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: When the authenticated user lacks isn't authorized to access the issue tracker.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: 'If the specified repository or issue does not exist, or if the repository doesn''t have the issue tracker enabled.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - issue
+              - basic
+              - api_key
+            (tags):
+              - issue_tracker
+          /attachments:
+            displayName: attachments
+            post:
+              displayName: POST_repositories-username-repo_slug-issues-issue_id-attachments
+              body: {}
+              responses:
+                '201':
+                  body:
+                    application/json: {}
+                  description: An empty response document.
+                '400':
+                  body:
+                    application/json: {}
+                  description: 'If no files were uploaded, or if the wrong `Content-Type` was used.'
+                '401':
+                  body:
+                    application/json: {}
+                  description: If the issue tracker is private and the request was not authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the specified repository or issue does not exist, or if the repository doesn''t have the issue tracker enabled.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'issue:write'
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+            '/{path}':
+              displayName: '{path}'
+              uriParameters:
+                path:
+                  type: string
+              get:
+                displayName: GET_repositories-username-repo_slug-issues-issue_id-attachments-path
+                responses:
+                  '302':
+                    body:
+                      application/json: {}
+                    description: A redirect to the file's contents
+                  '401':
+                    body:
+                      application/json: {}
+                    description: If the issue tracker is private and the request was not authenticated.
+                  '404':
+                    body:
+                      application/json:
+                        type: error
+                    description: 'If the specified repository or issue does not exist, or if the repository doesn''t have the issue tracker enabled.'
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - issue
+                  - basic
+                  - api_key
+                (tags):
+                  - issue_tracker
+              delete:
+                displayName: DELETE_repositories-username-repo_slug-issues-issue_id-attachments-path
+                responses:
+                  '204':
+                    body:
+                      application/json: {}
+                    description: Indicates that the deletion was successful
+                  '401':
+                    body:
+                      application/json: {}
+                    description: If the issue tracker is private and the request was not authenticated.
+                  '404':
+                    body:
+                      application/json:
+                        type: error
+                    description: 'If the specified repository, issue, or attachment does not exist, or if the repository doesn''t have the issue tracker enabled.'
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - 'issue:write'
+                  - basic
+                  - api_key
+                (tags):
+                  - issue_tracker
+            get:
+              displayName: GET_repositories-username-repo_slug-issues-issue_id-attachments
+              responses:
+                '200':
+                  body:
+                    application/json:
+                      type: paginated_issue_attachments
+                  description: A paginated list of all attachments for this issue.
+                '401':
+                  body:
+                    application/json: {}
+                  description: If the issue tracker is private and the request was not authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the specified repository or version does not exist, or if the repository doesn''t have the issue tracker enabled.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+          /comments:
+            displayName: comments
+            '/{comment_id}':
+              displayName: '{comment_id}'
+              uriParameters:
+                comment_id:
+                  type: string
+              get:
+                displayName: GET_repositories-username-repo_slug-issues-issue_id-comments-comment_id
+                responses: {}
+                securedBy:
+                  - oauth2:
+                      scopes:
+                        - issue
+                  - basic
+                  - api_key
+                (tags):
+                  - issue_tracker
+            get:
+              displayName: GET_repositories-username-repo_slug-issues-issue_id-comments
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+          /vote:
+            displayName: vote
+            get:
+              displayName: GET_repositories-username-repo_slug-issues-issue_id-vote
+              responses:
+                '204':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the authenticated user has not voted for this issue.
+                '401':
+                  body:
+                    application/json:
+                      type: error
+                  description: When the request wasn't authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the authenticated user has not voted for this issue, or when the repo does not exist, or does not have an issue tracker.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                      - account
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+            put:
+              displayName: PUT_repositories-username-repo_slug-issues-issue_id-vote
+              body: {}
+              responses:
+                '204':
+                  body:
+                    application/json:
+                      type: error
+                  description: Indicating the authenticated user has cast their vote successfully.
+                '401':
+                  body:
+                    application/json:
+                      type: error
+                  description: When the request wasn't authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'When the issue does not exist, the repo does not exist, or when the repos does not have an issue tracker.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                      - 'account:write'
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+            delete:
+              displayName: DELETE_repositories-username-repo_slug-issues-issue_id-vote
+              responses: {}
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'issue:write'
+                      - 'account:write'
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+          /watch:
+            displayName: watch
+            delete:
+              displayName: DELETE_repositories-username-repo_slug-issues-issue_id-watch
+              responses:
+                '204':
+                  body:
+                    application/json:
+                      type: error
+                  description: Indicates that the authenticated user successfully stopped watching this issue.
+                '401':
+                  body:
+                    application/json:
+                      type: error
+                  description: When the request wasn't authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the issue or the repo does not exist, or the repository does not have an issue tracker.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - 'issue:write'
+                      - 'account:write'
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+            put:
+              displayName: PUT_repositories-username-repo_slug-issues-issue_id-watch
+              body: {}
+              responses:
+                '204':
+                  body:
+                    application/json:
+                      type: error
+                  description: Indicates that the authenticated user successfully started watching this issue.
+                '401':
+                  body:
+                    application/json:
+                      type: error
+                  description: When the request wasn't authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the authenticated user is not watching this issue, or when the repo does not exist, or does not have an issue tracker.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                      - 'account:write'
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+            get:
+              displayName: GET_repositories-username-repo_slug-issues-issue_id-watch
+              responses:
+                '204':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the authenticated user is watching this issue.
+                '401':
+                  body:
+                    application/json:
+                      type: error
+                  description: When the request wasn't authenticated.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: 'If the authenticated user is not watching this issue, or when the repo does not exist, or does not have an issue tracker.'
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - issue
+                      - account
+                - basic
+                - api_key
+              (tags):
+                - issue_tracker
+          delete:
+            displayName: DELETE_repositories-username-repo_slug-issues-issue_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: issue
+                description: The issue object.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: When the authenticated user lacks isn't authorized to delete the issue tracker.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: 'If the specified repository or issue does not exist, or if the repository doesn''t have the issue tracker enabled.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'issue:write'
+              - basic
+              - api_key
+            (tags):
+              - issue_tracker
+        get:
+          displayName: GET_repositories-username-repo_slug-issues
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_issues
+              description: A paginated list of the issues matching any filter criteria that were provided.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the specified repository or version does not exist, or if the repository doesn''t have the issue tracker enabled.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - issue
+            - basic
+            - api_key
+          (tags):
+            - issue_tracker
+      /milestones:
+        displayName: milestones
+        '/{milestone_id}':
+          displayName: '{milestone_id}'
+          uriParameters:
+            milestone_id:
+              type: integer
+              description: The milestone's id
+              displayName: The milestone's id
+          get:
+            displayName: GET_repositories-username-repo_slug-milestones-milestone_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: milestone
+                description: The specified milestone object.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: 'If the specified repository or milestone does not exist, or if the repository doesn''t have the issue tracker enabled.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - issue
+              - basic
+              - api_key
+            (tags):
+              - issue_tracker
+        get:
+          displayName: GET_repositories-username-repo_slug-milestones
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_milestones
+              description: The milestones that have been defined in the issue tracker.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the specified repository does not exist, or if the repository doesn''t have the issue tracker enabled.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - issue
+            - basic
+            - api_key
+          (tags):
+            - issue_tracker
+      put:
+        displayName: PUT_repositories-username-repo_slug
+        body:
+          application/json:
+            type: repository
+            description: |
+              The repository that is to be updated.
+
+              Note that the elements "owner" and "full_name" are ignored since the
+              URL implies them.
+        responses:
+          '200':
+            body:
+              application/json:
+                type: repository
+            description: The existing repository has been updated
+          '201':
+            body:
+              application/json:
+                type: repository
+            description: A new repository has been created
+          '400':
+            body:
+              application/json:
+                type: error
+            description: 'If the input document was invalid, or if the caller lacks the privilege to create repositories under the targeted account.'
+          '401':
+            body:
+              application/json:
+                type: error
+            description: If the request was not authenticated.
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'repository:admin'
+          - basic
+          - api_key
+        (tags):
+          - repositories
+      get:
+        displayName: GET_repositories-username-repo_slug
+        responses:
+          '200':
+            body:
+              application/json:
+                type: repository
+            description: The repository object.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If the repository is private and the authenticated user does not have access to it.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If no repository exists at this location.
+        securedBy:
+          - oauth2:
+              scopes:
+                - repository
+          - basic
+          - api_key
+        (tags):
+          - repositories
+      /forks:
+        displayName: forks
+        get:
+          displayName: GET_repositories-username-repo_slug-forks
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_repositories
+              description: All forks.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - repository
+            - basic
+            - api_key
+          (tags):
+            - repositories
+    uriParameters:
+      username:
+        type: string
+    get:
+      displayName: GET_repositories-username
+      responses:
+        '200':
+          body:
+            application/json:
+              type: paginated_repositories
+          description: The repositories owned by the specified account.
+        '404':
+          body:
+            application/json:
+              type: error
+          description: If the specified account does not exist.
+      queryParameters:
+        role:
+          description: |
+
+            Filters the result based on the authenticated user's role on each repository.
+
+            * **member**: returns repositories to which the user has explicit read access
+            * **contributor**: returns repositories to which the user has explicit write access
+            * **admin**: returns repositories to which the user has explicit administrator access
+            * **owner**: returns all repositories owned by the current user
+          enum:
+            - admin
+            - contributor
+            - member
+            - owner
+          type: string
+          displayName: |
+
+            Filters the result based on the authenticated user's role on each repository.
+
+            * **member**: returns repositories to which the user has explicit read access
+            * **contributor**: returns repositories to which the user has explicit write access
+            * **admin**: returns repositories to which the user has explicit administrator access
+            * **owner**: returns all repositories owned by the current user
+      securedBy:
+        - oauth2:
+            scopes:
+              - repository
+        - basic
+        - api_key
+      (tags):
+        - repositories
+  get:
+    displayName: GET_repositories
+    responses:
+      '200':
+        body:
+          application/json:
+            type: paginated_repositories
+        description: All public repositories.
+    securedBy:
+      - oauth2:
+          scopes:
+            - repository
+      - basic
+      - api_key
+    (tags):
+      - repositories
+/users:
+  displayName: users
+  '/{username}':
+    displayName: '{username}'
+    /repositories:
+      displayName: repositories
+      get:
+        displayName: GET_users-username-repositories
+        responses: {}
+        securedBy:
+          - oauth2:
+              scopes:
+                - repository
+          - basic
+          - api_key
+        (tags):
+          - users
+          - teams
+    uriParameters:
+      username:
+        type: string
+        description: The account's username or UUID.
+        displayName: The account's username or UUID.
+    get:
+      displayName: GET_users-username
+      responses:
+        '200':
+          body:
+            application/json:
+              type: user
+          description: The user object
+        '404':
+          body:
+            application/json:
+              type: error
+          description: 'If no user exists for the specified name or UUID, or if the specified account is a team account, not a personal account.'
+      securedBy:
+        - oauth2
+        - basic
+        - api_key
+      (tags):
+        - users
+    /followers:
+      displayName: followers
+      get:
+        displayName: GET_users-username-followers
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_users
+            description: A paginated list of user objects.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: 'If no account exists for the specified name, or if the specified account is a team account, not a personal account.'
+        securedBy:
+          - oauth2
+          - basic
+          - api_key
+        (tags):
+          - users
+    /following:
+      displayName: following
+      get:
+        displayName: GET_users-username-following
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_users
+            description: A paginated list of user objects.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: 'If no user exists for the specified name, or if the specified account is a team account, not a personal account.'
+        securedBy:
+          - oauth2:
+              scopes:
+                - account
+          - basic
+          - api_key
+        (tags):
+          - users
+    /hooks:
+      displayName: hooks
+      get:
+        displayName: GET_users-username-hooks
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_webhook_subscriptions
+            description: The paginated list of installed webhooks.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If the authenticated user is accessing an account other than their own.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the specified account does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - webhook
+          - basic
+          - api_key
+        (tags):
+          - users
+          - webhooks
+      '/{uid}':
+        displayName: '{uid}'
+        uriParameters:
+          uid:
+            type: string
+            description: The installed webhook's id
+            displayName: The installed webhook's id
+        put:
+          displayName: PUT_users-username-hooks-uid
+          body: {}
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: webhook_subscription
+              description: The webhook subscription object.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to update the webhook.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or user does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - users
+            - webhooks
+        get:
+          displayName: GET_users-username-hooks-uid
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: webhook_subscription
+              description: The webhook subscription object.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or user does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - users
+            - webhooks
+        delete:
+          displayName: DELETE_users-username-hooks-uid
+          responses:
+            '204':
+              body:
+                application/json: {}
+              description: When the webhook was deleted successfully
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to delete the webhook.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or user does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - users
+            - webhooks
+      post:
+        displayName: POST_users-username-hooks
+        body: {}
+        responses:
+          '201':
+            body:
+              application/json:
+                type: webhook_subscription
+            description: The newly installed webhook.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If the authenticated user is accessing an account other than their own.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the specified account does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - webhook
+          - basic
+          - api_key
+        (tags):
+          - users
+          - webhooks
+/account:
+  displayName: account
+  '/{username}':
+    displayName: '{username}'
+    /addons:
+      displayName: addons
+      get:
+        displayName: GET_account-username-addons
+        responses: {}
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'account:write'
+          - basic
+          - api_key
+        (tags):
+          - addon
+      '/{encoded_context_id}':
+        displayName: '{encoded_context_id}'
+        uriParameters:
+          encoded_context_id:
+            type: string
+        delete:
+          displayName: DELETE_account-username-addons-encoded_context_id
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'account:write'
+            - basic
+            - api_key
+          (tags):
+            - addon
+        put:
+          displayName: PUT_account-username-addons-encoded_context_id
+          body: {}
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'account:write'
+            - basic
+            - api_key
+          (tags):
+            - addon
+        get:
+          displayName: GET_account-username-addons-encoded_context_id
+          responses: {}
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'account:write'
+            - basic
+            - api_key
+          (tags):
+            - addon
+        /refresh:
+          displayName: refresh
+          put:
+            displayName: PUT_account-username-addons-encoded_context_id-refresh
+            body: {}
+            responses: {}
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - 'account:write'
+              - basic
+              - api_key
+            (tags):
+              - addon
+      post:
+        displayName: POST_account-username-addons
+        body: {}
+        responses: {}
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'account:write'
+          - basic
+          - api_key
+        (tags):
+          - addon
+/addon:
+  displayName: addon
+  delete:
+    displayName: DELETE_addon
+    responses: {}
+    securedBy:
+      - oauth2
+      - basic
+      - api_key
+    (tags):
+      - addon
+  /linkers:
+    displayName: linkers
+    get:
+      displayName: GET_addon-linkers
+      responses: {}
+      securedBy:
+        - oauth2
+        - basic
+        - api_key
+      (tags):
+        - addon
+    '/{linker_key}':
+      displayName: '{linker_key}'
+      /values:
+        displayName: values
+        delete:
+          displayName: DELETE_addon-linkers-linker_key-values
+          responses: {}
+          securedBy:
+            - oauth2
+            - basic
+            - api_key
+          (tags):
+            - addon
+        post:
+          displayName: POST_addon-linkers-linker_key-values
+          body: {}
+          responses: {}
+          securedBy:
+            - oauth2
+            - basic
+            - api_key
+          (tags):
+            - addon
+        /:
+          displayName: ''
+          delete:
+            displayName: DELETE_addon-linkers-linker_key-values
+            responses: {}
+            securedBy:
+              - oauth2
+              - basic
+              - api_key
+            (tags):
+              - addon
+          get:
+            displayName: GET_addon-linkers-linker_key-values
+            responses: {}
+            securedBy:
+              - oauth2
+              - basic
+              - api_key
+            (tags):
+              - addon
+        get:
+          displayName: GET_addon-linkers-linker_key-values
+          responses: {}
+          securedBy:
+            - oauth2
+            - basic
+            - api_key
+          (tags):
+            - addon
+        put:
+          displayName: PUT_addon-linkers-linker_key-values
+          body: {}
+          responses: {}
+          securedBy:
+            - oauth2
+            - basic
+            - api_key
+          (tags):
+            - addon
+      uriParameters:
+        linker_key:
+          type: string
+      get:
+        displayName: GET_addon-linkers-linker_key
+        responses: {}
+        securedBy:
+          - oauth2
+          - basic
+          - api_key
+        (tags):
+          - addon
+  put:
+    displayName: PUT_addon
+    body: {}
+    responses: {}
+    securedBy:
+      - oauth2
+      - basic
+      - api_key
+    (tags):
+      - addon
+/hook_events:
+  displayName: hook_events
+  get:
+    displayName: GET_hook_events
+    responses:
+      '200':
+        body:
+          application/json:
+            type: subject_types
+        description: A mapping of resource/subject types pointing to their individual event types.
+    securedBy:
+      - oauth2
+      - basic
+      - api_key
+    (tags):
+      - webhooks
+  '/{subject_type}':
+    displayName: '{subject_type}'
+    uriParameters:
+      subject_type:
+        type: string
+        description: A resource or subject type.
+        enum:
+          - user
+          - repository
+          - team
+        displayName: A resource or subject type.
+    get:
+      displayName: GET_hook_events-subject_type
+      responses:
+        '200':
+          body:
+            application/json:
+              type: paginated_hook_events
+          description: A paginated list of webhook types available to subscribe on.
+        '404':
+          body:
+            application/json:
+              type: error
+          description: 'If an invalid `{subject_type}` value was specified.'
+      securedBy:
+        - oauth2
+        - basic
+        - api_key
+      (tags):
+        - webhooks
+/snippets:
+  displayName: snippets
+  get:
+    displayName: GET_snippets
+    responses:
+      '200':
+        body:
+          application/json:
+            type: paginated_snippets
+        description: A paginated list of snippets.
+      '404':
+        body:
+          application/json:
+            type: error
+        description: If the snippet does not exist.
+    queryParameters:
+      role:
+        description: 'Filter down the result based on the authenticated user''s role (`owner`, `contributor`, or `member`).'
+        enum:
+          - owner
+          - contributor
+          - member
+        type: string
+        displayName: 'Filter down the result based on the authenticated user''s role (`owner`, `contributor`, or `member`).'
+    securedBy:
+      - oauth2:
+          scopes:
+            - snippet
+      - basic
+      - api_key
+    (tags):
+      - snippets
+  post:
+    displayName: POST_snippets
+    body:
+      application/json:
+        type: snippet
+        description: The new snippet object.
+    responses:
+      '201':
+        body:
+          application/json:
+            type: snippet
+        description: The newly created snippet object.
+      '401':
+        body:
+          application/json:
+            type: error
+        description: If the request was not authenticated
+    securedBy:
+      - oauth2:
+          scopes:
+            - 'snippet:write'
+      - basic
+      - api_key
+    (tags):
+      - snippets
+  '/{username}':
+    displayName: '{username}'
+    uriParameters:
+      username:
+        type: string
+        description: Limits the result to snippets owned by this user.
+        displayName: Limits the result to snippets owned by this user.
+    get:
+      displayName: GET_snippets-username
+      responses:
+        '200':
+          body:
+            application/json:
+              type: paginated_snippets
+          description: A paginated list of snippets.
+        '404':
+          body:
+            application/json:
+              type: error
+          description: If the user does not exist.
+      queryParameters:
+        role:
+          description: 'Filter down the result based on the authenticated user''s role (`owner`, `contributor`, or `member`).'
+          enum:
+            - owner
+            - contributor
+            - member
+          type: string
+          displayName: 'Filter down the result based on the authenticated user''s role (`owner`, `contributor`, or `member`).'
+      securedBy:
+        - oauth2:
+            scopes:
+              - snippet
+        - basic
+        - api_key
+      (tags):
+        - snippets
+    post:
+      displayName: POST_snippets-username
+      body:
+        application/json:
+          type: snippet
+          description: The new snippet object.
+      responses:
+        '201':
+          body:
+            application/json:
+              type: snippet
+          description: The newly created snippet object.
+        '401':
+          body:
+            application/json:
+              type: error
+          description: If the request was not authenticated
+        '403':
+          body:
+            application/json:
+              type: error
+          description: If the authenticated user does not have permission to create snippets under the specified account.
+      securedBy:
+        - oauth2:
+            scopes:
+              - 'snippet:write'
+        - basic
+        - api_key
+      (tags):
+        - snippets
+    '/{encoded_id}':
+      displayName: '{encoded_id}'
+      uriParameters:
+        encoded_id:
+          type: string
+          description: The snippet's id.
+          displayName: The snippet's id.
+      delete:
+        displayName: DELETE_snippets-username-encoded_id
+        responses:
+          '204':
+            body:
+              application/json: {}
+            description: If the snippet was deleted successfully.
+          '401':
+            body:
+              application/json:
+                type: error
+            description: If the snippet is private and the request was not authenticated.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If authenticated user does not have permission to delete the private snippet.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the snippet does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'snippet:write'
+          - basic
+          - api_key
+        (tags):
+          - snippets
+      get:
+        displayName: GET_snippets-username-encoded_id
+        responses:
+          '200':
+            body:
+              multipart/related:
+                type: snippet
+            description: The snippet object.
+          '401':
+            body:
+              multipart/related:
+                type: error
+            description: If the snippet is private and the request was not authenticated.
+          '403':
+            body:
+              multipart/related:
+                type: error
+            description: If authenticated user does not have access to the private snippet.
+          '404':
+            body:
+              multipart/related:
+                type: error
+            description: If the snippet does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - snippet
+          - basic
+          - api_key
+        (tags):
+          - snippets
+      put:
+        displayName: PUT_snippets-username-encoded_id
+        body: {}
+        responses:
+          '200':
+            body:
+              multipart/related:
+                type: snippet
+            description: The updated snippet object.
+          '401':
+            body:
+              multipart/related:
+                type: error
+            description: If the snippet is private and the request was not authenticated.
+          '403':
+            body:
+              multipart/related:
+                type: error
+            description: If authenticated user does not have permission to update the private snippet.
+          '404':
+            body:
+              multipart/related:
+                type: error
+            description: If the snippet does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - 'snippet:write'
+          - basic
+          - api_key
+        (tags):
+          - snippets
+      /comments:
+        displayName: comments
+        get:
+          displayName: GET_snippets-username-encoded_id-comments
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_snippet_comments
+              description: 'A paginated list of snippet comments, ordered by creation date.'
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have access to the snippet.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        post:
+          displayName: POST_snippets-username-encoded_id-comments
+          body:
+            application/json:
+              type: snippet
+              description: The contents of the new comment.
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: snippet
+              description: The newly created comment.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have access to the snippet.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        '/{comment_id}':
+          displayName: '{comment_id}'
+          uriParameters:
+            comment_id:
+              type: string
+          delete:
+            displayName: DELETE_snippets-username-encoded_id-comments-comment_id
+            responses:
+              '204':
+                body:
+                  application/json: {}
+                description: Indicates the comment was deleted successfully.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user is not the author of the comment.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the comment or the snippet does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+          get:
+            displayName: GET_snippets-username-encoded_id-comments-comment_id
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: snippet_comment
+                description: The specified comment.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have access to the snippet.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the comment or snippet does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+          put:
+            displayName: PUT_snippets-username-encoded_id-comments-comment_id
+            body: {}
+            responses:
+              '200':
+                body:
+                  application/json: {}
+                description: The updated comment object.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have access to the snippet.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the comment or snippet does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+      /commits:
+        displayName: commits
+        get:
+          displayName: GET_snippets-username-encoded_id-commits
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_snippet_commit
+              description: The paginated list of snippet commits.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have access to the snippet.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        '/{revision}':
+          displayName: '{revision}'
+          uriParameters:
+            revision:
+              type: string
+          get:
+            displayName: GET_snippets-username-encoded_id-commits-revision
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: snippet_commit
+                description: The specified snippet commit.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have access to the snippet.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the commit or the snippet does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+      /watch:
+        displayName: watch
+        delete:
+          displayName: DELETE_snippets-username-encoded_id-watch
+          responses:
+            '204':
+              body:
+                application/json:
+                  type: paginated_users
+              description: Indicates the user stopped watching the snippet successfully.
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: If the request was not authenticated.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'snippet:write'
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        get:
+          displayName: GET_snippets-username-encoded_id-watch
+          responses:
+            '204':
+              body:
+                application/json:
+                  type: paginated_users
+              description: If the authenticated user is watching the snippet.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'If the snippet does not exist, or if the authenticated user is not watching the snippet.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        put:
+          displayName: PUT_snippets-username-encoded_id-watch
+          body: {}
+          responses:
+            '204':
+              body:
+                application/json:
+                  type: paginated_users
+              description: Indicates the authenticated user is now watching the snippet.
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: If the request was not authenticated.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'snippet:write'
+            - basic
+            - api_key
+          (tags):
+            - snippets
+      /watchers:
+        displayName: watchers
+        get:
+          displayName: GET_snippets-username-encoded_id-watchers
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_users
+              description: The paginated list of users watching this snippet
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+          (deprecated): true
+      '/{node_id}':
+        displayName: '{node_id}'
+        uriParameters:
+          node_id:
+            type: string
+            description: A commit revision (SHA1).
+            displayName: A commit revision (SHA1).
+        delete:
+          displayName: DELETE_snippets-username-encoded_id-node_id
+          responses:
+            '204':
+              body:
+                application/json: {}
+              description: If the snippet was deleted successfully.
+            '401':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet is private and the request was not authenticated.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If authenticated user does not have permission to delete the private snippet.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the snippet does not exist.
+            '405':
+              body:
+                application/json:
+                  type: error
+              description: 'If `{node_id}` is not the latest revision.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'snippet:write'
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        get:
+          displayName: GET_snippets-username-encoded_id-node_id
+          responses:
+            '200':
+              body:
+                multipart/related:
+                  type: snippet
+              description: The snippet object.
+            '401':
+              body:
+                multipart/related:
+                  type: error
+              description: If the snippet is private and the request was not authenticated.
+            '403':
+              body:
+                multipart/related:
+                  type: error
+              description: If authenticated user does not have access to the private snippet.
+            '404':
+              body:
+                multipart/related:
+                  type: error
+              description: 'If the snippet, or the revision does not exist.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - snippet
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        put:
+          displayName: PUT_snippets-username-encoded_id-node_id
+          body: {}
+          responses:
+            '200':
+              body:
+                multipart/related:
+                  type: snippet
+              description: The updated snippet object.
+            '401':
+              body:
+                multipart/related:
+                  type: error
+              description: If the snippet is private and the request was not authenticated.
+            '403':
+              body:
+                multipart/related:
+                  type: error
+              description: If authenticated user does not have permission to update the private snippet.
+            '404':
+              body:
+                multipart/related:
+                  type: error
+              description: If the snippet or the revision does not exist.
+            '405':
+              body:
+                multipart/related:
+                  type: error
+              description: 'If `{node_id}` is not the latest revision.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'snippet:write'
+            - basic
+            - api_key
+          (tags):
+            - snippets
+        /files:
+          displayName: files
+          '/{path}':
+            displayName: '{path}'
+            uriParameters:
+              path:
+                type: string
+            get:
+              displayName: GET_snippets-username-encoded_id-node_id-files-path
+              responses:
+                '200':
+                  body:
+                    application/json: {}
+                  description: Returns the contents of the specified file.
+                '403':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the authenticated user does not have access to the snippet.
+                '404':
+                  body:
+                    application/json:
+                      type: error
+                  description: If the file or snippet does not exist.
+              securedBy:
+                - oauth2:
+                    scopes:
+                      - snippet
+                - basic
+                - api_key
+              (tags):
+                - snippets
+      '/{revision}':
+        displayName: '{revision}'
+        /diff:
+          displayName: diff
+          get:
+            displayName: GET_snippets-username-encoded_id-revision-diff
+            responses:
+              '200':
+                body:
+                  application/json: {}
+                description: The raw diff contents.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have access to the snippet.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the snippet does not exist.
+            queryParameters:
+              path:
+                description: 'When used, only one the diff of the specified file will be returned.'
+                type: string
+                displayName: 'When used, only one the diff of the specified file will be returned.'
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+        /patch:
+          displayName: patch
+          get:
+            displayName: GET_snippets-username-encoded_id-revision-patch
+            responses:
+              '200':
+                body:
+                  application/json: {}
+                description: The raw patch contents.
+              '403':
+                body:
+                  application/json:
+                    type: error
+                description: If the authenticated user does not have access to the snippet.
+              '404':
+                body:
+                  application/json:
+                    type: error
+                description: If the snippet does not exist.
+            securedBy:
+              - oauth2:
+                  scopes:
+                    - snippet
+              - basic
+              - api_key
+            (tags):
+              - snippets
+/teams:
+  displayName: teams
+  get:
+    displayName: GET_teams
+    responses:
+      '200':
+        body:
+          application/json:
+            type: paginated_teams
+        description: A paginated list of teams.
+      '401':
+        body:
+          application/json:
+            type: error
+        description: When the request wasn't authenticated.
+    queryParameters:
+      role:
+        description: |
+
+          Filters the teams based on the authenticated user's role on each team.
+
+          * **member**: returns a list of all the teams which the caller is a member of
+            at least one team group or repository owned by the team
+          * **contributor**: returns a list of teams which the caller has write access
+            to at least one repository owned by the team
+          * **admin**: returns a list teams which the caller has team administrator access
+        enum:
+          - admin
+          - contributor
+          - member
+        type: string
+        displayName: |
+
+          Filters the teams based on the authenticated user's role on each team.
+
+          * **member**: returns a list of all the teams which the caller is a member of
+            at least one team group or repository owned by the team
+          * **contributor**: returns a list of teams which the caller has write access
+            to at least one repository owned by the team
+          * **admin**: returns a list teams which the caller has team administrator access
+    securedBy:
+      - oauth2:
+          scopes:
+            - team
+      - basic
+      - api_key
+    (tags):
+      - teams
+  '/{owner}':
+    displayName: '{owner}'
+    /projects:
+      displayName: projects
+      /:
+        displayName: ''
+        get:
+          displayName: GET_teams-owner-projects
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: paginated_projects
+              description: A paginated list of projects that belong to the specified team.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: The requesting user isn't authorized to read the list of projects for the specified team.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: A team doesn't exist at this location.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - project
+            - basic
+            - api_key
+          (tags):
+            - projects
+        post:
+          displayName: POST_teams-owner-projects
+          body:
+            application/json:
+              type: project
+          responses:
+            '201':
+              body:
+                application/json:
+                  type: project
+              description: A new project has been created.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: The requesting user isn't authorized to create the project.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: A team doesn't exist at this location.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'project:write'
+            - basic
+            - api_key
+          (tags):
+            - projects
+      '/{project_key}':
+        displayName: '{project_key}'
+        uriParameters:
+          project_key:
+            description: |
+              The project in question. This can either be the actual `key` assigned
+              to the project or the `UUID` (surrounded by curly-braces (`{}`)).
+            type: string
+            displayName: |
+              The project in question. This can either be the actual `key` assigned
+              to the project or the `UUID` (surrounded by curly-braces (`{}`)).
+        delete:
+          displayName: DELETE_teams-owner-projects-project_key
+          responses:
+            '204':
+              body:
+                application/json: {}
+              description: Successful deletion.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: The requesting user isn't authorized to delete the project or the project isn't empty.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: A project isn't hosted at this location.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'project:write'
+            - basic
+            - api_key
+          (tags):
+            - projects
+        get:
+          displayName: GET_teams-owner-projects-project_key
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: project
+              description: The project object.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: The requesting user isn't authorized to access the project.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: A project isn't hosted at this location.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - project
+            - basic
+            - api_key
+          (tags):
+            - projects
+        put:
+          displayName: PUT_teams-owner-projects-project_key
+          body:
+            application/json:
+              type: project
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: project
+              description: The existing project is has been updated.
+            '201':
+              body:
+                application/json:
+                  type: project
+              description: A new project has been created.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: The requesting user isn't authorized to update or create the project.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: 'A team doesn''t exist at the location. Note that the project''s absence from this location doesn''t raise a 404, since a PUT at a non-existent location can be used to create a new project.'
+          securedBy:
+            - oauth2:
+                scopes:
+                  - 'project:write'
+            - basic
+            - api_key
+          (tags):
+            - projects
+  '/{username}':
+    displayName: '{username}'
+    uriParameters:
+      username:
+        type: string
+        description: The team's username or UUID.
+        displayName: The team's username or UUID.
+    get:
+      displayName: GET_teams-username
+      responses:
+        '200':
+          body:
+            application/json:
+              type: team
+          description: The team object
+        '404':
+          body:
+            application/json:
+              type: error
+          description: 'If no team exists for the specified name or UUID, or if the specified account is a personal account, not a team account.'
+      securedBy:
+        - oauth2
+        - basic
+        - api_key
+      (tags):
+        - teams
+    /followers:
+      displayName: followers
+      get:
+        displayName: GET_teams-username-followers
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_users
+            description: A paginated list of user objects.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: 'If no team exists for the specified name, or if the specified account is a personal account, not a team account.'
+        securedBy:
+          - oauth2
+          - basic
+          - api_key
+        (tags):
+          - teams
+    /following:
+      displayName: following
+      get:
+        displayName: GET_teams-username-following
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_users
+            description: A paginated list of user objects.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: 'If no team exists for the specified name, or if the specified account is a personal account, not a team account.'
+        securedBy:
+          - oauth2:
+              scopes:
+                - account
+          - basic
+          - api_key
+        (tags):
+          - teams
+    /hooks:
+      displayName: hooks
+      get:
+        displayName: GET_teams-username-hooks
+        responses:
+          '200':
+            body:
+              application/json:
+                type: paginated_webhook_subscriptions
+            description: The paginated list of installed webhooks.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If the authenticated user is not an admin on the specified team.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the specified team does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - webhook
+          - basic
+          - api_key
+        (tags):
+          - teams
+          - webhooks
+      post:
+        displayName: POST_teams-username-hooks
+        body: {}
+        responses:
+          '201':
+            body:
+              application/json:
+                type: webhook_subscription
+            description: The newly installed webhook.
+          '403':
+            body:
+              application/json:
+                type: error
+            description: If the authenticated user is not an admin on the specified team.
+          '404':
+            body:
+              application/json:
+                type: error
+            description: If the specified team does not exist.
+        securedBy:
+          - oauth2:
+              scopes:
+                - webhook
+          - basic
+          - api_key
+        (tags):
+          - teams
+          - webhooks
+      '/{uid}':
+        displayName: '{uid}'
+        uriParameters:
+          uid:
+            type: string
+            description: The installed webhook's id
+            displayName: The installed webhook's id
+        delete:
+          displayName: DELETE_teams-username-hooks-uid
+          responses:
+            '204':
+              body:
+                application/json: {}
+              description: When the webhook was deleted successfully
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to delete the webhook.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or team does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - teams
+            - webhooks
+        get:
+          displayName: GET_teams-username-hooks-uid
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: webhook_subscription
+              description: The webhook subscription object.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or team does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - teams
+            - webhooks
+        put:
+          displayName: PUT_teams-username-hooks-uid
+          body: {}
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: webhook_subscription
+              description: The webhook subscription object.
+            '403':
+              body:
+                application/json:
+                  type: error
+              description: If the authenticated user does not have permission to update the webhook.
+            '404':
+              body:
+                application/json:
+                  type: error
+              description: If the webhook or team does not exist.
+          securedBy:
+            - oauth2:
+                scopes:
+                  - webhook
+            - basic
+            - api_key
+          (tags):
+            - teams
+            - webhooks
+    /members:
+      displayName: members
+      get:
+        displayName: GET_teams-username-members
+        responses:
+          '200':
+            body:
+              application/json:
+                type: user
+            description: All members
+          '404':
+            body:
+              application/json:
+                type: error
+            description: 'When the team does not exist, or multiple teams with the same name exist that differ only in casing and the URL did not match the exact casing of a particular one.'
+        securedBy:
+          - oauth2:
+              scopes:
+                - account
+          - basic
+          - api_key
+        (tags):
+          - teams
+    /repositories:
+      displayName: repositories
+      get:
+        displayName: GET_teams-username-repositories
+        responses: {}
+        securedBy:
+          - oauth2:
+              scopes:
+                - repository
+          - basic
+          - api_key
+        (tags):
+          - users
+          - teams
+/user:
+  displayName: user
+  get:
+    displayName: GET_user
+    responses:
+      '200':
+        body:
+          application/json:
+            type: user
+        description: The current user.
+      '401':
+        body:
+          application/json:
+            type: error
+        description: When the request wasn't authenticated.
+    securedBy:
+      - oauth2:
+          scopes:
+            - account
+      - basic
+      - api_key
+    (tags):
+      - users
+  /emails:
+    displayName: emails
+    get:
+      displayName: GET_user-emails
+      responses: {}
+      securedBy:
+        - oauth2:
+            scopes:
+              - email
+        - basic
+        - api_key
+      (tags):
+        - users
+    '/{email}':
+      displayName: '{email}'
+      uriParameters:
+        email:
+          type: string
+      get:
+        displayName: GET_user-emails-email
+        responses: {}
+        securedBy:
+          - oauth2:
+              scopes:
+                - email
+          - basic
+          - api_key
+        (tags):
+          - users
+annotationTypes:
+  tags: 'string[]'
+  deprecated: boolean
+  externalDocs:
+    properties:
+      description?: string
+      url: string
+  info:
+    properties:
+      termsOfService?: string
+      contact?:
+        properties:
+          name?: string
+          url?: string
+          email?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
+types:
+  account:
+    description: An account object.
+    properties:
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      display_name:
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          avatar:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          followers:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          following:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          repositories:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      username:
+        pattern: '^[a-zA-Z0-9_\-]+$'
+        type: string
+        required: false
+      uuid:
+        type: string
+        required: false
+      website:
+        type: string
+        required: false
+      //: true
+    type: object
+  base_commit:
+    description: The common base type for both repository and snippet commits.
+    properties:
+      author:
+        type: account
+        required: false
+      date:
+        type: datetime
+        format: rfc3339
+        required: false
+      hash:
+        pattern: '[0-9a-f]{7,}?'
+        type: string
+        required: false
+      message:
+        type: string
+        required: false
+      parents:
+        items:
+          type: base_commit
+        minItems: 0
+        type: array
+        required: false
+      //: true
+    type: object
+  branchrestriction:
+    description: A branch restriction rule.
+    properties:
+      groups:
+        items:
+          type: group
+        minItems: 0
+        type: array
+        required: false
+      id:
+        description: The branch restriction status' id.
+        type: integer
+        required: false
+      kind:
+        description: The type of restriction that is being applied
+        enum:
+          - require_tasks_to_be_completed
+          - require_passing_builds_to_merge
+          - force
+          - push
+          - require_approvals_to_merge
+          - restrict_merges
+          - reset_pullrequest_approvals_on_change
+          - delete
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      users:
+        items:
+          type: account
+        minItems: 0
+        type: array
+        required: false
+      value:
+        description: 'Value with kind-specific semantics: "require_approvals_to_merge" uses it to require a minimum number of approvals on a PR; "require_passing_builds_to_merge" uses it to require a minimum number of passing builds.'
+        type: integer
+        required: false
+      //: true
+    type: object
+  commit:
+    description: A repository commit object.
+    properties:
+      links:
+        additionalProperties: false
+        properties:
+          approve:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          comments:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          diff:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          patch:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          statuses:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      participants:
+        items:
+          type: participant
+        minItems: 0
+        type: array
+        required: false
+      repository:
+        type: repository
+        required: false
+      //: true
+    type: base_commit
+  commitstatus:
+    description: A commit status object.
+    properties:
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      description:
+        description: A description of the build (e.g. "Unit tests in Bamboo")
+        type: string
+        required: false
+      key:
+        description: |-
+          An identifier for the status that's unique to
+                  its type (current "build" is the only supported type) and the vendor,
+                  e.g. BB-DEPLOY
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          commit:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        description: 'An identifier for the build itself, e.g. BB-DEPLOY-1'
+        type: string
+        required: false
+      state:
+        description: Provides some indication of the status of this commit
+        enum:
+          - SUCCESSFUL
+          - FAILED
+          - INPROGRESS
+        type: string
+        required: false
+      updated_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      url:
+        description: 'A URL linking back to the vendor or build system, for providing more information about whatever process produced this status'
+        type: string
+        required: false
+      uuid:
+        description: The commit status' id.
+        type: string
+        required: false
+      //: true
+    type: object
+  component:
+    description: A component as defined in a repository's issue tracker.
+    properties:
+      id:
+        type: integer
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        type: string
+        required: false
+      //: true
+    type: object
+  error:
+    additionalProperties: false
+    properties:
+      error:
+        additionalProperties: false
+        properties:
+          detail:
+            type: string
+          id:
+            description: A unique identifier for the error for use in bug reports and support cases.
+            type: string
+          message:
+            type: string
+        required: false
+        type: object
+  group:
+    description: A group object
+    properties:
+      full_slug:
+        description: |
+          The concatenation of the owner's username and the group's slug,
+          separated with a colon (e.g. `acme:developers`)
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      members:
+        description: The number of members in this group
+        type: integer
+        required: false
+      name:
+        type: string
+        required: false
+      owner:
+        type: account
+        required: false
+      slug:
+        description: |-
+          The "sluggified" version of the group's name. This contains only ASCII
+          characters and can therefore be slightly different than the name
+        type: string
+        required: false
+      //: true
+    type: object
+  hook_event:
+    additionalProperties: false
+    description: 'An event, associated with a resource or subject type.'
+    properties:
+      category:
+        description: The category this event belongs to.
+        type: string
+        required: false
+      description:
+        description: More detailed description of the webhook event type.
+        type: string
+        required: false
+      event:
+        description: The event identifier.
+        enum:
+          - 'pullrequest:updated'
+          - 'repo:commit_status_created'
+          - 'repo:updated'
+          - 'issue:comment_created'
+          - 'project:updated'
+          - 'pullrequest:rejected'
+          - 'pullrequest:fulfilled'
+          - 'repo:imported'
+          - 'repo:deleted'
+          - 'pullrequest:comment_created'
+          - 'pullrequest:comment_deleted'
+          - 'repo:fork'
+          - 'issue:created'
+          - 'repo:commit_comment_created'
+          - 'pullrequest:approved'
+          - 'repo:commit_status_updated'
+          - 'pullrequest:comment_updated'
+          - 'issue:updated'
+          - 'pullrequest:unapproved'
+          - 'pullrequest:created'
+          - 'repo:push'
+        type: string
+        required: false
+      label:
+        description: Summary of the webhook event type.
+        type: string
+        required: false
+  issue:
+    description: An issue.
+    properties:
+      assignee:
+        type: user
+        required: false
+      component:
+        type: component
+        required: false
+      content:
+        additionalProperties: false
+        properties:
+          html:
+            description: The user's markup rendered as HTML.
+            type: string
+          markup:
+            description: The type of markup language the content is to be interpreted in.
+            enum:
+              - markdown
+              - creole
+            type: string
+          raw:
+            description: The text as it was typed by a user.
+            type: string
+        type: object
+        required: false
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      edited_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      id:
+        type: integer
+        required: false
+      kind:
+        enum:
+          - bug
+          - enhancement
+          - proposal
+          - task
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          attachments:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          comments:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          vote:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          watch:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      milestone:
+        type: milestone
+        required: false
+      priority:
+        enum:
+          - trivial
+          - minor
+          - major
+          - critical
+          - blocker
+        type: string
+        required: false
+      reporter:
+        type: user
+        required: false
+      repository:
+        type: repository
+        required: false
+      state:
+        enum:
+          - new
+          - open
+          - resolved
+          - on hold
+          - invalid
+          - duplicate
+          - wontfix
+          - closed
+        type: string
+        required: false
+      title:
+        type: string
+        required: false
+      updated_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      version:
+        type: version
+        required: false
+      votes:
+        type: integer
+        required: false
+      //: true
+    type: object
+  issue_attachment:
+    description: An issue file attachment's meta data. Note this does not contain the file's actual contents.
+    properties:
+      links:
+        additionalProperties: false
+        properties:
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        type: string
+        required: false
+      //: true
+    type: object
+  milestone:
+    description: A milestone as defined in a repository's issue tracker.
+    properties:
+      id:
+        type: integer
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        type: string
+        required: false
+      //: true
+    type: object
+  object:
+    description: Base type for most resource objects. It defines the common `type` element that identifies an object's type. It also identifies the element as Swagger's `discriminator`.
+    discriminator: type
+    properties:
+      type:
+        type: string
+      //: true
+  page:
+    additionalProperties: false
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+  paginated_branchrestrictions:
+    additionalProperties: false
+    description: A paginated list of branch restriction rules.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: branchrestriction
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_commitstatuses:
+    additionalProperties: false
+    description: A paginated list of commit status objects.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: commitstatus
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_components:
+    additionalProperties: false
+    description: A paginated list of issue tracker components.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: component
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_hook_events:
+    additionalProperties: false
+    description: A paginated list of webhook types available to subscribe on.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: hook_event
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_issue_attachments:
+    additionalProperties: false
+    description: A paginated list of issue attachments.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: issue_attachment
+        minItems: 0
+        type: array
+        required: false
+  paginated_issues:
+    additionalProperties: false
+    description: A paginated list of issues.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: issue
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_milestones:
+    additionalProperties: false
+    description: A paginated list of issue tracker milestones.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: milestone
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_projects:
+    additionalProperties: false
+    description: A paginated list of projects
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: project
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_repositories:
+    additionalProperties: false
+    description: A paginated list of repositories.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: repository
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_snippet_comments:
+    additionalProperties: false
+    description: A paginated list of snippet comments.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: snippet_comment
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_snippet_commit:
+    additionalProperties: false
+    description: A paginated list of snippet commits.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: snippet_commit
+        minItems: 0
+        type: array
+        required: false
+  paginated_snippets:
+    additionalProperties: false
+    description: A paginated list of snippets.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: snippet
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_teams:
+    additionalProperties: false
+    description: A paginated list of teams.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: team
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_users:
+    additionalProperties: false
+    description: A paginated list of users.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: user
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_versions:
+    additionalProperties: false
+    description: A paginated list of issue tracker versions.
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: version
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  paginated_webhook_subscriptions:
+    additionalProperties: false
+    description: A paginated list of webhook subscriptions
+    properties:
+      next:
+        description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      page:
+        description: Page number of the current results. This is an optional element that is not provided in all responses.
+        minimum: 1
+        type: integer
+        required: false
+      pagelen:
+        description: Current number of objects on the existing page. The default value is 10 with 100 being the maximum allowed value. Individual APIs may enforce different values.
+        minimum: 1
+        type: integer
+        required: false
+      previous:
+        description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
+        format: uri
+        type: string
+        required: false
+      size:
+        description: 'Total number of objects in the response. This is an optional element that is not provided in all responses, as it can be expensive to compute.'
+        minimum: 0
+        type: integer
+        required: false
+      values:
+        items:
+          type: webhook_subscription
+        minItems: 0
+        type: array
+        uniqueItems: true
+        required: false
+  participant:
+    description: Object describing a user's role on resources like commits or pull requests.
+    properties:
+      approved:
+        type: boolean
+        required: false
+      role:
+        enum:
+          - PARTICIPANT
+          - REVIEWER
+        type: string
+        required: false
+      user:
+        type: user
+        required: false
+      //: true
+    type: object
+  project:
+    description: |-
+      A Bitbucket project.
+                  Projects are used by teams to organize repositories.
+    properties:
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      description:
+        type: string
+        required: false
+      is_private:
+        description: |-
+
+          Indicates whether the project is publicly accessible, or whether it is
+          private to the team and consequently only visible to team members.
+          Note that private projects cannot contain public repositories.
+        type: boolean
+        required: false
+      key:
+        description: The project's key.
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          avatar:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        description: The name of the project.
+        type: string
+        required: false
+      owner:
+        type: team
+        required: false
+      updated_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      uuid:
+        description: The project's immutable id.
+        type: string
+        required: false
+      //: true
+    type: object
+  pullrequest:
+    description: A pull request object.
+    properties:
+      author:
+        type: account
+        required: false
+      id:
+        type: integer
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          activity:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          approve:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          comments:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          commits:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          decline:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          diff:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          merge:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      state:
+        enum:
+          - MERGED
+          - SUPERSEDED
+          - OPEN
+          - DECLINED
+        type: string
+        required: false
+      title:
+        type: string
+        required: false
+      //: true
+    type: object
+  repository:
+    description: A Bitbucket repository.
+    properties:
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      description:
+        type: string
+        required: false
+      fork_policy:
+        description: |
+
+          Controls the rules for forking this repository.
+
+          * **allow_forks**: unrestricted forking
+          * **no_public_forks**: restrict forking to private forks (forks cannot
+            be made public later)
+          * **no_forks**: deny all forking
+        enum:
+          - allow_forks
+          - no_public_forks
+          - no_forks
+        type: string
+        required: false
+      full_name:
+        description: 'The concatenation of the repository owner''s username and the slugified name, e.g. "evzijst/interruptingcow". This is the same string used in Bitbucket URLs.'
+        type: string
+        required: false
+      has_issues:
+        type: boolean
+        required: false
+      has_wiki:
+        type: boolean
+        required: false
+      is_private:
+        type: boolean
+        required: false
+      language:
+        type: string
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          avatar:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          clone:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          commits:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          downloads:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          forks:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          hooks:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          pullrequests:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          watchers:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        type: string
+        required: false
+      owner:
+        type: account
+        required: false
+      parent:
+        type: repository
+        required: false
+      project:
+        type: project
+        required: false
+      scm:
+        enum:
+          - hg
+          - git
+        type: string
+        required: false
+      size:
+        type: integer
+        required: false
+      updated_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      uuid:
+        description: 'The repository''s immutable id. This can be used as a substitute for the slug segment in URLs. Doing this guarantees your URLs will survive renaming of the repository by its owner, or even transfer of the repository to a different user.'
+        type: string
+        required: false
+      //: true
+    type: object
+  snippet:
+    description: A snippet object.
+    properties:
+      created_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      creator:
+        type: account
+        required: false
+      id:
+        minimum: 0
+        type: integer
+        required: false
+      is_private:
+        type: boolean
+        required: false
+      owner:
+        type: account
+        required: false
+      scm:
+        description: The DVCS used to store the snippet.
+        enum:
+          - hg
+          - git
+        type: string
+        required: false
+      title:
+        type: string
+        required: false
+      updated_on:
+        type: datetime
+        format: rfc3339
+        required: false
+      //: true
+    type: object
+  snippet_comment:
+    description: A comment on a snippet.
+    properties:
+      links:
+        additionalProperties: false
+        properties:
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      snippet:
+        type: snippet
+        required: false
+      //: true
+    type: object
+  snippet_commit:
+    description: ''
+    properties:
+      links:
+        additionalProperties: false
+        properties:
+          diff:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          html:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      snippet:
+        type: snippet
+        required: false
+      //: true
+    type: base_commit
+  subject_types:
+    additionalProperties: false
+    description: The mapping of resource/subject types pointing to their individual event types.
+    properties:
+      repository:
+        additionalProperties: false
+        properties:
+          events:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      team:
+        additionalProperties: false
+        properties:
+          events:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      user:
+        additionalProperties: false
+        properties:
+          events:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+  team:
+    description: A team object.
+    properties:
+      //: true
+    type: account
+  user:
+    description: A user object.
+    properties:
+      //: true
+    type: account
+  version:
+    description: A version as defined in a repository's issue tracker.
+    properties:
+      id:
+        type: integer
+        required: false
+      links:
+        additionalProperties: false
+        properties:
+          self:
+            additionalProperties: false
+            properties:
+              href:
+                format: uri
+                type: string
+            type: object
+        type: object
+        required: false
+      name:
+        type: string
+        required: false
+      //: true
+    type: object
+  webhook_subscription:
+    description: A Webhook subscription.
+    properties:
+      active:
+        type: boolean
+        required: false
+      created_at:
+        type: datetime
+        format: rfc3339
+        required: false
+      description:
+        description: A user-defined description of the webhook.
+        type: string
+        required: false
+      events:
+        description: The events this webhook is subscribed to.
+        items:
+          enum:
+            - 'pullrequest:updated'
+            - 'repo:commit_status_created'
+            - 'repo:updated'
+            - 'issue:comment_created'
+            - 'project:updated'
+            - 'pullrequest:rejected'
+            - 'pullrequest:fulfilled'
+            - 'repo:imported'
+            - 'repo:deleted'
+            - 'pullrequest:comment_created'
+            - 'pullrequest:comment_deleted'
+            - 'repo:fork'
+            - 'issue:created'
+            - 'repo:commit_comment_created'
+            - 'pullrequest:approved'
+            - 'repo:commit_status_updated'
+            - 'pullrequest:comment_updated'
+            - 'issue:updated'
+            - 'pullrequest:unapproved'
+            - 'pullrequest:created'
+            - 'repo:push'
+          type: string
+        minItems: 1
+        type: array
+        uniqueItems: true
+        required: false
+      subject:
+        type: object
+        required: false
+      subject_type:
+        description: 'The type of entity, which is `repository` in the case of webhook subscriptions on repositories.'
+        enum:
+          - user
+          - repository
+          - team
+        type: string
+        required: false
+      url:
+        description: The URL events get delivered to.
+        format: uri
+        type: string
+        required: false
+      uuid:
+        description: The webhook's id
+        type: string
+        required: false
+      //: true
+    type: object
