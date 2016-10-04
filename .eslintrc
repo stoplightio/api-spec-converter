@@ -8,7 +8,6 @@
   },
   "rules": {
     "indent": 0,
-    "prefer-template": 0,
     "func-names": 0,
     "prefer-arrow-callback": 0,
     "no-var": 0,
