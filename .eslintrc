@@ -17,7 +17,6 @@
     "no-tabs": 0,
     "keyword-spacing":0,
     "no-continue":0,
-    "key-spacing":0,
     "no-mixed-spaces-and-tabs":0
   }
 }
