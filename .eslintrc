@@ -12,7 +12,6 @@
     "prefer-arrow-callback": 0,
     "no-var": 0,
     "vars-on-top": 0,
-    "no-prototype-builtins":0,
     "no-tabs": 0,
     "no-continue":0,
     "no-mixed-spaces-and-tabs":0
