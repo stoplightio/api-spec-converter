@@ -9,7 +9,6 @@
   "rules": {
     "indent": 0,
     "func-names": 0,
-    "prefer-arrow-callback": 0,
     "no-var": 0,
     "no-tabs": 0,
     "no-continue":0,
