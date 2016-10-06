@@ -6,9 +6,4 @@
     "browser": true,
     "node": true
   },
-  "rules": {
-    "func-names": 0,
-    "no-var": 0,
-    "no-continue":0
-  }
 }
