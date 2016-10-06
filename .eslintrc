@@ -9,7 +9,6 @@
   "rules": {
     "func-names": 0,
     "no-var": 0,
-    "no-continue":0,
-    "no-mixed-spaces-and-tabs":0
+    "no-continue":0
   }
 }
