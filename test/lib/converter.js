@@ -3,7 +3,8 @@ var chai   = require('chai'),
     specConverter = require('../../index'),
     fs = require('fs'),
     YAML = require('js-yaml'),
-		_ = require('lodash');
+		_ = require('lodash'),
+		path = require('path');
 
 chai.use(require('chai-string'));
 
@@ -265,9 +266,9 @@ describe('from swagger to raml', function () {
 					converter.convert('yaml', function(err, covertedRAML){
 						if (err)return done(err);
 						
-						var existsTarget = fs.existsSync(targetFile);
+						var notExistsTarget = !fs.existsSync(targetFile);
 						
-						if (!existsTarget) {
+						if (notExistsTarget) {
 							console.log('Content for non existing target file ' + targetFile + '\n.');
 							console.log('********** Begin file **********\n');
 							console.log(covertedRAML);
@@ -306,17 +307,56 @@ describe('from raml to swagger', function () {
 	var baseDir = __dirname + '/../data/raml-import/raml';
 	var testFiles = fs.readdirSync(baseDir);
 	
+	var myFsResolver = {
+		content: function (filePath) {},
+		contentAsync: function (filePath) {
+			return new Promise(function(resolve, reject){
+				try {
+					var p = path.parse(filePath);
+					
+					if (p.dir.indexOf('types') > 0) {
+						var baseDir = p.dir.replace('types', '../../types/');
+						var fileName = p.base === 'Person.xyz' ? 'Person.json' : p.base;
+						
+						resolve(fs.readFileSync(baseDir + fileName, 'UTF8'));
+						
+					} else {
+						resolve(fs.readFileSync(filePath, 'UTF8'));
+					}
+				}
+				catch (e) {
+					reject(e);
+				}
+			});
+		}
+	};
+	
+	var myOptions = {
+		fsResolver : myFsResolver
+	};
+	
 	var testWithData = function (testFile) {
 		return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
 			var ramlVersion = _.startsWith(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
 			var converter = new specConverter.Converter(ramlVersion, specConverter.Formats.SWAGGER);
-			converter.loadFile(testFilePath, function() {
+			converter.loadFileWithOptions(testFilePath, myOptions, function() {
 				try{
 					converter.convert('json', function(err, resultSwagger){
 						if (err)return done(err);
-						expect(resultSwagger).to.deep.equal(require(baseDir + '/../swagger/' + _.replace(testFile, 'yaml', 'json')));
-						done();
+						var targetFile = baseDir + '/../swagger/' + _.replace(testFile, 'yaml', 'json');
+						
+						var notExistsTarget = !fs.existsSync(targetFile);
+						if (notExistsTarget) {
+							console.log('Content for non existing target file ' + targetFile + '\n.');
+							console.log('********** Begin file **********\n');
+							console.log(JSON.stringify(resultSwagger));
+							console.log('********** Finish file **********\n');
+							done(err);
+						} else {
+							expect(resultSwagger).to.deep.equal(require(targetFile));
+							done();
+						}
 					});
 				} catch(err) {
 					done(err);

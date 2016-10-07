@@ -1,0 +1,74 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "description": "This is a sample server Petstore server."
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/pet/{petId}": {
+      "parameters": [
+        {
+          "name": "petId",
+          "in": "path",
+          "description": "ID of pet to return",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "operationId": "getPetById",
+        "description": "Returns a single pet",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
+    },
+    "/pet": {
+      "post": {
+        "operationId": "addPet",
+        "description": "Add a new pet to the store",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Pet object that needs to be added to the store",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": "<?xml version=\"1.0\" encoding=\"utf-8\"?><xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n    <xs:element name=\"country\">\n        <xs:complexType>\n            <xs:sequence>\n                <xs:element name=\"country_name\" type=\"xs:string\"/>\n                <xs:element name=\"population\" type=\"xs:decimal\"/>\n            </xs:sequence>\n        </xs:complexType>\n    </xs:element>\n    <xs:complexType name=\"City\">\n        <xs:sequence>\n            <xs:element name=\"country_name\" type=\"xs:string\"/>\n            <xs:element name=\"population\" type=\"xs:decimal\"/>\n        </xs:sequence>\n    </xs:complexType>\n    <xs:element name=\"city\" type=\"City\"/>\n<xs:element name=\"dHlwZXMvc29uZ3MueHNkL2NpdHk\" type=\"City\" originalname=\"city\" requestedname=\"city\" extraelement=\"true\"/></xs:schema>"
+  }
+}
