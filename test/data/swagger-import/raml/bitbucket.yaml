@@ -3649,11 +3649,7 @@ annotationTypes:
   deprecated: boolean
   externalDocs:
     properties:
-<<<<<<< HEAD
       description?: string
-=======
-      description: string
->>>>>>> upstream/issue32
       url: string
   info:
     properties:
@@ -3685,60 +3681,36 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           followers:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           following:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           repositories:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -3813,10 +3785,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -3843,70 +3811,42 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           comments:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           diff:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           patch:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           statuses:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -3947,20 +3887,12 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4004,10 +3936,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4048,20 +3976,12 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4178,60 +4098,36 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           comments:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           vote:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           watch:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4291,10 +4187,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4317,10 +4209,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -4342,10 +4230,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4360,10 +4244,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4377,10 +4257,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4395,10 +4271,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4419,10 +4291,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4437,10 +4305,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4461,10 +4325,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4479,10 +4339,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4503,10 +4359,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4521,10 +4373,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4545,10 +4393,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4563,10 +4407,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4586,10 +4426,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4604,10 +4440,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4628,10 +4460,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4646,10 +4474,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4670,10 +4494,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4688,10 +4508,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4712,10 +4528,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4730,10 +4542,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4754,10 +4562,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4772,10 +4576,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4796,10 +4596,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4814,10 +4610,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4837,10 +4629,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4855,10 +4643,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4879,10 +4663,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4897,10 +4677,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4921,10 +4697,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4939,10 +4711,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -4963,10 +4731,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -4981,10 +4745,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -5005,10 +4765,6 @@ types:
     properties:
       next:
         description: Link to the next page if it exists. The last page of a collection does not have this value. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       page:
@@ -5023,10 +4779,6 @@ types:
         required: false
       previous:
         description: Link to previous page if it exists. A collections first page does not have this value. This is an optional element that is not provided in all responses. Some result sets strictly support forward navigation and never provide previous links. Clients must anticipate that backwards navigation is not always available. Use this link to navigate the result set and refrain from constructing your own URLs.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       size:
@@ -5089,20 +4841,12 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5140,90 +4884,54 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           approve:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           comments:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           commits:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           decline:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           diff:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           merge:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5289,100 +4997,60 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           clone:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           commits:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           downloads:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           forks:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           hooks:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           pullrequests:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           watchers:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5464,20 +5132,12 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5497,30 +5157,18 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           html:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
           self:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5541,10 +5189,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5556,10 +5200,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5571,10 +5211,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5602,10 +5238,6 @@ types:
             additionalProperties: false
             properties:
               href:
-<<<<<<< HEAD
-                format: uri
-=======
->>>>>>> upstream/issue32
                 type: string
             type: object
         type: object
@@ -5672,10 +5304,6 @@ types:
         required: false
       url:
         description: The URL events get delivered to.
-<<<<<<< HEAD
-        format: uri
-=======
->>>>>>> upstream/issue32
         type: string
         required: false
       uuid:
