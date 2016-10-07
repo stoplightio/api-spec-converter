@@ -120,8 +120,3 @@ types:
     example:
       username: xyz
       user_password: zyx
-  SuperUser:
-    type: User
-    properties:
-      superuser:
-        type: boolean
