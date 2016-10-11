@@ -53,6 +53,9 @@
               "application/json": "can not resolve examples/Foos.json"
             },
             "schema": {
+              "items": {
+                "$ref": "#/definitions/Foo"
+              },
               "type": "array"
             }
           }
@@ -95,6 +98,9 @@
               "application/json": "can not resolve examples/Foos.json"
             },
             "schema": {
+              "items": {
+                "$ref": "#/definitions/Foo"
+              },
               "type": "array"
             }
           }

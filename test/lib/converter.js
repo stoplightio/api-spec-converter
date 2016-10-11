@@ -366,6 +366,13 @@ describe('from raml to swagger', function () {
 	};
 	
 	testFiles.forEach(function (testFile) {
-		it('test: ' + testFile, testWithData(testFile));
+		if (process.env.fileToTest) {
+			if (_.endsWith(testFile, process.env.fileToTest)) {
+				it('test: ' + testFile, testWithData(testFile));
+			}
+		}
+		else {
+			it('test: ' + testFile, testWithData(testFile));
+		}
 	});
 });

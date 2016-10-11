@@ -1,0 +1,92 @@
+#%RAML 1.0
+title: Swagger Petstore
+version: 1.0.0
+baseUri: 'http://petstore.swagger.io/v2'
+protocols:
+  - HTTP
+description: This is a sample server Petstore server.
+/pet:
+  displayName: pet
+  '/{petId}':
+    displayName: '{petId}'
+    uriParameters:
+      petId:
+        description: ID of pet to return
+        type: string
+        displayName: ID of pet to return
+    get:
+      displayName: getPetById
+      description: Returns a single pet
+      responses:
+        '200':
+          body:
+            application/json:
+              type: Category[]
+          description: successful operation
+  '/{petId}2':
+    displayName: '{petId}'
+    uriParameters:
+      petId:
+        description: ID of pet to return
+        type: string
+        displayName: ID of pet to return
+    get:
+      displayName: getPetById
+      description: Returns a single pet
+      responses:
+        '200':
+          body:
+            application/json:
+              type: Pet1
+          description: successful operation
+  '/{petId}3':
+    displayName: '{petId}'
+    uriParameters:
+      petId:
+        description: ID of pet to return
+        type: string
+        displayName: ID of pet to return
+    get:
+      displayName: getPetById
+      description: Returns a single pet
+      responses:
+        '200':
+          body:
+            application/json:
+              type: Pet2
+          description: successful operation
+  post:
+    displayName: addPet
+    description: Add a new pet to the store
+    body:
+      application/json:
+        description: Pet object that needs to be added to the store
+        type: array
+        items: Category
+    responses:
+      '200':
+        description: ok
+  patch:
+    displayName: addPet
+    description: Add a new pet to the store
+    body:
+      application/json:
+        description: Pet object that needs to be added to the store
+        type: Category[]
+    responses:
+      '200':
+        description: ok
+types:
+  Category:
+    properties:
+      id:
+        type: string
+        required: false
+      name:
+        type: string
+        required: false
+  Pet1:
+    type: array
+    items: Category
+  Pet2:
+    type: Category[]
