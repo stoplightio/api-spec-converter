@@ -23,6 +23,31 @@
         "$ref": "#/definitions/Category"
       },
       "type": "array"
+    },
+    "Pet3": {
+      "properties": {
+        "home": {
+          "type": "boolean"
+        },
+        "ids": {
+          "items": {
+            "$ref": "#/definitions/Category"
+          },
+          "type": "array"
+        },
+        "name": {
+          "items": {
+            "$ref": "#/definitions/Category"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "ids",
+        "name",
+        "home"
+      ],
+      "type": "object"
     }
   },
   "host": "petstore.swagger.io",

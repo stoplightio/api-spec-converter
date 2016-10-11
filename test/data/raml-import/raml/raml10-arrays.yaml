@@ -90,3 +90,12 @@ types:
     items: Category
   Pet2:
     type: Category[]
+  Pet3:
+    properties:
+      ids:
+        type: array
+        items: Category
+      name:
+        type: Category[]
+      home:
+        type: boolean
