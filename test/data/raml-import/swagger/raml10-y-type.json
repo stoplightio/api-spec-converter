@@ -10,32 +10,24 @@
       "type": "object"
     },
     "Foo": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/object"
-        },
-        {
-          "description": "Foo details",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "ownerName": {
-              "type": "string"
-            }
+        "description": "Foo details",
+        "properties": {
+          "id": {
+            "type": "number"
           },
-          "required": [
-            "id",
-            "name",
-            "ownerName"
-          ],
-          "type": "object"
-        }
-      ],
-      "description": "Foo details"
+          "name": {
+            "type": "string"
+          },
+          "ownerName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "ownerName"
+        ],
+        "type": "object"
     }
   },
   "host": "rest-api.baeldung.com",
