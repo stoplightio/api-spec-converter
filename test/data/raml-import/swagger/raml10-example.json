@@ -1,0 +1,95 @@
+{
+  "definitions": {
+    "Org": {
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "address",
+        "value"
+      ],
+      "type": "object"
+    },
+    "User": {
+      "properties": {
+        "lastname": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "lastname"
+      ],
+      "type": "object"
+    }
+  },
+  "info": {
+    "description": "",
+    "title": "API with Examples",
+    "version": ""
+  },
+  "paths": {
+    "/organization": {
+      "get": {
+        "description": "Returns an organization entity.",
+        "operationId": "GET_organization",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Org"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "POST_organization",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Org",
+              "example": {
+                "name": "Doe Enterprise",
+                "value": "Silver"
+              }
+            }
+          },
+          {
+            "description": "the identifier for the user who posts a new organization",
+            "in": "header",
+            "name": "UserID",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {}
+          }
+        }
+      }
+    }
+  },
+  "swagger": "2.0"
+}
