@@ -80,7 +80,7 @@ securitySchemes:
           - store
     post:
       displayName: placeOrder
-      description: Place an order for a pet. Place an order for a pet
+      description: Place an order for a pet
       body:
         application/json:
           type: Order
@@ -158,7 +158,7 @@ securitySchemes:
         - user
     get:
       displayName: getUserByName
-      description: Get user by user name. Get user by user name
+      description: Get user by user name
       responses:
         '200':
           body:
@@ -189,7 +189,7 @@ securitySchemes:
     displayName: createWithArray
     post:
       displayName: createUsersWithArrayInput
-      description: Creates list of users with given input array. Creates list of users with given input array
+      description: Creates list of users with given input array
       body:
         application/json:
           type: array
@@ -203,7 +203,7 @@ securitySchemes:
     displayName: createWithList
     post:
       displayName: createUsersWithListInput
-      description: Creates list of users with given input array. Creates list of users with given input array
+      description: Creates list of users with given input array
       body:
         application/json:
           type: array
@@ -217,7 +217,7 @@ securitySchemes:
     displayName: logout
     get:
       displayName: logoutUser
-      description: Logs out current logged in user session. Logs out current logged in user session
+      description: Logs out current logged in user session
       responses: {}
       (tags):
         - user
@@ -225,7 +225,7 @@ securitySchemes:
     displayName: login
     get:
       displayName: loginUser
-      description: Logs user into the system. Logs user into the system
+      description: Logs user into the system
       responses:
         '200':
           body:
@@ -251,7 +251,7 @@ securitySchemes:
   displayName: pet
   post:
     displayName: addPet
-    description: Add a new pet to the store. Add a new pet to the store
+    description: Add a new pet to the store
     body:
       application/json:
         type: Pet
@@ -334,7 +334,7 @@ securitySchemes:
         - pet
     delete:
       displayName: deletePet
-      description: Deletes a pet. Deletes a pet
+      description: Deletes a pet
       headers:
         api_key:
           type: string
@@ -358,7 +358,7 @@ securitySchemes:
       displayName: uploadImage
       post:
         displayName: uploadFile
-        description: uploads an image. uploads an image
+        description: uploads an image
         body:
           multipart/form-data:
             properties:
@@ -386,7 +386,7 @@ securitySchemes:
           - pet
     post:
       displayName: updatePetWithForm
-      description: Updates a pet in the store with form data. Updates a pet in the store with form data
+      description: Updates a pet in the store with form data
       body:
         multipart/form-data:
           properties:
@@ -445,7 +445,7 @@ securitySchemes:
       (deprecated): true
   put:
     displayName: updatePet
-    description: Update an existing pet. Update an existing pet
+    description: Update an existing pet
     body:
       application/json:
         type: Pet

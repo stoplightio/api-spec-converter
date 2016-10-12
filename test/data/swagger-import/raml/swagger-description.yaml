@@ -1,0 +1,60 @@
+#%RAML 1.0
+title: Simple API
+version: 0.0.0
+/users:
+  displayName: users
+  get:
+    displayName: GET_users
+    description: Users
+    responses:
+      '200':
+        description: OK
+    (tags):
+      - Location
+/media:
+  displayName: media
+  '/{media-id}':
+    displayName: '{media-id}'
+    uriParameters:
+      media-id:
+        description: The media ID
+        type: integer
+        displayName: The media ID
+    get:
+      displayName: GET_media-media-id
+      description: |
+        Get info about a media object.. Get information about a media object.
+        The returned type key will allow you to differentiate between `image`
+        and `video` media.
+
+        Note: if you authenticate with an OAuth Token, you will receive the
+        `user_has_liked` key which quickly tells you whether the current user
+        has liked this media item.
+      responses:
+        '200':
+          description: OK
+      (tags):
+        - Media
+      (deprecated): true
+      (externalDocs):
+        url: 'https://swagger.io/about'
+/:
+  displayName: ''
+  get:
+    displayName: GET_root
+    description: Get
+    responses:
+      '200':
+        description: OK
+    (tags):
+      - Location
+    (externalDocs):
+      description: find more info here
+      url: 'https://swagger.io/about'
+annotationTypes:
+  tags: 'string[]'
+  deprecated: boolean
+  externalDocs:
+    properties:
+      description?: string
+      url: string

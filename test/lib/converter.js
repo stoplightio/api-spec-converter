@@ -295,12 +295,21 @@ describe('from swagger to raml', function () {
 	testFiles.forEach(function (testFile) {
 		var sourceFile = baseDir + '/' + testFile;
 		var targetFile = baseDir + '/../raml/' + _.replace(testFile, 'json', 'yaml');
-		
-		it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
+
+		if (process.env.fileToTest) {
+			if (_.endsWith(sourceFile, process.env.fileToTest)) {
+				it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
+			}
+		}
+		else {
+			it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
+		}
 	});
 	
-	it('should convert from swagger petstore with external refs to raml 1.0',
-		testWithData(__dirname + '/../data/petstore-separate/spec/swagger.json', __dirname + '/../data/petstore-separate/raml10.yaml', true));
+	if (!process.env.fileToTest) {
+		it('should convert from swagger petstore with external refs to raml 1.0',
+			testWithData(__dirname + '/../data/petstore-separate/spec/swagger.json', __dirname + '/../data/petstore-separate/raml10.yaml', true));
+	}
 });
 
 describe('from raml to swagger', function () {
