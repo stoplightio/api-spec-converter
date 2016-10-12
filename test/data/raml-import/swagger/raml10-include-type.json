@@ -1,5 +1,5 @@
 {
-  "basePath": "/api/%7Bversion%7D",
+  "x-basePath": "/api/{version}",
   "consumes": [
     "application/json"
   ],
