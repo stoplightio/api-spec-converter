@@ -9,7 +9,9 @@
       "description": "Error details",
       "type": "object"
     },
-    "Foo": "can not resolve types/Foo.json"
+    "Foo": {
+      "$ref": "#/definitions/can not resolve types/Foo.json"
+    }
   },
   "host": "rest-api.baeldung.com",
   "info": {

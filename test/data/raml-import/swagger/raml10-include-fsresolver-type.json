@@ -9,7 +9,9 @@
       "description": "Error details",
       "type": "object"
     },
-    "Foo": "can not resolve Person.xyz"
+    "Foo": {
+      "$ref": "#/definitions/can not resolve Person.xyz"
+    }
   },
   "host": "rest-api.baeldung.com",
   "info": {
