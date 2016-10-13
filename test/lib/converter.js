@@ -221,7 +221,7 @@ describe('reversable - from raml 2 swagger 2 raml', function () {
 		return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
 
-			var ramlVersion = _.startsWith(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
+			var ramlVersion = _.includes(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
 			var ramlToSwaggerConverter = new specConverter.Converter(ramlVersion,  specConverter.Formats.SWAGGER);
 			var swaggerToRamlConverter = new specConverter.Converter(specConverter.Formats.SWAGGER, ramlVersion);
 
@@ -263,7 +263,9 @@ describe('from swagger to raml', function () {
 
 	var testWithData = function (sourceFile, targetFile, stringCompare) {
 		return function (done) {
-			var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+      var ramlVersion = _.includes(sourceFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
+
+			var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, ramlVersion);
 			converter.loadFile(sourceFile, function(){
 				try{
 					converter.convert('yaml', function(err, covertedRAML){
