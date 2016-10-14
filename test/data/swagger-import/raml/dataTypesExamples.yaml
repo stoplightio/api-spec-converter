@@ -1,0 +1,213 @@
+#%RAML 1.0
+title: Simple API
+version: 0.0.0
+/:
+  displayName: ''
+  get:
+    displayName: GET_root
+    responses:
+      '200':
+        description: OK
+types:
+  Person:
+    properties:
+      firstName:
+        type: string
+        required: false
+      lastName:
+        type: string
+        required: false
+      username:
+        type: string
+        pattern: '[a-z0-9]{8,64}'
+        minLength: 8
+        maxLength: 64
+      dateOfBirth:
+        type: date-only
+        required: false
+      lastTimeOnline:
+        type: datetime
+        format: rfc3339
+        required: false
+      avatarBase64PNG:
+        type: string
+        required: false
+      shortProp:
+        type: integer
+        format: int32
+        required: false
+      longProp:
+        type: integer
+        format: int64
+        required: false
+      floatProp:
+        type: number
+        format: float
+        required: false
+      doubleProp:
+        type: number
+        format: double
+        required: false
+      stringProp:
+        type: string
+        required: false
+      byteProp:
+        type: string
+        required: false
+      binaryProp:
+        type: string
+        required: false
+      boolProp:
+        type: boolean
+        required: false
+      dateProp:
+        type: date-only
+        required: false
+      dateTimeProp:
+        type: datetime
+        format: rfc3339
+        required: false
+      passwordProp:
+        type: string
+        required: false
+      spokenLanguages:
+        type: SpokenLanguages
+        required: false
+  SpokenLanguages:
+    additionalProperties:
+      type: string
+  Persons:
+    properties:
+      items:
+        type: array
+        minItems: 10
+        maxItems: 100
+        uniqueItems: true
+        items:
+          type: Person
+        required: false
+  ErrorMessage:
+    properties:
+      longMessage:
+        type: string
+        required: false
+      shortMessage:
+        type: string
+        required: false
+  MultilingualErrorMessage:
+    properties:
+      defaultLanguage:
+        type: ErrorMessage
+        required: false
+      //:
+        type: ErrorMessage
+  Error:
+    properties:
+      code:
+        type: string
+        enum:
+          - DBERR
+          - NTERR
+          - UNERR
+      message:
+        type: MultilingualErrorMessage
+  CollectingItem:
+    discriminator: itemType
+    properties:
+      itemType:
+        type: string
+        enum:
+          - Vinyl
+          - VHS
+      imageId:
+        type: string
+        required: false
+      maxPrice:
+        type: number
+        format: double
+        minimum: 0
+        maximum: 10000
+        required: false
+  Vinyl:
+    properties:
+      albumName:
+        type: string
+      artist:
+        type: string
+    type: CollectingItem
+  VHS:
+    properties:
+      movieTitle:
+        type: string
+      director:
+        type: string
+        required: false
+    type: CollectingItem
+  PagedPersonsV1:
+    properties:
+      items:
+        type: array
+        items:
+          type: Person
+        required: false
+      totalItems:
+        type: integer
+        required: false
+      totalPages:
+        type: integer
+        required: false
+      pageSize:
+        type: integer
+        required: false
+      currentPage:
+        type: integer
+        required: false
+  PagedPersonsV2:
+    properties:
+      items:
+        type: array
+        items:
+          type: Person
+        required: false
+      paging:
+        type: Paging
+        required: false
+  Paging:
+    properties:
+      totalItems:
+        type: integer
+        required: false
+      totalPages:
+        type: integer
+        required: false
+      pageSize:
+        type: integer
+        required: false
+      currentPage:
+        type: integer
+        required: false
+  PagedPersons:
+    type:
+      - Persons
+      - Paging
+  PagedCollectingItems:
+    properties:
+      items:
+        type: array
+        minItems: 10
+        maxItems: 100
+        uniqueItems: true
+        items:
+          type: CollectingItem
+        required: false
+traits:
+  - pageSize: {}
+  - pageNumber: {}
+  - standard500ErrorResponse:
+      responses:
+        '200':
+          description: An unexpected error occured.
+  - personDoesNotExistResponse:
+      responses:
+        '200':
+          description: Person does not exist.
