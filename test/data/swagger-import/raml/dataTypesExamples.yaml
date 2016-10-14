@@ -200,6 +200,7 @@ types:
         items:
           type: CollectingItem
         required: false
+    type: Paging
 traits:
   - pageSize: {}
   - pageNumber: {}

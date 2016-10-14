@@ -146,7 +146,6 @@ definitions:
           itemType: Vinyl
           albumName: Help!
           artist: The Beatles
-          
   VHS:
     allOf:
       - $ref: '#/definitions/CollectingItem'
