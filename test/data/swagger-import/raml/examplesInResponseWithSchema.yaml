@@ -82,7 +82,7 @@ types:
         type: SpokenLanguages
         required: false
   SpokenLanguages:
-    additionalProperties:
+    //:
       type: string
   Persons:
     properties:
