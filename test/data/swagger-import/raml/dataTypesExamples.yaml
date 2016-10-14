@@ -203,13 +203,13 @@ types:
         required: false
     type: Paging
 traits:
-  - pageSize: {}
-  - pageNumber: {}
-  - standard500ErrorResponse:
+  pageSize: {}
+  pageNumber: {}
+  standard500ErrorResponse:
       responses:
         '200':
           description: An unexpected error occured.
-  - personDoesNotExistResponse:
+  personDoesNotExistResponse:
       responses:
         '200':
           description: Person does not exist.
