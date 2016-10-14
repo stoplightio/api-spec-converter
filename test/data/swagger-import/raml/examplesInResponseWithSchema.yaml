@@ -82,8 +82,9 @@ types:
         type: SpokenLanguages
         required: false
   SpokenLanguages:
-    //:
-      type: string
+    properties:
+      //:
+        type: string
   Persons:
     properties:
       items:
