@@ -30,6 +30,8 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-stage-2": "^6.13.0",
     "babel-register": "^6.14.0",
+    "browser-request": "^0.3.3",
+    "browserify-global-shim": "^1.0.3",
     "chai": "^3.5.0",
     "chai-fuzzy": "1.x.x",
     "chai-string": "^1.2.0",
@@ -39,9 +41,7 @@
     "gulp-eslint": "^2.0.0",
     "jscover": "^1.0.0",
     "mocha": "^2.4.5",
-    "mocha-lcov-reporter": "^1.2.0",
-    "browser-request": "^0.3.3",
-    "browserify-global-shim": "^1.0.3"
+    "mocha-lcov-reporter": "^1.2.0"
   },
   "browser": {
     "request": "browser-request"
