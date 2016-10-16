@@ -1,0 +1,16 @@
+#%RAML 0.8
+title: Test
+documentation:
+  -
+    content: ''
+    title: 'Test'
+traits:
+  - foo:
+      headers:
+        auth:
+          type: string
+      queryParameters:
+        limit:
+          type: string
+      responses:
+        '404': {}
