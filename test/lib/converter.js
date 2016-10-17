@@ -174,13 +174,13 @@ describe('reversable - from swagger 2 raml 2 swagger', function () {
 	var testFiles = fs.readdirSync(baseDir);
 	
 	var testWithData = function (testFile) {
-		return function (done) {
+    return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
-			
+
 			var ramlVersion = _.startsWith(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
 			var swaggerToRamlConverter = new specConverter.Converter(specConverter.Formats.SWAGGER, ramlVersion);
 			var ramlToSwaggerConverter = new specConverter.Converter(ramlVersion,  specConverter.Formats.SWAGGER);
-			
+
 			swaggerToRamlConverter.loadFile(testFilePath, function(){
 				try{
 					swaggerToRamlConverter.convert('yaml', function(err, covertedRAML){
@@ -205,9 +205,11 @@ describe('reversable - from swagger 2 raml 2 swagger', function () {
 			});
 		};
 	};
-	
+
 	testFiles.forEach(function (testFile) {
-		it('test: ' + testFile, testWithData(testFile));
+    if (!_.startsWith(testFile, '.')) {
+      it('test: ' + testFile, testWithData(testFile));
+    }
 	});
 });
 
@@ -215,15 +217,15 @@ describe('reversable - from swagger 2 raml 2 swagger', function () {
 describe('reversable - from raml 2 swagger 2 raml', function () {
 	var baseDir = __dirname + '/../data/reversable/raml';
 	var testFiles = fs.readdirSync(baseDir);
-	
+
 	var testWithData = function (testFile) {
 		return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
-			
-			var ramlVersion = _.startsWith(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
+
+			var ramlVersion = _.includes(testFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
 			var ramlToSwaggerConverter = new specConverter.Converter(ramlVersion,  specConverter.Formats.SWAGGER);
 			var swaggerToRamlConverter = new specConverter.Converter(specConverter.Formats.SWAGGER, ramlVersion);
-			
+
 			ramlToSwaggerConverter.loadFile(testFilePath, function(){
 				try{
 					ramlToSwaggerConverter.convert('json', function(err, resultSwagger){
@@ -248,9 +250,11 @@ describe('reversable - from raml 2 swagger 2 raml', function () {
 			});
 		};
 	};
-	
+
 	testFiles.forEach(function (testFile) {
-		it('test: ' + testFile, testWithData(testFile));
+		if (!_.startsWith(testFile, '.')) {
+      it('test: ' + testFile, testWithData(testFile));
+    }
 	});
 });
 
@@ -260,7 +264,8 @@ describe('from swagger to raml', function () {
 	
 	var testWithData = function (sourceFile, targetFile, stringCompare) {
 		return function (done) {
-			var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, specConverter.Formats.RAML10);
+      var ramlVersion = _.includes(sourceFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
+			var converter = new specConverter.Converter(specConverter.Formats.SWAGGER, ramlVersion);
 			converter.loadFile(sourceFile, function(){
 				try{
 					converter.convert('yaml', function(err, covertedRAML){
@@ -273,16 +278,16 @@ describe('from swagger to raml', function () {
 							console.log('********** Begin file **********\n');
 							console.log(covertedRAML);
 							console.log('********** Finish file **********\n');
-							
+
 							done(err);
 						}
-						
+
 						if (stringCompare == true) {
 							expect(covertedRAML).to.deep.equal(fs.readFileSync(targetFile, 'utf8'));
 						} else {
 							expect(YAML.safeLoad(covertedRAML)).to.deep.equal(YAML.safeLoad(fs.readFileSync(targetFile, 'utf8')));
 						}
-						
+
 						done();
 					});
 				} catch(err) {
@@ -291,7 +296,7 @@ describe('from swagger to raml', function () {
 			});
 		};
 	};
-	
+
 	testFiles.forEach(function (testFile) {
 		var sourceFile = baseDir + '/' + testFile;
 		var targetFile = baseDir + '/../raml/' + _.replace(testFile, 'json', 'yaml');
@@ -373,7 +378,7 @@ describe('from raml to swagger', function () {
 			});
 		};
 	};
-	
+
 	testFiles.forEach(function (testFile) {
 		if (process.env.fileToTest) {
 			if (_.endsWith(testFile, process.env.fileToTest)) {

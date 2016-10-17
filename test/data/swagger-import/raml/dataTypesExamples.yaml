@@ -203,8 +203,17 @@ types:
         required: false
     type: Paging
 traits:
-  pageSize: {}
-  pageNumber: {}
+  pageSize:
+    queryParameters:
+      pageSize:
+        type: integer
+        description: Number of persons returned
+        maximum: 100
+  pageNumber:
+    queryParameters:
+      pageNumber:
+        type: integer
+        description: Page number
   standard500ErrorResponse:
       responses:
         '200':
