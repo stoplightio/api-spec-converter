@@ -145,7 +145,7 @@ describe('RAML 1.0 Importer', function(){
           return new Promise(function(resolve, reject){
             try {
               if (path.indexOf('Person.xyz') > 0) {
-                path = path.replace('Person.xyz', '../../types/Person.json');
+                path = path.replace('types/Person.xyz', '../../types/Person.json');
               }
               resolve(fs.readFileSync(path, 'UTF8'));
             }

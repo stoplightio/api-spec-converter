@@ -23,7 +23,7 @@ securitySchemes:
             combination is invalid, or the user is not allowed to access
             the content provided by the requested URL.
 types:
-  Foo:   !include Person.xyz
+  Foo:   !include types/Person.xyz
   Error: |
     { "$schema": "http://json-schema.org/schema",
        "type": "object",

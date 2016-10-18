@@ -1,5 +1,5 @@
 {
-  "basePath": "/api/%7Bversion%7D",
+  "x-basePath": "/api/{version}",
   "consumes": [
     "application/json"
   ],
@@ -10,32 +10,24 @@
       "type": "object"
     },
     "Foo": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/object"
-        },
-        {
-          "description": "Foo details",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "ownerName": {
-              "type": "string"
-            }
+        "description": "Foo details",
+        "properties": {
+          "id": {
+            "type": "number"
           },
-          "required": [
-            "id",
-            "name",
-            "ownerName"
-          ],
-          "type": "object"
-        }
-      ],
-      "description": "Foo details"
+          "name": {
+            "type": "string"
+          },
+          "ownerName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "ownerName"
+        ],
+        "type": "object"
     }
   },
   "host": "rest-api.baeldung.com",
@@ -70,6 +62,9 @@
               "application/json": "can not resolve examples/Foos.json"
             },
             "schema": {
+              "items": {
+                "$ref": "#/definitions/Foo"
+              },
               "type": "array"
             }
           }
@@ -112,6 +107,9 @@
               "application/json": "can not resolve examples/Foos.json"
             },
             "schema": {
+              "items": {
+                "$ref": "#/definitions/Foo"
+              },
               "type": "array"
             }
           }

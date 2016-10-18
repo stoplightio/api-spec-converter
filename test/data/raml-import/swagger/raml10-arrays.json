@@ -1,0 +1,200 @@
+{
+  "basePath": "/v2",
+  "definitions": {
+    "Category": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Pet1": {
+      "items": {
+        "$ref": "#/definitions/Category"
+      },
+      "type": "array"
+    },
+    "Pet2": {
+      "items": {
+        "$ref": "#/definitions/Category"
+      },
+      "type": "array"
+    },
+    "Pet3": {
+      "properties": {
+        "home": {
+          "type": "boolean"
+        },
+        "ids": {
+          "items": {
+            "$ref": "#/definitions/Category"
+          },
+          "type": "array"
+        },
+        "name": {
+          "items": {
+            "$ref": "#/definitions/Category"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "ids",
+        "name",
+        "home"
+      ],
+      "type": "object"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "info": {
+    "description": "This is a sample server Petstore server.",
+    "title": "Swagger Petstore",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/pet": {
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add a new pet to the store",
+        "operationId": "addPet",
+        "parameters": [
+          {
+            "description": "Pet object that needs to be added to the store",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "description": "Pet object that needs to be added to the store",
+              "items": {
+                "$ref": "#/definitions/Category"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Add a new pet to the store",
+        "operationId": "addPet",
+        "parameters": [
+          {
+            "description": "Pet object that needs to be added to the store",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "description": "Pet object that needs to be added to the store",
+              "items": {
+                "$ref": "#/definitions/Category"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/pet/{petId}": {
+      "get": {
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Category"
+              },
+              "type": "array"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "description": "ID of pet to return",
+          "in": "path",
+          "name": "petId",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/pet/{petId}2": {
+      "get": {
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Pet1"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "description": "ID of pet to return",
+          "in": "path",
+          "name": "petId",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/pet/{petId}3": {
+      "get": {
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Pet2"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "description": "ID of pet to return",
+          "in": "path",
+          "name": "petId",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0"
+}

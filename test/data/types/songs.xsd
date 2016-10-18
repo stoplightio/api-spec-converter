@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="country">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="country_name" type="xs:string"/>
+                <xs:element name="population" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name = "City">
+        <xs:sequence>
+            <xs:element name="country_name" type="xs:string"/>
+            <xs:element name="population" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="city" type="City"/>
+</xs:schema>
