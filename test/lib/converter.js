@@ -172,7 +172,7 @@ describe('Converter', function() {
 describe('reversable - from swagger 2 raml 2 swagger', function () {
 	var baseDir = __dirname + '/../data/reversable/swagger';
 	var testFiles = fs.readdirSync(baseDir);
-	
+
 	var testWithData = function (testFile) {
     return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
@@ -261,7 +261,7 @@ describe('reversable - from raml 2 swagger 2 raml', function () {
 describe('from swagger to raml', function () {
 	var baseDir = __dirname + '/../data/swagger-import/swagger';
 	var testFiles = fs.readdirSync(baseDir);
-	
+
 	var testWithData = function (sourceFile, targetFile, stringCompare) {
 		return function (done) {
       var ramlVersion = _.includes(sourceFile, 'raml08') ? specConverter.Formats.RAML08 : specConverter.Formats.RAML10;
@@ -270,9 +270,9 @@ describe('from swagger to raml', function () {
 				try{
 					converter.convert('yaml', function(err, covertedRAML){
 						if (err)return done(err);
-						
+
 						var notExistsTarget = !fs.existsSync(targetFile);
-						
+
 						if (notExistsTarget) {
 							console.log('Content for non existing target file ' + targetFile + '\n.');
 							console.log('********** Begin file **********\n');
@@ -298,19 +298,21 @@ describe('from swagger to raml', function () {
 	};
 
 	testFiles.forEach(function (testFile) {
-		var sourceFile = baseDir + '/' + testFile;
-		var targetFile = baseDir + '/../raml/' + _.replace(testFile, 'json', 'yaml');
+    if (!_.startsWith(testFile, '.')) {
+  		var sourceFile = baseDir + '/' + testFile;
+  		var targetFile = baseDir + '/../raml/' + _.replace(testFile, 'json', 'yaml');
 
-		if (process.env.fileToTest) {
-			if (_.endsWith(sourceFile, process.env.fileToTest)) {
-				it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
-			}
-		}
-		else {
-			it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
-		}
+  		if (process.env.fileToTest) {
+  			if (_.endsWith(sourceFile, process.env.fileToTest)) {
+  				it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
+  			}
+  		}
+  		else {
+  			it('test: ' + testFile, testWithData(sourceFile, targetFile, false));
+  		}
+    }
 	});
-	
+
 	if (!process.env.fileToTest) {
 		it('should convert from swagger petstore with external refs to raml 1.0',
 			testWithData(__dirname + '/../data/petstore-separate/spec/swagger.json', __dirname + '/../data/petstore-separate/raml10.yaml', true));
@@ -320,20 +322,20 @@ describe('from swagger to raml', function () {
 describe('from raml to swagger', function () {
 	var baseDir = __dirname + '/../data/raml-import/raml';
 	var testFiles = fs.readdirSync(baseDir);
-	
+
 	var myFsResolver = {
 		content: function (filePath) {},
 		contentAsync: function (filePath) {
 			return new Promise(function(resolve, reject){
 				try {
 					var p = path.parse(filePath);
-					
+
 					if (p.dir.indexOf('types') > 0) {
 						var baseDir = p.dir.replace('types', '../../types/');
 						var fileName = p.base === 'Person.xyz' ? 'Person.json' : p.base;
-						
+
 						resolve(fs.readFileSync(baseDir + fileName, 'UTF8'));
-						
+
 					} else {
 						resolve(fs.readFileSync(filePath, 'UTF8'));
 					}
@@ -344,11 +346,11 @@ describe('from raml to swagger', function () {
 			});
 		}
 	};
-	
+
 	var myOptions = {
 		fsResolver : myFsResolver
 	};
-	
+
 	var testWithData = function (testFile) {
 		return function (done) {
 			var testFilePath = baseDir + '/' + testFile;
@@ -359,7 +361,7 @@ describe('from raml to swagger', function () {
 					converter.convert('json', function(err, resultSwagger){
 						if (err)return done(err);
 						var targetFile = baseDir + '/../swagger/' + _.replace(testFile, 'yaml', 'json');
-						
+
 						var notExistsTarget = !fs.existsSync(targetFile);
 						if (notExistsTarget) {
 							console.log('Content for non existing target file ' + targetFile + '\n.');
@@ -380,13 +382,14 @@ describe('from raml to swagger', function () {
 	};
 
 	testFiles.forEach(function (testFile) {
-		if (process.env.fileToTest) {
-			if (_.endsWith(testFile, process.env.fileToTest)) {
-				it('test: ' + testFile, testWithData(testFile));
-			}
-		}
-		else {
-			it('test: ' + testFile, testWithData(testFile));
-		}
+    if (!_.startsWith(testFile, '.')) {
+  		if (process.env.fileToTest) {
+  			if (_.endsWith(testFile, process.env.fileToTest)) {
+  				it('test: ' + testFile, testWithData(testFile));
+  			}
+  		} else {
+  			it('test: ' + testFile, testWithData(testFile));
+  		}
+    }
 	});
 });
