@@ -425,6 +425,30 @@ describe('Swagger Exporter', function(){
       var res = swaggerExporter._mapResponseBody(endpoint);
       expect(res).to.have.keys('200', '404');
       expect(res).to.have.deep.property('404.schema.$ref', '#/definitions/global:ErrorResponse');
+      expect(res['404'].examples).to.be.deep.equal({
+        'application/json': JSON.parse(endpoint.Responses[1].example)
+      });
+    });
+
+    it('should inherit produces from environment', function() {
+      var endpoint = new Endpoint('test');
+      var environment = new Environment();
+
+      environment.Produces = ['application/json'];
+      
+      endpoint.Produces = [];
+      endpoint.Responses = [
+        {
+          codes: ['200'],
+          example: '{"id": 17, "name": "new item"}',
+          description: ''
+        }
+      ];
+      var res = swaggerExporter._mapResponseBody(endpoint, environment);
+      expect(res).to.have.keys('200');
+      expect(res['200'].examples).to.be.deep.equal({
+        'application/json': JSON.parse(endpoint.Responses[0].example)
+      });
     });
   });
 
