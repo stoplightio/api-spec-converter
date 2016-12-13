@@ -19,12 +19,12 @@ npm install --save api-spec-transformer
 
 ## Usage
 
-### Convert RAML to OAS (Swagger), from a file.
+### Convert RAML1.0 to OAS (Swagger), from a file.
 
 ```js
 var transformer = require('api-spec-transformer');
 
-var ramlToSwagger = new transformer.Converter(transformer.Formats.RAML, transformer.Formats.SWAGGER);
+var ramlToSwagger = new transformer.Converter(transformer.Formats.RAML10, transformer.Formats.SWAGGER);
 
 ramlToSwagger.loadFile('/source/raml.yaml', function(err) {
   if (err) {
@@ -42,14 +42,14 @@ ramlToSwagger.loadFile('/source/raml.yaml', function(err) {
 });
 ```
 
-### Convert OAS (Swagger) to RAML, from a URL.
+### Convert OAS (Swagger) to RAML1.0, from a URL.
 
 ```js
 var transformer = require('api-spec-transformer');
 
 // Convert swagger to raml, from a url.
 
-var swaggerToRaml = new transformer.Converter(transformer.Formats.SWAGGER, transformer.Formats.RAML);
+var swaggerToRaml = new transformer.Converter(transformer.Formats.SWAGGER, transformer.Formats.RAML10);
 
 swaggerToRaml.loadFile('http://petstore.swagger.io/v2/swagger.json', function(err) {
   if (err) {
@@ -67,14 +67,14 @@ swaggerToRaml.loadFile('http://petstore.swagger.io/v2/swagger.json', function(er
 });
 ```
 
-### Convert unknown input to RAML:
+### Convert unknown input to RAML1.0:
 
 You can tell the converter to detect the input format automatically (by passing `AUTO` format), it will detect the right format for the input.
 
 ```js
 var transformer = require('api-spec-transformer');
 
-var myConverter = new transformer.Converter(transformer.Formats.AUTO, transformer.Formats.RAML);
+var myConverter = new transformer.Converter(transformer.Formats.AUTO, transformer.Formats.RAML10);
 
 swaggerToRaml.loadFile('http://petstore.swagger.io/v2/swagger.json', function(err) {
   // Will identify the input as swagger - the rest is the same as above.
@@ -86,7 +86,7 @@ swaggerToRaml.loadFile('http://petstore.swagger.io/v2/swagger.json', function(er
 ```js
 var transformer = require('api-spec-transformer');
 
-var swaggerToRaml = new transformer.Converter(transformer.Formats.SWAGGER, transformer.Formats.RAML);
+var swaggerToRaml = new transformer.Converter(transformer.Formats.SWAGGER, transformer.Formats.RAML10);
 
 var mySwaggerString = '...';
 
