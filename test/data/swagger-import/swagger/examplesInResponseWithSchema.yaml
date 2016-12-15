@@ -18,6 +18,7 @@ paths:
             }
 definitions:
   Person:
+    title: Person
     required:
       - username
     properties:
@@ -74,9 +75,11 @@ definitions:
       spokenLanguages:
         $ref: '#/definitions/SpokenLanguages'
   SpokenLanguages:
+    title: SpokenLanguages
     additionalProperties:
       type: string
   Persons:
+    title: Persons
     properties:
       items:
         type: array
@@ -86,18 +89,21 @@ definitions:
         items:
           $ref: '#/definitions/Person'
   ErrorMessage:
+    title: ErrorMessage
     properties:
       longMessage:
         type: string
       shortMessage:
         type: string
   MultilingualErrorMessage:
+    title: MultilingualErrorMessage
     additionalProperties:
       $ref: '#/definitions/ErrorMessage'
     properties:
       defaultLanguage:
         $ref: '#/definitions/ErrorMessage'
   Error:
+    title: Error
     required:
       - code
       - message
@@ -111,6 +117,7 @@ definitions:
       message:
         $ref: '#/definitions/MultilingualErrorMessage'
   CollectingItem:
+    title: CollectingItem
     discriminator: itemType
     required:
       - itemType
@@ -132,6 +139,7 @@ definitions:
       itemType: Puma
       maxPrice: 1
   Vinyl:
+    title: Vinyl
     allOf:
       - $ref: '#/definitions/CollectingItem'
       - required:
@@ -147,6 +155,7 @@ definitions:
           albumName: Help!
           artist: The Beatles
   VHS:
+    title: VHS
     allOf:
       - $ref: '#/definitions/CollectingItem'
       - required:
@@ -157,6 +166,7 @@ definitions:
           director:
             type: string
   PagedPersonsV1:
+    title: PagedPersonsV1
     properties:
       items:
         type: array
@@ -171,6 +181,7 @@ definitions:
       currentPage:
         type: integer
   PagedPersonsV2:
+    title: PagedPersonsV2
     properties:
       items:
         type: array
@@ -179,6 +190,7 @@ definitions:
       paging:
         $ref: '#/definitions/Paging'
   Paging:
+    title: Paging
     properties:
       totalItems:
         type: integer
@@ -189,10 +201,12 @@ definitions:
       currentPage:
         type: integer
   PagedPersons:
+    title: PagedPersons
     allOf:
       - $ref: '#/definitions/Persons'
       - $ref: '#/definitions/Paging'
   PagedCollectingItems:
+    title: PagedCollectingItems
     allOf:
       - properties:
           items:

@@ -17,6 +17,7 @@
   },
   "definitions": {
     "Person": {
+      "title": "Person",
       "required": [
         "username"
       ],
@@ -94,11 +95,13 @@
       }
     },
     "SpokenLanguages": {
+      "title": "SpokenLanguages",
       "additionalProperties": {
         "type": "string"
       }
     },
     "Persons": {
+      "title": "Persons",
       "properties": {
         "items": {
           "type": "array",
@@ -112,6 +115,7 @@
       }
     },
     "ErrorMessage": {
+      "title": "ErrorMessage",
       "properties": {
         "longMessage": {
           "type": "string"
@@ -122,6 +126,7 @@
       }
     },
     "MultilingualErrorMessage": {
+      "title": "MultilingualErrorMessage",
       "additionalProperties": {
         "$ref": "#/definitions/ErrorMessage"
       },
@@ -132,6 +137,7 @@
       }
     },
     "Error": {
+      "title": "Error",
       "required": [
         "code",
         "message"
@@ -151,6 +157,7 @@
       }
     },
     "CollectingItem": {
+      "title": "CollectingItem",
       "discriminator": "itemType",
       "required": [
         "itemType"
@@ -177,6 +184,7 @@
       }
     },
     "Vinyl": {
+      "title": "Vinyl",
       "allOf": [
         {
           "$ref": "#/definitions/CollectingItem"
@@ -198,6 +206,7 @@
       ]
     },
     "VHS": {
+      "title": "VHS",
       "allOf": [
         {
           "$ref": "#/definitions/CollectingItem"
@@ -218,6 +227,7 @@
       ]
     },
     "PagedPersonsV1": {
+      "title": "PagedPersonsV1",
       "properties": {
         "items": {
           "type": "array",
@@ -240,6 +250,7 @@
       }
     },
     "PagedPersonsV2": {
+      "title": "PagedPersonsV2",
       "properties": {
         "items": {
           "type": "array",
@@ -253,6 +264,7 @@
       }
     },
     "Paging": {
+      "title": "Paging",
       "properties": {
         "totalItems": {
           "type": "integer"
@@ -269,6 +281,7 @@
       }
     },
     "PagedPersons": {
+      "title": "PagedPersons",
       "allOf": [
         {
           "$ref": "#/definitions/Persons"
@@ -279,6 +292,7 @@
       ]
     },
     "PagedCollectingItems": {
+      "title": "PagedCollectingItems",
       "allOf": [
         {
           "properties": {

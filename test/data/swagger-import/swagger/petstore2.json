@@ -170,6 +170,7 @@
   },
   "definitions": {
     "Pet": {
+      "title": "Pet",
       "type": "object",
       "allOf": [
         {
@@ -189,6 +190,7 @@
       ]
     },
     "NewPet": {
+      "title": "NewPet",
       "type": "object",
       "required": [
         "name"
@@ -203,6 +205,7 @@
       }
     },
     "ErrorModel": {
+      "title": "ErrorModel",
       "type": "object",
       "required": [
         "code",

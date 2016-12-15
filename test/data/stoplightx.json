@@ -569,6 +569,7 @@
   },
   "definitions": {
     "address": {
+      "title": "address",
       "properties": {
         "street": {
           "type": "string",
@@ -597,6 +598,7 @@
       }
     },
     "veterinarian": {
+      "title": "veterinarian",
       "required": [
         "name"
       ],
@@ -616,6 +618,7 @@
       }
     },
     "pet": {
+      "title": "pet",
       "required": [
         "name",
         "type"

@@ -1,6 +1,7 @@
 { "basePath": "/v2",
   "definitions": {
     "CustomDate": {
+      "title": "CustomDate",
       "type": "string",
       "x-facets": [
         {
@@ -12,6 +13,7 @@
       ]
     },
     "PossibleMeetingDate": {
+      "title": "PossibleMeetingDate",
       "$ref": "#/definitions/CustomDate",
       "x-noHolidays": true
     }

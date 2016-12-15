@@ -19,16 +19,20 @@ baseUri: http://localhost:3000/api
         description: The user object
 types:
   User:
+    displayName: User
     properties:
       username:
         type: string
   Manager:
+    displayName: Manager
     properties:
       managerId:
         type: string
   Employee:
+    displayName: Employee
     type: [User, Manager]
   SuperUser:
+    displayName: SuperUser
     type: User
     properties:
       superuser:

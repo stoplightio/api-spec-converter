@@ -859,6 +859,7 @@
   },
   "definitions": {
     "Order": {
+      "title": "Order",
       "type": "object",
       "properties": {
         "id": {
@@ -896,6 +897,7 @@
       }
     },
     "Category": {
+      "title": "Category",
       "type": "object",
       "properties": {
         "id": {
@@ -911,6 +913,7 @@
       }
     },
     "User": {
+      "title": "User",
       "type": "object",
       "properties": {
         "id": {
@@ -946,6 +949,7 @@
       }
     },
     "Tag": {
+      "title": "Tag",
       "type": "object",
       "properties": {
         "id": {
@@ -961,6 +965,7 @@
       }
     },
     "ApiResponse": {
+      "title": "ApiResponse",
       "type": "object",
       "properties": {
         "code": {
@@ -976,6 +981,7 @@
       }
     },
     "Pet": {
+      "title": "Pet",
       "type": "object",
       "required": [
         "name",

@@ -43,6 +43,7 @@ description: This is a sample server Petstore server.
         description: Invalid input
 types:
   Category:
+    displayName: Category
     properties:
       id:
         type: string
@@ -51,6 +52,7 @@ types:
         type: string
         required: false
   Pet:
+    displayName: Pet
     properties:
       category:
         type: Category

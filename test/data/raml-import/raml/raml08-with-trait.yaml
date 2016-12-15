@@ -28,6 +28,7 @@ documentation:
 schemas:
   - user: |-
       {
+          "title": "user",
           "type": "object",
           "properties": {
               "name": {

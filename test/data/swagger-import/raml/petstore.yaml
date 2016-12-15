@@ -491,6 +491,7 @@ annotationTypes:
           url?: string
 types:
   Order:
+    displayName: Order
     properties:
       id:
         type: integer
@@ -523,6 +524,7 @@ types:
     xml:
       name: Order
   Category:
+    displayName: Category
     properties:
       id:
         type: integer
@@ -534,6 +536,7 @@ types:
     xml:
       name: Category
   User:
+    displayName: User
     properties:
       id:
         type: integer
@@ -565,6 +568,7 @@ types:
     xml:
       name: User
   Tag:
+    displayName: Tag
     properties:
       id:
         type: integer
@@ -576,6 +580,7 @@ types:
     xml:
       name: Tag
   ApiResponse:
+    displayName: ApiResponse
     properties:
       code:
         type: integer
@@ -588,6 +593,7 @@ types:
         type: string
         required: false
   Pet:
+    displayName: Pet
     properties:
       id:
         type: integer

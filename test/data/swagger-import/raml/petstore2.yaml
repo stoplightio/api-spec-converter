@@ -88,12 +88,14 @@ annotationTypes:
           url?: string
 types:
   Pet:
+    displayName: Pet
     properties:
       id:
         type: integer
         format: int64
     type: NewPet
   NewPet:
+    displayName: NewPet
     properties:
       name:
         type: string
@@ -101,6 +103,7 @@ types:
         type: string
         required: false
   ErrorModel:
+    displayName: ErrorModel
     properties:
       code:
         type: integer

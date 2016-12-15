@@ -25,6 +25,7 @@ securitySchemes:
 types:
   Foo: |
     { "$schema": "http://json-schema.org/schema",
+       "title": "Foo",
        "type": "object",
        "description": "Foo details",
        "properties": {
@@ -36,6 +37,7 @@ types:
     }
   Error: |
     { "$schema": "http://json-schema.org/schema",
+       "title": "Error",
        "type": "object",
        "description": "Error details"
     }

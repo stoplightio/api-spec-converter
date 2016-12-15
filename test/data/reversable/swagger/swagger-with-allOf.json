@@ -31,6 +31,7 @@
   },
   "definitions": {
     "User": {
+      "title": "User",
       "type": "object",
       "properties": {
         "username": {
@@ -42,6 +43,7 @@
       ]
     },
     "Manager": {
+      "title": "Manager",
       "type": "object",
       "required": [
         "managerId"
@@ -53,6 +55,7 @@
       }
     },
     "Employee": {
+      "title": "Employee",
       "allOf" : [
         {
           "$ref": "#/definitions/User"
@@ -63,6 +66,7 @@
       ]
     },
     "SuperUser": {
+      "title": "SuperUser",
       "allOf": [
         {
           "$ref": "#/definitions/User"

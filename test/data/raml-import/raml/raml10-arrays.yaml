@@ -78,6 +78,7 @@ description: This is a sample server Petstore server.
         description: ok
 types:
   Category:
+    displayName: Category
     properties:
       id:
         type: string
@@ -86,11 +87,14 @@ types:
         type: string
         required: false
   Pet1:
+    displayName: Pet1
     type: array
     items: Category
   Pet2:
+    displayName: Pet2
     type: Category[]
   Pet3:
+    displayName: Pet3
     properties:
       ids:
         type: array

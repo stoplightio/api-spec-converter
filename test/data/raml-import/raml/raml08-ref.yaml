@@ -5,6 +5,7 @@ version: 0.1
 schemas:
   - Admin User: |
       {
+        "title": "Admin User",
         "type": "object",
         "properties": {
           "input": {

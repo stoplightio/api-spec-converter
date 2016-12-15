@@ -39,6 +39,7 @@
     },
     "definitions": {
         "user": {
+            "title": "user",
             "type": "object",
             "properties": {
                 "name": {

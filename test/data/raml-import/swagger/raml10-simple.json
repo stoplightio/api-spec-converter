@@ -1,6 +1,7 @@
 {
   "definitions": {
     "User": {
+      "title": "User",
       "properties": {
         "age": {
           "type": "number"

@@ -24,6 +24,7 @@ securitySchemes:
             the content provided by the requested URL.
 types:
   Foo:
+    displayName: Foo
     type: object
     description: Foo details
     properties:
@@ -33,6 +34,7 @@ types:
 
   Error: |
     { "$schema": "http://json-schema.org/schema",
+       "title": "Error",
        "type": "object",
        "description": "Error details"
     }

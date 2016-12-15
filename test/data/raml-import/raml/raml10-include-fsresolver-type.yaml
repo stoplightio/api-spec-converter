@@ -25,7 +25,9 @@ securitySchemes:
 types:
   Foo:   !include types/Person.xyz
   Error: |
-    { "$schema": "http://json-schema.org/schema",
+    {
+       "title": "Error",
+       "$schema": "http://json-schema.org/schema",
        "type": "object",
        "description": "Error details"
     }

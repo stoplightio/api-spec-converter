@@ -5,11 +5,13 @@
   ],
   "definitions": {
     "Error": {
+      "title": "Error",
       "$schema": "http://json-schema.org/schema",
       "description": "Error details",
       "type": "object"
     },
     "Foo": {
+        "title": "Foo",
         "description": "Foo details",
         "properties": {
           "id": {

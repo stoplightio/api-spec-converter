@@ -4696,6 +4696,7 @@ paths:
         type: string
 definitions:
   account:
+    title: account
     allOf:
       - $ref: '#/definitions/object'
       - additionalProperties: true
@@ -4761,6 +4762,7 @@ definitions:
             type: string
         type: object
   base_commit:
+    title: base_commit
     allOf:
       - $ref: '#/definitions/object'
       - additionalProperties: true

@@ -3,6 +3,7 @@ title: API with Examples
 
 types:
   User:
+    displayName: User
     type: object
     properties:
       name: string
@@ -11,6 +12,7 @@ types:
       name: Bob
       lastname: Marley
   Org:
+    displayName: Org
     type: object
     properties:
       name: string

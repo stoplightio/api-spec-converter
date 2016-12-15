@@ -2,6 +2,7 @@
   "basePath": "/v2",
   "definitions": {
     "Category": {
+      "title": "Category",
       "properties": {
         "id": {
           "type": "string"
@@ -13,18 +14,21 @@
       "type": "object"
     },
     "Pet1": {
+      "title": "Pet1",
       "items": {
         "$ref": "#/definitions/Category"
       },
       "type": "array"
     },
     "Pet2": {
+      "title": "Pet2",
       "items": {
         "$ref": "#/definitions/Category"
       },
       "type": "array"
     },
     "Pet3": {
+      "title": "Pet3",
       "properties": {
         "home": {
           "type": "boolean"

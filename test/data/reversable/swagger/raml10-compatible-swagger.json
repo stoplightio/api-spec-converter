@@ -134,6 +134,7 @@
   },
   "definitions": {
     "pet": {
+      "title": "pet",
       "required": [
         "name",
         "type"
@@ -177,6 +178,7 @@
       "type": "object"
     },
     "veterinarian": {
+      "title": "veterinarian",
       "required": [
         "name"
       ],
@@ -192,6 +194,7 @@
       "type": "object"
     },
     "address": {
+      "title": "address",
       "properties": {
         "street": {
           "type": "string",

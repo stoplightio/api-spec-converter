@@ -10,6 +10,7 @@ paths:
           description: OK
 definitions:
   CollectingItem:
+    title: CollectingItem
     discriminator: itemType
     required:
       - itemType
@@ -27,6 +28,7 @@ definitions:
         minimum: 0
         maximum: 10000
   Paging:
+    title: Paging
     properties:
       totalItems:
         type: integer
@@ -37,6 +39,7 @@ definitions:
       currentPage:
         type: integer
   PagedCollectingItems:
+    title: PagedCollectingItems
     allOf:
       - properties:
           items:

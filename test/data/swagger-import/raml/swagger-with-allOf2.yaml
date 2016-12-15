@@ -10,6 +10,7 @@ version: 0.0.0
         description: OK
 types:
   CollectingItem:
+    displayName: CollectingItem
     discriminator: itemType
     properties:
       itemType:
@@ -27,6 +28,7 @@ types:
         maximum: 10000
         required: false
   Paging:
+    displayName: Paging
     properties:
       totalItems:
         type: integer
@@ -41,6 +43,7 @@ types:
         type: integer
         required: false
   PagedCollectingItems:
+    displayName: PagedCollectingItems
     properties:
       items:
         type: array

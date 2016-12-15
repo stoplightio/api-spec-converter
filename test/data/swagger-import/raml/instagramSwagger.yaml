@@ -912,6 +912,7 @@ annotationTypes:
           url?: string
 types:
   User:
+    displayName: User
     properties:
       id:
         type: integer
@@ -942,6 +943,7 @@ types:
             type: integer
         required: false
   Media:
+    displayName: Media
     properties:
       created_time:
         description: Epoc time (ms)
@@ -1009,6 +1011,7 @@ types:
             type: Image
         required: false
   Location:
+    displayName: Location
     properties:
       id:
         type: string
@@ -1023,6 +1026,7 @@ types:
         type: number
         required: false
   Comment:
+    displayName: Comment
     properties:
       id:
         type: string
@@ -1037,6 +1041,7 @@ types:
         type: MiniProfile
         required: false
   Like:
+    displayName: Like
     properties:
       user_name:
         type: string
@@ -1054,6 +1059,7 @@ types:
         type: string
         required: false
   Tag:
+    displayName: Tag
     properties:
       media_count:
         type: integer
@@ -1062,6 +1068,7 @@ types:
         type: string
         required: false
   Image:
+    displayName: Image
     properties:
       width:
         type: integer
@@ -1073,6 +1080,7 @@ types:
         type: string
         required: false
   MiniProfile:
+    displayName: MiniProfile
     description: A shorter version of User for likes array
     properties:
       user_name:

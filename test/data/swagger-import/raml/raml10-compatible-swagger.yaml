@@ -89,6 +89,7 @@ description: A sample API
           description: Returns the pet data
 types:
   pet:
+    displayName: pet
     properties:
       name:
         type: string
@@ -120,6 +121,7 @@ types:
           minLength: 1
         required: false
   veterinarian:
+    displayName: veterinarian
     properties:
       name:
         type: string
@@ -128,6 +130,7 @@ types:
         type: address
         required: false
   address:
+    displayName: address
     properties:
       street:
         type: string

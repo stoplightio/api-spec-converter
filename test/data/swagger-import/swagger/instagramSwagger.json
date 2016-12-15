@@ -1078,6 +1078,7 @@
   },
   "definitions": {
     "User": {
+      "title": "User",
       "type": "object",
       "properties": {
         "id": {
@@ -1115,6 +1116,7 @@
       }
     },
     "Media": {
+      "title": "Media",
       "type": "object",
       "properties": {
         "created_time": {
@@ -1202,6 +1204,7 @@
       }
     },
     "Location": {
+      "title": "Location",
       "type": "object",
       "properties": {
         "id": {
@@ -1219,6 +1222,7 @@
       }
     },
     "Comment": {
+      "title": "Comment",
       "type": "object",
       "properties": {
         "id": {
@@ -1236,6 +1240,7 @@
       }
     },
     "Like": {
+      "title": "Like",
       "type": "object",
       "properties": {
         "user_name": {
@@ -1256,6 +1261,7 @@
       }
     },
     "Tag": {
+      "title": "Tag",
       "type": "object",
       "properties": {
         "media_count": {
@@ -1267,6 +1273,7 @@
       }
     },
     "Image": {
+      "title": "Image",
       "type": "object",
       "properties": {
         "width": {
@@ -1281,6 +1288,7 @@
       }
     },
     "MiniProfile": {
+      "title": "MiniProfile",
       "type": "object",
       "description": "A shorter version of User for likes array",
       "properties": {

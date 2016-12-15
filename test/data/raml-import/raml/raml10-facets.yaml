@@ -43,10 +43,12 @@ description: This is a sample server Petstore server.
         description: Invalid input
 types:
   CustomDate:
+    displayName: CustomDate
     type: string
     facets:
       onlyFutureDates?: boolean # optional  in `PossibleMeetingDate`
       noHolidays: boolean # required in `PossibleMeetingDate`
   PossibleMeetingDate:
+    displayName: PossibleMeetingDate
     type: CustomDate
     noHolidays: true

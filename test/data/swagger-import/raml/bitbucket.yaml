@@ -3665,6 +3665,7 @@ annotationTypes:
           url?: string
 types:
   account:
+    displayName: account
     description: An account object.
     properties:
       created_on:
@@ -3728,6 +3729,7 @@ types:
       //: true
     type: object
   base_commit:
+    displayName: base_commit
     description: The common base type for both repository and snippet commits.
     properties:
       author:
@@ -3753,6 +3755,7 @@ types:
       //: true
     type: object
   branchrestriction:
+    displayName: branchrestriction
     description: A branch restriction rule.
     properties:
       groups:
@@ -3802,6 +3805,7 @@ types:
       //: true
     type: object
   commit:
+    displayName: commit
     description: A repository commit object.
     properties:
       links:
@@ -3863,6 +3867,7 @@ types:
       //: true
     type: base_commit
   commitstatus:
+    displayName: commitstatus
     description: A commit status object.
     properties:
       created_on:
@@ -3924,6 +3929,7 @@ types:
       //: true
     type: object
   component:
+    displayName: component
     description: A component as defined in a repository's issue tracker.
     properties:
       id:
@@ -3946,6 +3952,7 @@ types:
       //: true
     type: object
   error:
+    displayName: error
     additionalProperties: false
     properties:
       error:
@@ -3961,6 +3968,7 @@ types:
         required: false
         type: object
   group:
+    displayName: group
     description: A group object
     properties:
       full_slug:
@@ -4005,6 +4013,7 @@ types:
       //: true
     type: object
   hook_event:
+    displayName: hook_event
     additionalProperties: false
     description: 'An event, associated with a resource or subject type.'
     properties:
@@ -4047,6 +4056,7 @@ types:
         type: string
         required: false
   issue:
+    displayName: issue
     description: An issue.
     properties:
       assignee:
@@ -4178,6 +4188,7 @@ types:
       //: true
     type: object
   issue_attachment:
+    displayName: issue_attachment
     description: An issue file attachment's meta data. Note this does not contain the file's actual contents.
     properties:
       links:
@@ -4197,6 +4208,7 @@ types:
       //: true
     type: object
   milestone:
+    displayName: milestone
     description: A milestone as defined in a repository's issue tracker.
     properties:
       id:
@@ -4219,6 +4231,7 @@ types:
       //: true
     type: object
   object:
+    displayName: object
     description: Base type for most resource objects. It defines the common `type` element that identifies an object's type. It also identifies the element as Swagger's `discriminator`.
     discriminator: type
     properties:
@@ -4226,6 +4239,7 @@ types:
         type: string
       //: true
   page:
+    displayName: page
     additionalProperties: false
     properties:
       next:
@@ -4252,6 +4266,7 @@ types:
         type: integer
         required: false
   paginated_branchrestrictions:
+    displayName: paginated_branchrestrictions
     additionalProperties: false
     description: A paginated list of branch restriction rules.
     properties:
@@ -4286,6 +4301,7 @@ types:
         uniqueItems: true
         required: false
   paginated_commitstatuses:
+    displayName: paginated_commitstatuses
     additionalProperties: false
     description: A paginated list of commit status objects.
     properties:
@@ -4320,6 +4336,7 @@ types:
         uniqueItems: true
         required: false
   paginated_components:
+    displayName: paginated_components
     additionalProperties: false
     description: A paginated list of issue tracker components.
     properties:
@@ -4354,6 +4371,7 @@ types:
         uniqueItems: true
         required: false
   paginated_hook_events:
+    displayName: paginated_hook_events
     additionalProperties: false
     description: A paginated list of webhook types available to subscribe on.
     properties:
@@ -4388,6 +4406,7 @@ types:
         uniqueItems: true
         required: false
   paginated_issue_attachments:
+    displayName: paginated_issue_attachments
     additionalProperties: false
     description: A paginated list of issue attachments.
     properties:
@@ -4421,6 +4440,7 @@ types:
         type: array
         required: false
   paginated_issues:
+    displayName: paginated_issues
     additionalProperties: false
     description: A paginated list of issues.
     properties:
@@ -4455,6 +4475,7 @@ types:
         uniqueItems: true
         required: false
   paginated_milestones:
+    displayName: paginated_milestones
     additionalProperties: false
     description: A paginated list of issue tracker milestones.
     properties:
@@ -4489,6 +4510,7 @@ types:
         uniqueItems: true
         required: false
   paginated_projects:
+    displayName: paginated_projects
     additionalProperties: false
     description: A paginated list of projects
     properties:
@@ -4523,6 +4545,7 @@ types:
         uniqueItems: true
         required: false
   paginated_repositories:
+    displayName: paginated_repositories
     additionalProperties: false
     description: A paginated list of repositories.
     properties:
@@ -4557,6 +4580,7 @@ types:
         uniqueItems: true
         required: false
   paginated_snippet_comments:
+    displayName: paginated_snippet_comments
     additionalProperties: false
     description: A paginated list of snippet comments.
     properties:
@@ -4591,6 +4615,7 @@ types:
         uniqueItems: true
         required: false
   paginated_snippet_commit:
+    displayName: paginated_snippet_commit
     additionalProperties: false
     description: A paginated list of snippet commits.
     properties:
@@ -4624,6 +4649,7 @@ types:
         type: array
         required: false
   paginated_snippets:
+    displayName: paginated_snippets
     additionalProperties: false
     description: A paginated list of snippets.
     properties:
@@ -4658,6 +4684,7 @@ types:
         uniqueItems: true
         required: false
   paginated_teams:
+    displayName: paginated_teams
     additionalProperties: false
     description: A paginated list of teams.
     properties:
@@ -4692,6 +4719,7 @@ types:
         uniqueItems: true
         required: false
   paginated_users:
+    displayName: paginated_users
     additionalProperties: false
     description: A paginated list of users.
     properties:
@@ -4726,6 +4754,7 @@ types:
         uniqueItems: true
         required: false
   paginated_versions:
+    displayName: paginated_versions
     additionalProperties: false
     description: A paginated list of issue tracker versions.
     properties:
@@ -4760,6 +4789,7 @@ types:
         uniqueItems: true
         required: false
   paginated_webhook_subscriptions:
+    displayName: paginated_webhook_subscriptions
     additionalProperties: false
     description: A paginated list of webhook subscriptions
     properties:
@@ -4794,6 +4824,7 @@ types:
         uniqueItems: true
         required: false
   participant:
+    displayName: participant
     description: Object describing a user's role on resources like commits or pull requests.
     properties:
       approved:
@@ -4811,6 +4842,7 @@ types:
       //: true
     type: object
   project:
+    displayName: project
     description: |-
       A Bitbucket project.
                   Projects are used by teams to organize repositories.
@@ -4869,6 +4901,7 @@ types:
       //: true
     type: object
   pullrequest:
+    displayName: pullrequest
     description: A pull request object.
     properties:
       author:
@@ -4950,6 +4983,7 @@ types:
       //: true
     type: object
   repository:
+    displayName: repository
     description: A Bitbucket repository.
     properties:
       created_on:
@@ -5087,6 +5121,7 @@ types:
       //: true
     type: object
   snippet:
+    displayName: snippet
     description: A snippet object.
     properties:
       created_on:
@@ -5123,6 +5158,7 @@ types:
       //: true
     type: object
   snippet_comment:
+    displayName: snippet_comment
     description: A comment on a snippet.
     properties:
       links:
@@ -5148,6 +5184,7 @@ types:
       //: true
     type: object
   snippet_commit:
+    displayName: snippet_commit
     description: ''
     properties:
       links:
@@ -5179,6 +5216,7 @@ types:
       //: true
     type: base_commit
   subject_types:
+    displayName: subject_types
     additionalProperties: false
     description: The mapping of resource/subject types pointing to their individual event types.
     properties:
@@ -5216,16 +5254,19 @@ types:
         type: object
         required: false
   team:
+    displayName: team
     description: A team object.
     properties:
       //: true
     type: account
   user:
+    displayName: user
     description: A user object.
     properties:
       //: true
     type: account
   version:
+    displayName: version
     description: A version as defined in a repository's issue tracker.
     properties:
       id:
@@ -5248,6 +5289,7 @@ types:
       //: true
     type: object
   webhook_subscription:
+    displayName: webhook_subscription
     description: A Webhook subscription.
     properties:
       active:

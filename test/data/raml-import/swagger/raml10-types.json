@@ -2,6 +2,7 @@
   "x-basePath": "{environmentType}.musicapi.com/{version}",
   "definitions": {
     "environmentType": {
+      "title": "environmentType",
       "properties": {
         "username": {
           "type": "string"

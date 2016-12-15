@@ -2,6 +2,7 @@
 title: API with Types
 types:
  User:
+   displayName: User
    type: object
    properties:
      firstName: string

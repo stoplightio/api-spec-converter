@@ -1,6 +1,7 @@
 { "basePath": "/v2",
   "definitions": {
     "Address": {
+      "title": "Address",
       "properties": {
         "street": {
           "type": "string"
@@ -15,6 +16,7 @@
       ]
     },
     "Person": {
+      "title": "Person",
       "properties": {
         "name": {
           "type": "string",

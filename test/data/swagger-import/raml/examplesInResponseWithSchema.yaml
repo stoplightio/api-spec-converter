@@ -18,6 +18,7 @@ mediaType: application/json
         description: History information for the given user
 types:
   Person:
+    displayName: Person
     properties:
       firstName:
         type: string
@@ -82,10 +83,12 @@ types:
         type: SpokenLanguages
         required: false
   SpokenLanguages:
+    displayName: SpokenLanguages
     properties:
       //:
         type: string
   Persons:
+    displayName: Persons
     properties:
       items:
         type: array
@@ -96,6 +99,7 @@ types:
           type: Person
         required: false
   ErrorMessage:
+    displayName: ErrorMessage
     properties:
       longMessage:
         type: string
@@ -104,6 +108,7 @@ types:
         type: string
         required: false
   MultilingualErrorMessage:
+    displayName: MultilingualErrorMessage
     properties:
       defaultLanguage:
         type: ErrorMessage
@@ -111,6 +116,7 @@ types:
       //:
         type: ErrorMessage
   Error:
+    displayName: Error
     properties:
       code:
         type: string
@@ -121,6 +127,7 @@ types:
       message:
         type: MultilingualErrorMessage
   CollectingItem:
+    displayName: CollectingItem
     discriminator: itemType
     properties:
       itemType:
@@ -141,6 +148,7 @@ types:
       itemType: Puma
       maxPrice: 1
   Vinyl:
+    displayName: Vinyl
     properties:
       albumName:
         type: string
@@ -152,6 +160,7 @@ types:
       artist: The Beatles
     type: CollectingItem
   VHS:
+    displayName: VHS
     properties:
       movieTitle:
         type: string
@@ -160,6 +169,7 @@ types:
         required: false
     type: CollectingItem
   PagedPersonsV1:
+    displayName: PagedPersonsV1
     properties:
       items:
         type: array
@@ -179,6 +189,7 @@ types:
         type: integer
         required: false
   PagedPersonsV2:
+    displayName: PagedPersonsV2
     properties:
       items:
         type: array
@@ -189,6 +200,7 @@ types:
         type: Paging
         required: false
   Paging:
+    displayName: Paging
     properties:
       totalItems:
         type: integer
@@ -203,10 +215,12 @@ types:
         type: integer
         required: false
   PagedPersons:
+    displayName: PagedPersons
     type:
       - Persons
       - Paging
   PagedCollectingItems:
+    displayName: PagedCollectingItems
     properties:
       items:
         type: array
