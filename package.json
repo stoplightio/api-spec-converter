@@ -19,6 +19,7 @@
   "dependencies": {
     "js-yaml": "3.x.x",
     "json-schema-compatibility": "1.x.x",
+    "json-schema-generator": "stoplightio/json-schema-generator",
     "jsonschema": "1.x.x",
     "lodash": "4.x.x",
     "raml-1-parser": "1.1.x",
