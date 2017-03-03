@@ -74,6 +74,46 @@ describe('StoplightX Importer', function() {
         done();
       });
     });
+
+    it('should set proper visibility for an endpoint', function(done) {
+      importer.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        var endpoint1 = _.find(importer.project.Endpoints, {operationId: 'getPetPhoto'});
+        var endpoint2 = _.find(importer.project.Endpoints, {operationId: 'deletePetPhoto'});
+        expect(endpoint1.public).to.be.false;
+        expect(endpoint2.public).to.be.true;
+        done();
+      });
+    });
+
+    it('should set proper mock for an endpoint', function(done) {
+      importer.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        var endpoint1 = _.find(importer.project.Endpoints, {operationId: 'getPetPhoto'});
+        var endpoint2 = _.find(importer.project.Endpoints, {operationId: 'deletePetPhoto'});
+
+        expect(endpoint1.mock).to.be.deep.equal({
+          enabled: false,
+          dynamic: true,
+          statusCode: 200
+        });
+        expect(endpoint2.mock).to.be.deep.equal({
+          enabled: true,
+          dynamic: false,
+          statusCode: 400
+        });
+
+        done();
+      });
+    });
   });
 
   describe('mapUtilityFunctions', function() {

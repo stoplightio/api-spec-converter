@@ -53,6 +53,7 @@
           "public": true,
           "mock": {
             "enabled": true,
+            "dynamic": false,
             "statusCode": 400
           }
         }
@@ -75,10 +76,11 @@
           "id": "GET_pets-petName-photos-id",
           "beforeScript": "function(){return 'Hello World';}",
           "afterScript": "function(){return 'Hello World After';}",
-          "public": true,
+          "public": false,
           "mock": {
-            "enabled": true,
-            "statusCode": 400
+            "enabled": false,
+            "dynamic": true,
+            "statusCode": 200
           }
         }
       }
