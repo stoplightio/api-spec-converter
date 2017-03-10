@@ -664,7 +664,7 @@
       "x-stoplight": {
         "id": "pet",
         "name": "pet",
-        "public": true
+        "public": false
       }
     }
   },

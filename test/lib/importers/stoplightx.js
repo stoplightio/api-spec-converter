@@ -116,6 +116,23 @@ describe('StoplightX Importer', function() {
     });
   });
 
+  describe('mapSchema', function() {
+    it('should set proper visibility for a schema', function(done) {
+      importer.loadFile(filePath, function(err) {
+        if (err) {
+          return done(err);
+        }
+
+        importer.import();
+        var schema1 = _.find(importer.project.Schemas, {name: 'pet'});
+        var schema2 = _.find(importer.project.Schemas, {name: 'veterinarian'});
+        expect(schema1.public).to.be.false;
+        expect(schema2.public).to.be.true;
+        done();
+      });
+    });
+  });
+
   describe('mapUtilityFunctions', function() {
     it('should map utility functions successfully');
   });
