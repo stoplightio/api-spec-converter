@@ -103,7 +103,7 @@ describe('Postman Importer', function() {
           var slProject = postmanImporter.import();
           var endpoint = _.find(slProject.endpoints, {
             request: {
-              path: 'http://petstore.swagger.io/v2/pet/1467573987135',
+              path: '/v2/pet/1467573987135',
               method: 'post'
             }
           });
@@ -123,7 +123,7 @@ describe('Postman Importer', function() {
           var slProject = postmanImporter.import();
           var endpoint = _.find(slProject.endpoints, {
             request: {
-              path: 'http://petstore.swagger.io/v2/pet/1467573987135',
+              path: '/v2/pet/1467573987135',
               method: 'get'
             }
           });
@@ -143,7 +143,7 @@ describe('Postman Importer', function() {
 
           var slProject = postmanImporter.import();
           var mergedEndpoint = _.find(slProject.endpoints, {
-            request: {path: 'http://petstore.swagger.io/v2/pet/1467573987135'}
+            request: {path: '/v2/pet/1467573987135'}
           });
           var queryString = JSON.parse(mergedEndpoint.request.queryString);
 
