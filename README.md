@@ -102,9 +102,9 @@ swaggerToRaml.loadData(mySwaggerString)
 - OAS (Swagger 2) -> RAML 1.0
 - RAML 1.0 -> OAS (Swagger 2)
 - RAML 0.8 -> OAS (Swagger 2)
-- Postman -> OAS (Swagger 2) * Experimental
-- Postman -> RAML 0.8 * Experimental
-- Postman -> RAML 1.0 * Experimental
+- Postman Collection 1.0 -> OAS (Swagger 2) * Experimental
+- Postman Collection 1.0 -> RAML 0.8 * Experimental
+- Postman Collection 1.0 -> RAML 1.0 * Experimental
 
 ## Development
 
